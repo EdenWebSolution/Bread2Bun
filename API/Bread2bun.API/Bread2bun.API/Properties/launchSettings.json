@@ -4,7 +4,7 @@
     "windowsAuthentication": false, 
     "anonymousAuthentication": true, 
     "iisExpress": {
-      "applicationUrl": "http://localhost:15193",
+      "applicationUrl": "http://localhost:15839",
       "sslPort": 0
     }
   },
@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Bread2Bun.API": {
+    "Bread2bun.API": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "api/values",

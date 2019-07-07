@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Bread2Bun.API.Controllers
+namespace Bread2bun.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
