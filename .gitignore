@@ -339,4 +339,4 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 
-Bread2Bun/API/Bread2bun.API/Bread2bun.APIappsettings.json
+/API/Bread2bun.API/Bread2bun.API/appsettings.json
