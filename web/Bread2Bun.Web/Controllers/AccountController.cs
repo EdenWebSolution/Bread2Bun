@@ -1,20 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bread2Bun.Web.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class AccountController : ControllerBase
+    [Route("api/security")]
+    public class AccountController : BaseAPIController
     {
-        [HttpGet]
+        [HttpGet("noauth")]
+        [AllowAnonymous]
         public IActionResult TestGet()
         {
+            throw new System.Exception("labba");
+            //return Ok("success get API at \"no auth test\"");
+        }
+
+        [HttpGet("withauth")]
+        public IActionResult TestGetWithAuth()
+        {
             return Ok();
+        }
+
+        [HttpPost("login")]
+        [AllowAnonymous]
+        public IActionResult Login()
+        {
+            return Ok("success post login");
         }
     }
 }
