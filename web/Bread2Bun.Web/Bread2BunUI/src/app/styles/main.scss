@@ -1,0 +1,16 @@
+@import "_colors";
+@import "_fonts";
+@import "mixins";
+
+
+body{
+  font-size: 16px;
+  font-family: $quicksand;
+  color: $base-color;
+}
+
+//colors
+.heading{
+  color: $main-color;
+}
+
