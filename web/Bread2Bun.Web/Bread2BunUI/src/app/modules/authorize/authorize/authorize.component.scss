@@ -1,0 +1,43 @@
+@import '../../../styles/colors';
+
+.right-wrapper {
+  padding: 40px 0 0 0;
+  .content {
+    min-height: 500px;
+    border-radius: 5px;
+    box-shadow: 0px 7px 20px 0px rgba(151, 150, 150, 0.73);
+  }
+  .switcher {
+    display: flex;
+    justify-content: center;
+    .left{
+      button{
+        border-radius: 5px 0 0 0;
+        position: relative;
+        &:after{
+          content: '';
+          position: absolute;
+          top: 8px;
+          right: 0;
+          width: 2px;
+          height: 20px;
+          background: #fff;
+        }
+      }
+    }
+    .right{
+      button{
+        border-radius: 0 5px 0 0;
+      }
+    }
+    button{
+      padding: 5px 0;
+      border: none;
+      background: $main-color;
+      color: #fff;
+      outline: none;
+      min-width: 150px;
+      font-weight: 600;
+    }
+  }
+}

@@ -14,3 +14,28 @@ body{
   color: $main-color;
 }
 
+.pill {
+  border: 0px solid $main-color;
+  width: 120px;
+  height: 50px;
+  background: $main-color;
+  border-radius: 25px;
+  margin: auto;
+  color: #fff;
+  font-family: inherit;
+  font-size: inherit;
+  transition: all 0.25s;
+  border-bottom: 0px solid $main-color;
+  font-weight: 600;
+  outline: none !important;
+  cursor: pointer;
+}
+
+.pill:hover{
+  width: 170px;
+  height: 50px;
+  overflow: hidden;
+  position: relative;
+}
+
+
