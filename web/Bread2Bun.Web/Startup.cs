@@ -65,15 +65,7 @@ namespace Bread2Bun.Web
                 app.UseHsts();
             }
 
-            app.UseSwagger();
-
-
-
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Bread2Bun API V1");
-                c.RoutePrefix = string.Empty;
-            });
+           
 
 
             app.UseAuthentication();
@@ -86,6 +78,14 @@ namespace Bread2Bun.Web
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
+            });
+
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Bread2Bun API V1");
+                //c.RoutePrefix = string.Empty;
             });
 
             app.UseSpa(spa =>
