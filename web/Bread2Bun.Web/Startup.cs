@@ -1,8 +1,12 @@
+using Bread2Bun.Data;
+using Bread2Bun.Domain.Security;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -25,22 +29,46 @@ namespace Bread2Bun.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddCors();
+
+            services.AddIdentity<StoreUser, StoreUserRole>(cfg =>
+            {
+                // user the below optio to make the email unique
+                // cfg.User.RequireUniqueEmail = true 
+
+                // user the below options to make the password policy
+                //cfg.Password.RequireDigit = true;
+                //cfg.Password...
+            }).AddEntityFrameworkStores<Bread2BunContext>();
+
 
             services.AddAuthentication()
-               .AddJwtBearer(cfg =>
-               {
-                   cfg.TokenValidationParameters = new TokenValidationParameters()
-                   {
-                       ValidIssuer = configuration["Tokens:Issuer"],
-                       ValidAudience = configuration["Tokens:Audience"],
-                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Tokens:Key"]))
-                   };
-               });
+              .AddJwtBearer(cfg =>
+              {
+                  cfg.TokenValidationParameters = new TokenValidationParameters()
+                  {
+                      ValidIssuer = configuration["Tokens:Issuer"],
+                      ValidAudience = configuration["Tokens:Audience"],
+                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Tokens:Key"]))
+                  };
+              });
+
+            services.AddDbContextPool<Bread2BunContext>(cfg =>
+            {
+                cfg.UseSqlServer(configuration.GetConnectionString("B2BContext"));
+            });
+
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddJsonOptions(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Bread2Bun", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Bread2Bun",
+                    Version = "v1"
+                });
             });
 
             // In production, the Angular files will be served from this directory
@@ -65,13 +93,12 @@ namespace Bread2Bun.Web
                 app.UseHsts();
             }
 
-           
-
-
             app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+
+            app.UseCors(builder => builder.WithOrigins("http://bread2bun.azurewebsites.net", "https://bread2bun.azurewebsites.net", "http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
 
             app.UseMvc(routes =>
             {
