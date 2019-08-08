@@ -12,7 +12,6 @@ namespace Bread2Bun.Data
     {
         public Bread2BunContext(DbContextOptions<Bread2BunContext> options) : base(options) { }
 
-
         #region Shared
         public DbSet<Country> Country { get; set; }
         public DbSet<University> University { get; set; }
