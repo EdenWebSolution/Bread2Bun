@@ -15,11 +15,12 @@
     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
       <div class="right-wrapper">
         <div class="switcher">
-          <div class="left"><Button>Login</Button></div>
-          <div class="right"><button>Register</button></div>
+          <div class="left"><Button (click)="showLogin()">Login</Button></div>
+          <div class="right"><button (click)=showRegister()>Register</button></div>
         </div>
         <div class="content">
-
+          <app-register *ngIf="register && !login"></app-register>
+          <app-login *ngIf="!register && login"></app-login>
         </div>
       </div>
     </div>

@@ -1,16 +1,15 @@
-@import "_colors";
-@import "_fonts";
-@import "mixins";
+@import '_colors';
+@import '_fonts';
+@import 'mixins';
 
-
-body{
+body {
   font-size: 16px;
   font-family: $quicksand;
   color: $base-color;
 }
 
 //colors
-.heading{
+.heading {
   color: $main-color;
 }
 
@@ -31,11 +30,62 @@ body{
   cursor: pointer;
 }
 
-.pill:hover{
+.pill:hover {
   width: 170px;
   height: 50px;
   overflow: hidden;
   position: relative;
 }
 
-
+.formgroup {
+  min-height: 70px;
+  .b2b-input {
+    width: 100%;
+    padding: 5px 0 5px 15px;
+    background: #fff;
+    color: #939598;
+    border-radius: 30px;
+    box-shadow: none;
+    border: 1px solid #e2e2e2;
+    outline: none;
+  }
+  .radio-group {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 4px;
+    label {
+      position: relative;
+      cursor: pointer;
+      input {
+        -webkit-appearance: none;
+        margin: 0;
+        visibility: hidden;
+        &:before {
+          width: 15px;
+          height: 15px;
+          border: 2px solid #fff;
+          background: #fff;
+          content: '';
+          border-radius: 50%;
+          visibility: visible;
+          box-shadow: 0 0 0 2px #ccc;
+          display: inline-block;
+          margin: 0 10px 0 0;
+          transition: all 0.8s
+        }
+        &:checked {
+          &:before {
+            background: $main-color;
+          }
+        }
+      }
+    }
+  }
+  .error {
+    margin: 2px 0 2px 17px;
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #fb2727;
+  }
+}

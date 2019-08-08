@@ -5,12 +5,14 @@ import { AuthorizeRoutingModule } from './authorize-routing.module';
 import { AuthorizeComponent } from './authorize/authorize.component';
 import { LoginComponent } from './authorize/login/login.component';
 import { RegisterComponent } from './authorize/register/register.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [AuthorizeComponent, LoginComponent, RegisterComponent],
   imports: [
     CommonModule,
-    AuthorizeRoutingModule
+    AuthorizeRoutingModule,
+    SharedModule
   ]
 })
 export class AuthorizeModule { }

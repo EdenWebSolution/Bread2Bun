@@ -17,3 +17,19 @@ export let slideFromUp = trigger('slideFromUp', [
     animate('0.2s ease-out', style({ opacity: '1', 'margin-top': '0px' }))
   ])
 ]);
+
+export let slideFromLeft = trigger('slideFromLeft', [
+  state('void', style({ transform: 'translateX(-50px)', opacity: '0' })),
+  state('*', style({  transform: 'translateX(0px)', opacity: '1' })),
+  transition(':enter', [
+    animate('0.2s ease-out', style({ opacity: '1', transform: 'translateX(0px)' }))
+  ])
+]);
+
+export let slideFromRight = trigger('slideFromRight', [
+  state('void', style({ transform: 'translateX(50px)', opacity: '0' })),
+  state('*', style({  transform: 'translateX(0px)', opacity: '1' })),
+  transition(':enter', [
+    animate('0.2s ease-out', style({ opacity: '1', transform: 'translateX(0px)' }))
+  ])
+]);
