@@ -620,3 +620,4 @@ _Pvt_Extensions
 .fake/
 
 /web/Bread2Bun.Web/logs
+/web/Bread2Bun.Web/appsettings.Production.json
