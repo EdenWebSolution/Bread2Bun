@@ -30,6 +30,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Bread2Bun.Data\Bread2Bun.Data.csproj" />
     <ProjectReference Include="..\Bread2Bun.Domain\Bread2Bun.Domain.csproj" />
+    <ProjectReference Include="..\Bread2Bun.Service\Bread2Bun.Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -2,8 +2,6 @@ using Bread2Bun.Data;
 using Bread2Bun.Domain.Security;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +11,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using AutoMapper;
+using System;
 
 namespace Bread2Bun.Web
 {
@@ -30,6 +30,8 @@ namespace Bread2Bun.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            ServiceInjector.InjectServices(services);
 
             services.AddIdentity<StoreUser, StoreUserRole>(cfg =>
             {
