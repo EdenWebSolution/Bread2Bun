@@ -10,7 +10,7 @@ namespace Bread2Bun.Web.Controllers
         [AllowAnonymous]
         public IActionResult TestGet()
         {
-            throw new System.Exception("labba");
+            throw new System.Exception("test exceotion log");
             //return Ok("success get API at \"no auth test\"");
         }
 

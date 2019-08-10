@@ -16,5 +16,14 @@ namespace Bread2Bun.Data
         public DbSet<Country> Country { get; set; }
         public DbSet<University> University { get; set; }
         #endregion
+
+
+        #region Overides
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.SeedDB();
+        }
+        #endregion
     }
 }
