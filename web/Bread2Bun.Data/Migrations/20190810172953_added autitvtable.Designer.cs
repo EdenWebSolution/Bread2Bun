@@ -4,14 +4,16 @@ using Bread2Bun.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bread2Bun.Data.Migrations
 {
     [DbContext(typeof(Bread2BunContext))]
-    partial class Bread2BunContextModelSnapshot : ModelSnapshot
+    [Migration("20190810172953_added autitvtable")]
+    partial class addedautitvtable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,22 +34,12 @@ namespace Bread2Bun.Data.Migrations
 
                     b.Property<int>("CountryId");
 
-                    b.Property<long?>("CreatedById");
-
-                    b.Property<DateTimeOffset>("CreatedOn");
-
-                    b.Property<long?>("EditedById");
-
-                    b.Property<DateTimeOffset?>("EditedOn");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
 
                     b.Property<string>("FirstName");
-
-                    b.Property<bool>("IsDeleted");
 
                     b.Property<string>("LastName");
 

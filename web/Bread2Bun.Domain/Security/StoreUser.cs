@@ -9,18 +9,24 @@ namespace Bread2Bun.Domain.Security
 {
     public class StoreUser : IdentityUser<long>
     {
-        public virtual string FirstName { get; set; }
-        public virtual string LastName { get; set; }
+        public virtual string FirstName { get; protected set; }
+        public virtual string LastName { get; protected set; }
+        public virtual DateTimeOffset CreatedOn { get; protected set; } = DateTimeOffset.UtcNow;
+        public virtual long? CreatedById { get; protected set; }
+        public virtual DateTimeOffset? EditedOn { get; protected set; }
+        public virtual long? EditedById { get; protected set; }
+        public virtual bool IsDeleted { get; protected set; }
+
 
         #region Relationships
 
-        public virtual int CountryId { get; set; }
+        public virtual int CountryId { get; protected set; }
         [ForeignKey(nameof(CountryId))]
-        public Country Country { get; set; }
+        public Country Country { get; protected set; }
 
-        public virtual int UniversityId { get; set; }
+        public virtual int UniversityId { get; protected set; }
         [ForeignKey(nameof(UniversityId))]
-        public University University { get; set; }
+        public University University { get; protected set; }
 
         #endregion
     }
