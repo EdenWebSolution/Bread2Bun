@@ -28,6 +28,13 @@ body {
   font-weight: 600;
   outline: none !important;
   cursor: pointer;
+  &:disabled{
+    color: #6c6b6b;
+    background: #d9d8d8;
+    &:hover{
+      width: 120px !important;
+    }
+  }
 }
 
 .pill:hover {

@@ -4,63 +4,158 @@
   <div class="register-form">
     <form [formGroup]="registerUserForm">
       <div class="row">
-        <div class="formgroup col-xs-12 col-sm-6">
-          <input type="text" class="b2b-input" placeholder="First Name" formControlName="firstName">
-          <span class="error">Error bro error</span>
+        <div class="formgroup col-xs-12 col-sm-12 col-md-6">
+          <input
+            type="text"
+            class="b2b-input"
+            placeholder="First Name"
+            formControlName="firstName"
+          />
+          <span
+            *ngIf="firstName.errors?.pattern && firstName.touched"
+            class="error"
+            >Invalid!</span
+          >
+          <span
+            *ngIf="firstName.errors?.required && firstName.touched"
+            class="error"
+            >Required!</span
+          >
         </div>
-        <div class="formgroup col-xs-12 col-sm-6">
-          <input type="text" class="b2b-input" placeholder="Last Name" formControlName="lastName">
-          <span class="error">Error bro error</span>
+        <div class="formgroup col-xs-12 col-sm-12 col-md-6">
+          <input
+            type="text"
+            class="b2b-input"
+            placeholder="Last Name"
+            formControlName="lastName"
+          />
+          <span
+            *ngIf="lastName.errors?.pattern && lastName.touched"
+            class="error"
+            >Invalid!</span
+          >
+          <span
+            *ngIf="lastName.errors?.required && lastName.touched"
+            class="error"
+            >Required!</span
+          >
         </div>
       </div>
       <div class="row">
-        <div class="formgroup col-xs-12 col-sm-6">
-          <input type="text" class="b2b-input" placeholder="Foodie Name" formControlName="foodieName">
-          <span class="error">Error bro error</span>
+        <div class="formgroup col-xs-12 col-sm-12 col-md-6">
+          <input
+            type="text"
+            class="b2b-input"
+            placeholder="Foodie Name"
+            formControlName="foodieName"
+          />
+          <span
+            *ngIf="foodieName.errors?.minlength && foodieName.touched"
+            class="error"
+            >Short!</span
+          >
+          <span
+            *ngIf="foodieName.errors?.required && foodieName.touched"
+            class="error"
+            >Required!</span
+          >
         </div>
-        <div class="formgroup col-xs-12 col-sm-6">
-          <input type="password" class="b2b-input" placeholder="Password" formControlName="password">
-          <span class="error">Error bro error</span>
+        <div class="formgroup col-xs-12 col-sm-12 col-md-6">
+          <input
+            type="password"
+            class="b2b-input"
+            placeholder="Password"
+            formControlName="password"
+          />
+          <span
+            *ngIf="password.errors?.pattern && password.touched"
+            class="error"
+            >Weak password!</span
+          >
+          <span
+            *ngIf="password.errors?.required && password.touched"
+            class="error"
+            >Required!</span
+          >
         </div>
       </div>
       <div class="row">
-        <div class="formgroup col-xs-12 col-sm-6">
+        <div class="formgroup col-xs-12 col-sm-12 col-md-6">
           <select class="b2b-input" formControlName="country">
             <option value="volvo">Country</option>
             <option value="saab">Saab</option>
             <option value="mercedes">Mercedes</option>
             <option value="audi">Audi</option>
           </select>
+          <span
+            *ngIf="country.errors?.required && country.touched"
+            class="error"
+            >Required!</span
+          >
         </div>
-        <div class="formgroup col-xs-12 col-sm-6">
+        <div class="formgroup col-xs-12 col-sm-12 col-md-6">
           <select class="b2b-input" formControlName="university">
-            <option value="volvo">University</option>
+            <option value="volvo">University</option
+            >university
             <option value="saab">Saab</option>
             <option value="mercedes">Mercedes</option>
             <option value="audi">Audi</option>
           </select>
+          <span
+            *ngIf="university.errors?.required && university.touched"
+            class="error"
+            >Required!</span
+          >
         </div>
       </div>
       <div class="row">
-        <div class="formgroup col-xs-12 col-sm-6">
+        <div class="formgroup col-xs-12 col-sm-12 col-md-6">
           <div class="radio-group">
-              <label for="male">
-                  <input id="male" type="radio" value="Male" formControlName="gender">
-                    <span>Male</span>
-                </label>
-                <label for="female">
-                  <input id="female" type="radio" value="Female" formControlName="gender">
-                    <span>Female</span>
-                </label>
+            <label for="male">
+              <input
+                id="male"
+                type="radio"
+                value="1"
+                formControlName="gender"
+              />
+              <span>Male</span>
+            </label>
+            <label for="female">
+              <input
+                id="female"
+                type="radio"
+                value="2"
+                formControlName="gender"
+              />
+              <span>Female</span>
+            </label>
           </div>
-          <span class="error">Error bro error</span>
+          <span *ngIf="gender.errors?.required && gender.touched" class="error"
+            >Required!</span
+          >
         </div>
-        <div class="formgroup col-xs-12 col-sm-6">
-          <input type="text" class="b2b-input" placeholder="Email" formControlName="email">
-          <span class="error">Error bro error</span>
+        <div class="formgroup col-xs-12 col-sm-12 col-md-6">
+          <input
+            type="text"
+            class="b2b-input"
+            placeholder="Email"
+            formControlName="email"
+          />
+          <span *ngIf="email.errors?.email && email.touched" class="error"
+            >Invalid!</span
+          >
+          <span *ngIf="email.errors?.required && email.touched" class="error"
+            >Required!</span
+          >
         </div>
       </div>
-      <button (click)="registerUser()">Register bro</button>
+      <button
+        class="pill"
+        [disabled]="registerUserForm.invalid"
+        (click)="registerUser()"
+      >
+        Register
+      </button>
     </form>
   </div>
 </div>
