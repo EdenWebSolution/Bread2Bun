@@ -4,13 +4,17 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Text;
 
 namespace Bread2Bun.Data
 {
     public class Bread2BunContext : IdentityDbContext<StoreUser, StoreUserRole, long>
     {
-        public Bread2BunContext(DbContextOptions<Bread2BunContext> options) : base(options) { }
+        public Bread2BunContext(DbContextOptions<Bread2BunContext> options) : base(options)
+        {
+        }
 
         #region Shared
         public DbSet<Country> Country { get; set; }
