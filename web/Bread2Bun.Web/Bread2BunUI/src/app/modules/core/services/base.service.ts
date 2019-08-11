@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpHeaders } from '@angular/common/http';
-import { Observable} from 'rxjs/';
+// import { Observable} from 'rxjs/';
 import { throwError } from 'rxjs';
 
 
@@ -33,7 +33,7 @@ export abstract class BaseService {
         status: error.status
       };
     } else if (error.status === 401 && isLogin) {
-      localStorage.removeItem('GemSto-TokenId');
+      localStorage.removeItem('bread2bun-TokenId');
       this.errorMessage = {
         message: 'Invalid username or password',
         status: error.status
@@ -44,7 +44,7 @@ export abstract class BaseService {
       error.status === 404 ||
       error.status === 408
     ) {
-      localStorage.removeItem('GemSto-TokenId');
+      localStorage.removeItem('bread2bun-TokenId');
       this.errorMessage = {
         message: 'Your login time has been expired, login again',
         status: error.status

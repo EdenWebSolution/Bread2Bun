@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { slideFromUp, slideFromLeft, slideFromRight } from 'src/app/animations';
+import { RegisterUserModel } from '../../models/register-user-model';
 
 @Component({
   selector: 'app-register',
@@ -13,10 +14,13 @@ export class RegisterComponent implements OnInit {
   registerUserForm: FormGroup;
   namePattern = '^[A-Za-z\s]+$';
   passwordPattern = '^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[#?!@$%^&*()\\-_]).{8,}$'; // Strong password
+  registerUserModel: RegisterUserModel;
 
   constructor(
     private fb: FormBuilder
-  ) { }
+  ) {
+    this.registerUserModel = new RegisterUserModel();
+  }
 
   ngOnInit() {
     this.initiateForm();
@@ -68,7 +72,8 @@ export class RegisterComponent implements OnInit {
   }
 
   registerUser() {
-    console.log(this.registerUserForm.value);
+    this.registerUserModel = Object.assign({}, this.registerUserModel, this.registerUserForm.value);
+    console.log()
   }
 
 }
