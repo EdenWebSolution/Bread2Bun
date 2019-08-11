@@ -22,6 +22,7 @@ namespace Bread2Bun.Service.Security.Models
         [Required]
         public int UniversityId { get; set; }
         public Gender Gender { get; set; }
+        [Required]
         public string Email { get; set; }
     }
 }
