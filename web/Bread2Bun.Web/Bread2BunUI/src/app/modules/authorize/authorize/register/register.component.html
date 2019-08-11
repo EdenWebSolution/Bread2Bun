@@ -47,15 +47,15 @@
             type="text"
             class="b2b-input"
             placeholder="Foodie Name"
-            formControlName="foodieName"
+            formControlName="userName"
           />
           <span
-            *ngIf="foodieName.errors?.minlength && foodieName.touched"
+            *ngIf="userName.errors?.minlength && userName.touched"
             class="error"
             >Short!</span
           >
           <span
-            *ngIf="foodieName.errors?.required && foodieName.touched"
+            *ngIf="userName.errors?.required && userName.touched"
             class="error"
             >Required!</span
           >
@@ -81,28 +81,23 @@
       </div>
       <div class="row">
         <div class="formgroup col-xs-12 col-sm-12 col-md-6">
-          <select class="b2b-input" formControlName="country">
-            <option value="volvo">Country</option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
+          <select class="b2b-input" formControlName="countryId">
+              <option value="" disabled selected>Country</option>
+            <option *ngFor="let country of countries" [value]="country.id">{{country.name}}</option>
           </select>
           <span
-            *ngIf="country.errors?.required && country.touched"
+            *ngIf="countryId.errors?.required && countryId.touched"
             class="error"
             >Required!</span
           >
         </div>
         <div class="formgroup col-xs-12 col-sm-12 col-md-6">
-          <select class="b2b-input" formControlName="university">
-            <option value="volvo">University</option
-            >university
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
+          <select class="b2b-input" formControlName="universityId">
+              <option value="" disabled selected>University</option>
+              <option *ngFor="let uni of universities" [value]="uni.id">{{uni.name}}</option>
           </select>
           <span
-            *ngIf="university.errors?.required && university.touched"
+            *ngIf="universityId.errors?.required && universityId.touched"
             class="error"
             >Required!</span
           >

@@ -7,7 +7,7 @@ export const environment = {
   message: 'devlopment',
 
   // baseEndPoint: ''
-  baseEndPoint: ''
+  baseEndPoint: 'http://localhost:54969'
 };
 
 /*

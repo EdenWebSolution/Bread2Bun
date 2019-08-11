@@ -10,8 +10,7 @@
       "severity": "warn"
     },
     "import-blacklist": [
-      true,
-      "rxjs/Rx"
+      true
     ],
     "interface-name": false,
     "max-classes-per-file": false,
