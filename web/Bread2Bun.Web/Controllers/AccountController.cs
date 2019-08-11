@@ -32,12 +32,6 @@ namespace Bread2Bun.Web.Controllers
             }
         }
 
-        [HttpGet("withauth")]
-        public IActionResult TestGetWithAuth()
-        {
-            return Ok();
-        }
-
         [HttpPost("login")]
         [AllowAnonymous]
         public IActionResult Login()
