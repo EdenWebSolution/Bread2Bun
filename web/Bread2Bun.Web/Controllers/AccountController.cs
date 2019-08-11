@@ -1,5 +1,4 @@
-﻿using Bread2Bun.Service.ExceptionHandler;
-using Bread2Bun.Service.Security.Interface;
+﻿using Bread2Bun.Service.Security.Interface;
 using Bread2Bun.Service.Security.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -28,15 +27,23 @@ namespace Bread2Bun.Web.Controllers
             }
             catch (Exception ex)
             {
-                return Conflict(new { message = ex.Message });
+                return HandleExcpetion(ex);
             }
         }
 
         [HttpPost("login")]
         [AllowAnonymous]
-        public IActionResult Login()
+        public async Task<IActionResult> Login(LoginModel loginModel)
         {
-            return Ok("success post login");
+            try
+            {
+                await securityService.Login(loginModel);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return HandleExcpetion(ex);
+            }
         }
     }
 }

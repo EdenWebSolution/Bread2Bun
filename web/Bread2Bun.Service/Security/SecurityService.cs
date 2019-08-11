@@ -45,5 +45,9 @@ namespace Bread2Bun.Service.Security
             }
         }
 
+        public Task Login(LoginModel loginModel)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

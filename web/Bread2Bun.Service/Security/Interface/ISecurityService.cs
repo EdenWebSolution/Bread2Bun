@@ -10,5 +10,6 @@ namespace Bread2Bun.Service.Security.Interface
     public interface ISecurityService
     {
         Task<StoreUserModel> CreateUser(CreateStoreUserModel createStoreUserModel);
+        Task Login(LoginModel loginModel);
     }
 }
