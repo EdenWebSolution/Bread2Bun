@@ -20,15 +20,33 @@ namespace Bread2Bun.Web.Controllers
         [HttpGet, Route("countries")]
         public async Task<IActionResult> GetCountries()
         {
-            var result = await countryService.GetCountries();
-            return Ok(result);
+            try
+            {
+                var result = await countryService.GetCountries();
+                return Ok(result);
+            }
+            catch (System.Exception ex)
+            {
+
+                return HandleExcpetion(ex);
+            }
+
         }
 
         [HttpGet, Route("universities")]
         public async Task<IActionResult> GetUniversities()
         {
-            var result = await universityService.GetUniversities();
-            return Ok(result);
+            try
+            {
+                var result = await universityService.GetUniversities();
+                return Ok(result);
+            }
+            catch (System.Exception ex)
+            {
+
+                return HandleExcpetion(ex);
+            }
+
         }
     }
 }

@@ -24,7 +24,7 @@ export abstract class BaseService {
     let isLogin = false;
 
     if (error.url !== undefined && error.url !== null) {
-      isLogin = error.url.includes('api/Account/Authenticate');
+      isLogin = error.url.includes('api/security/login');
     }
 
     if (error.status === 0) {
@@ -51,7 +51,7 @@ export abstract class BaseService {
       };
     } else {
       this.errorMessage = {
-        message: error.error.message,
+        message: error.error,
         status: error.status
       };
     }
