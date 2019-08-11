@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Bread2Bun.Web.Controllers
 {
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class BaseAPIController : ControllerBase
     {
         protected IActionResult HandleExcpetion(Exception ex)
