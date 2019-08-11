@@ -13,9 +13,4 @@
     <ProjectReference Include="..\Bread2Bun.Data\Bread2Bun.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Country\Interface\" />
-    <Folder Include="Country\Model\" />
-  </ItemGroup>
-
 </Project>

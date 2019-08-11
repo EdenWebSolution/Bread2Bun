@@ -1,5 +1,9 @@
-﻿using Bread2Bun.Service.Security;
+﻿using Bread2Bun.Service.Country;
+using Bread2Bun.Service.Country.Interface;
+using Bread2Bun.Service.Security;
 using Bread2Bun.Service.Security.Interface;
+using Bread2Bun.Service.University;
+using Bread2Bun.Service.University.Interface;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -13,6 +17,8 @@ namespace Bread2Bun.Web
         public static void InjectServices(IServiceCollection services)
         {
             services.AddScoped<ISecurityService, SecurityService>();
+            services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<IUniversityService, UniversityService>();
         }
     }
 }

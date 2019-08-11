@@ -1,4 +1,5 @@
-﻿using Bread2Bun.Domain.Shared;
+﻿using Bread2Bun.Common.Enum;
+using Bread2Bun.Domain.Shared;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace Bread2Bun.Domain.Security
         public virtual DateTimeOffset? EditedOn { get; protected set; }
         public virtual long? EditedById { get; protected set; }
         public virtual bool IsDeleted { get; protected set; }
+        public virtual Gender Gender { get; set; }
 
 
         #region Relationships

@@ -12,7 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using AutoMapper;
-using System;
+using Bread2Bun.Service;
 
 namespace Bread2Bun.Web
 {
@@ -30,7 +30,7 @@ namespace Bread2Bun.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(new MappingProfile().GetType().Assembly);
             ServiceInjector.InjectServices(services);
 
             services.AddIdentity<StoreUser, StoreUserRole>(cfg =>
@@ -94,7 +94,6 @@ namespace Bread2Bun.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
