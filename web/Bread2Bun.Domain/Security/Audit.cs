@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bread2Bun.Domain.Security
 {
-    public class Audit
+    public abstract class Audit
     {
         [NotMapped]
         public StoreUserModel User { get; set; }
@@ -19,9 +19,9 @@ namespace Bread2Bun.Domain.Security
 
         }
 
-        protected void EditCreate()
+        protected void AuditEdit()
         {
-
+            EditedOn = DateTimeOffset.UtcNow;
         }
     }
 }
