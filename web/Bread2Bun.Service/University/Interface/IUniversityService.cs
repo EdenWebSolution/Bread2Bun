@@ -1,4 +1,4 @@
-﻿using Bread2Bun.Service.University.Model;
+﻿using Bread2Bun.Common.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;

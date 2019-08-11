@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using Bread2Bun.Common.Model;
 using Bread2Bun.Data;
 using Bread2Bun.Service.University.Interface;
-using Bread2Bun.Service.University.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

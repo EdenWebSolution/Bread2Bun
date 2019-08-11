@@ -1,7 +1,5 @@
-﻿using Bread2Bun.Service.Country.Model;
-using System;
+﻿using Bread2Bun.Common.Model;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Bread2Bun.Service.Country.Interface
