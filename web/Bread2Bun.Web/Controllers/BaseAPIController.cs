@@ -19,9 +19,8 @@ namespace Bread2Bun.Web.Controllers
             {
                 case ExceptionType.ArgumentException: return Conflict(ex.Message);
                 case ExceptionType.UnauthorizedAccessException: return Unauthorized(ex.Message);
-
                 case ExceptionType.SqlException:
-                default: return BadRequest(ex.Message);
+                default: return StatusCode(500, ex.Message);
             }
         }
     }
