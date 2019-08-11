@@ -36,11 +36,11 @@ export class RegisterComponent implements OnInit {
   }
 
   get firstName() {
-    return this.registerUserForm.get('name');
+    return this.registerUserForm.get('firstName');
   }
 
   get lastName() {
-    return this.registerUserForm.get('name');
+    return this.registerUserForm.get('lastName');
   }
 
   get password() {
