@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { slideFromUp, slideFromRight, slideFromLeft } from 'src/app/animations';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { LoginUser } from '../../models/login-user-model';
+import { LoginUserModel } from '../../models/login-user-model';
 
 @Component({
   selector: 'app-login',
