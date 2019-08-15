@@ -5,6 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './token-interceptor';
+import { AuthorizeModule } from './modules/authorize/authorize.module';
+import { SharedModule } from './modules/shared/shared.module';
+import { RouterModule } from '@angular/router';
+import { LayoutModule } from './modules/layout/layout.module';
 
 
 @NgModule({
@@ -16,9 +21,19 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AuthorizeModule,
+    SharedModule,
+    RouterModule,
+    LayoutModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
