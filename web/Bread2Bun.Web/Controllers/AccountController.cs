@@ -22,7 +22,7 @@ namespace Bread2Bun.Web.Controllers
         {
             try
             {
-                var result = await securityService.CreateUser(createStoreUserModel);
+                var result = await securityService.CreateUserAsync(createStoreUserModel);
                 return Created("", result);
             }
             catch (Exception ex)
@@ -37,8 +37,8 @@ namespace Bread2Bun.Web.Controllers
         {
             try
             {
-                await securityService.Login(loginModel);
-                return Ok();
+                var token = await securityService.LoginAsync(loginModel);
+                return Ok(token);
             }
             catch (Exception ex)
             {

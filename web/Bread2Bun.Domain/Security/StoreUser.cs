@@ -18,6 +18,7 @@ namespace Bread2Bun.Domain.Security
         public virtual long? EditedById { get; protected set; }
         public virtual bool IsDeleted { get; protected set; }
         public virtual Gender Gender { get; set; }
+        public virtual bool IsAdmin { get; set; }
 
 
         #region Relationships

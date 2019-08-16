@@ -22,14 +22,14 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.fb.group({
-      username: ['', [Validators.required]],
+      userName: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
     this.toastr.success('Hello world!', 'Toastr fun!');
   }
 
-  get username() {
-    return this.loginForm.get('username');
+  get userName() {
+    return this.loginForm.get('userName');
   }
   get password() {
     return this.loginForm.get('password');
