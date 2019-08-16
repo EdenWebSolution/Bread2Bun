@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Configuration;
+using Bread2Bun.Common.Constants;
 
 namespace Bread2Bun.Service.Security
 {
@@ -71,15 +72,15 @@ namespace Bread2Bun.Service.Security
                         new Claim(JwtRegisteredClaimNames.Sub,user.Id.ToString()),
                         new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
                         new Claim(JwtRegisteredClaimNames.UniqueName,user.UserName),
-                        new Claim("isAdmin",user.IsAdmin.ToString()),
-                        new Claim("rememberMe",loginModel.RememberMe.ToString()),
+                        new Claim(CustomClaims.IsAdmin,user.IsAdmin.ToString()),
+                        new Claim(CustomClaims.RememberMe,loginModel.RememberMe.ToString()),
                     };
 
                     var token = new JwtSecurityToken(
                         configuration["Tokens:Issuer"],
                         configuration["Tokens:Audience"],
                         claims,
-                        expires: DateTime.UtcNow.AddDays(1),
+                        expires: DateTime.UtcNow.AddYears(1),
                         signingCredentials: credentials
                         );
 
