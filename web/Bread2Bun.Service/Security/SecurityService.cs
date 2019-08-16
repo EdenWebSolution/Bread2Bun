@@ -84,10 +84,7 @@ namespace Bread2Bun.Service.Security
                         signingCredentials: credentials
                         );
 
-                    var generatedToken = new AuthTokenModel
-                    {
-                        Token = new JwtSecurityTokenHandler().WriteToken(token)
-                    };
+                    var generatedToken = new AuthTokenModel(token);
 
                     return generatedToken;
                 }
