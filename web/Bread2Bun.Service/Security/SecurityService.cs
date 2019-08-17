@@ -1,19 +1,21 @@
 ﻿using AutoMapper;
+using Bread2Bun.Common;
+using Bread2Bun.Common.Constants;
 using Bread2Bun.Common.Model;
 using Bread2Bun.Data;
 using Bread2Bun.Domain.Security;
 using Bread2Bun.Service.Security.Interface;
 using Bread2Bun.Service.Security.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Authentication;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using System.IdentityModel.Tokens.Jwt;
-using Microsoft.Extensions.Configuration;
-using Bread2Bun.Common.Constants;
 
 namespace Bread2Bun.Service.Security
 {
@@ -44,6 +46,8 @@ namespace Bread2Bun.Service.Security
 
             if (user.Succeeded)
             {
+                var token = await userManager.GenerateEmailConfirmationTokenAsync(storeUser);
+                var confirmPasswordLink = string.Concat(GlobalConfig.BaseUrl, $"/confirmemail?token={token}&email={storeUser.Email}");
                 var result = mapper.Map<StoreUserModel>(storeUser);
                 return result;
             }
@@ -55,13 +59,30 @@ namespace Bread2Bun.Service.Security
             }
         }
 
+        public async Task ConfirmEmailAsync(ConfirmEmailModel confirmEmailModel)
+        {
+            var user = await userManager.FindByEmailAsync(confirmEmailModel.Email);
+            if (user != null)
+            {
+                var result = await userManager.ConfirmEmailAsync(user, confirmEmailModel.Token);
+                if (!result.Succeeded)
+                {
+                    var error = result.Errors.FirstOrDefault();
+                    throw new ArgumentException(error.Description);
+                }
+            }
+        }
+
         public async Task<AuthTokenModel> LoginAsync(LoginModel loginModel)
         {
             var user = await userManager.FindByNameAsync(loginModel.UserName);
             if (user != null && !user.IsDeleted)
             {
                 var result = await signInManager.PasswordSignInAsync(user, loginModel.Password, loginModel.RememberMe, false);
-
+                if (result.IsNotAllowed)
+                {
+                    throw new UnauthorizedAccessException("Your email has not been confirmed, please confirm your email address");
+                }
                 if (result.Succeeded)
                 {
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Tokens:Key"]));
@@ -89,7 +110,31 @@ namespace Bread2Bun.Service.Security
                     return generatedToken;
                 }
             }
-            throw new UnauthorizedAccessException("Invalid usernamr or password");
+            throw new AuthenticationException("Invalid usernamr or password");
+        }
+
+        public async Task ForgotPasswordAsync(ForgotPassowrdModel forgotPassowrdModel)
+        {
+            var user = await userManager.FindByEmailAsync(forgotPassowrdModel.Email);
+            if (user != null)
+            {
+                var token = await userManager.GeneratePasswordResetTokenAsync(user);
+                var passwordReseLink = string.Concat(GlobalConfig.BaseUrl, $"/resetpassword?token={token}&email={user.Email}");
+            }
+        }
+
+        public async Task ResetPasswordAsync(ResetPasswordModel resetPasswordModel)
+        {
+            var user = await userManager.FindByEmailAsync(resetPasswordModel.Email);
+            if (user != null)
+            {
+                var result = await userManager.ResetPasswordAsync(user, resetPasswordModel.Token, resetPasswordModel.NewPassword);
+                if (!result.Succeeded)
+                {
+                    var error = result.Errors.FirstOrDefault();
+                    throw new ArgumentException(error.Description);
+                }
+            }
         }
     }
 }

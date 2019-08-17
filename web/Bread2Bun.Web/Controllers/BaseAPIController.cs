@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Bread2Bun.Web.Controllers
 {
     [ApiController]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class BaseAPIController : ControllerBase
     {
         protected IActionResult HandleExcpetion(Exception ex)
@@ -18,7 +18,9 @@ namespace Bread2Bun.Web.Controllers
             switch (exType)
             {
                 case ExceptionType.ArgumentException: return Conflict(ex.Message);
-                case ExceptionType.UnauthorizedAccessException: return Unauthorized(ex.Message);
+                case ExceptionType.UnauthorizedAccessException: return StatusCode(403, ex.Message);
+                case ExceptionType.AuthenticationException: return Unauthorized(ex.Message);
+
 
                 //*****  status code 500 range *********
                 case ExceptionType.SqlException:

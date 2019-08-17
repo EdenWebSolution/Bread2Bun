@@ -13,6 +13,9 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using AutoMapper;
 using Bread2Bun.Service;
+using Microsoft.AspNetCore.Identity;
+using System;
+using Bread2Bun.Domain.Security.TokenProviders;
 
 namespace Bread2Bun.Web
 {
@@ -35,13 +38,31 @@ namespace Bread2Bun.Web
 
             services.AddIdentity<StoreUser, StoreUserRole>(cfg =>
             {
-                // user the below optio to make the email unique
-                // cfg.User.RequireUniqueEmail = true 
+                // user the below options to make the email unique
+                cfg.SignIn.RequireConfirmedEmail = true;
+                cfg.User.RequireUniqueEmail = true;
+
+                //setup email confirmation token provider
+                cfg.Tokens.EmailConfirmationTokenProvider = "emailconf";
 
                 // user the below options to make the password policy
                 //cfg.Password.RequireDigit = true;
                 //cfg.Password...
-            }).AddEntityFrameworkStores<Bread2BunContext>();
+            }).AddEntityFrameworkStores<Bread2BunContext>()
+            .AddDefaultTokenProviders()
+            .AddTokenProvider<EmailConfirmationTokenProvider<StoreUser>>("emailconf");
+
+            services.Configure<DataProtectionTokenProviderOptions>(options =>
+            {
+                options.TokenLifespan = TimeSpan.FromMinutes(30);
+            });
+
+
+            // to override DataProtectionTokenProviderOptions token life span
+            services.Configure<EmailConfirmationTokenProviderOptions>(options =>
+            {
+                options.TokenLifespan = TimeSpan.FromDays(30);
+            });
 
 
             services.AddAuthentication()
@@ -54,6 +75,12 @@ namespace Bread2Bun.Web
                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Tokens:Key"]))
                   };
               });
+
+
+            //services.Configure<IdentityOptions>(options =>
+            //{
+            //    options.SignIn.RequireConfirmedEmail = true;
+            //});
 
             services.AddDbContextPool<Bread2BunContext>(cfg =>
             {

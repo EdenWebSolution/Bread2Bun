@@ -11,5 +11,8 @@ namespace Bread2Bun.Service.Security.Interface
     {
         Task<StoreUserModel> CreateUserAsync(CreateStoreUserModel createStoreUserModel);
         Task<AuthTokenModel> LoginAsync(LoginModel loginModel);
+        Task ForgotPasswordAsync(ForgotPassowrdModel forgotPassowrdModel);
+        Task ResetPasswordAsync(ResetPasswordModel resetPasswordModel);
+        Task ConfirmEmailAsync(ConfirmEmailModel confirmEmailModel);
     }
 }
