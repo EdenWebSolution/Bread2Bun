@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Bread2Bun.Service.Country.Interface;
 using Bread2Bun.Service.University.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bread2Bun.Web.Controllers
@@ -17,7 +18,7 @@ namespace Bread2Bun.Web.Controllers
             this.universityService = universityService;
         }
 
-        [HttpGet, Route("countries")]
+        [HttpGet, AllowAnonymous, Route("countries")]
         public async Task<IActionResult> GetCountries()
         {
             try
@@ -33,7 +34,7 @@ namespace Bread2Bun.Web.Controllers
 
         }
 
-        [HttpGet, Route("universities")]
+        [HttpGet, AllowAnonymous, Route("universities")]
         public async Task<IActionResult> GetUniversities()
         {
             try

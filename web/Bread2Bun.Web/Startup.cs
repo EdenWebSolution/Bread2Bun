@@ -41,7 +41,7 @@ namespace Bread2Bun.Web
                 // user the below options to make the email unique
                 cfg.SignIn.RequireConfirmedEmail = true;
                 cfg.User.RequireUniqueEmail = true;
-
+                cfg.Lockout.AllowedForNewUsers = false;
                 //setup email confirmation token provider
                 cfg.Tokens.EmailConfirmationTokenProvider = "emailconf";
 
