@@ -5,6 +5,7 @@ import { LoginUserModel } from '../../models/login-user-model';
 import { AuthorizeService } from '../../services/authorize.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { decode } from '@angular/router/src/url_tree';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private authorizeService: AuthorizeService
+    private authorizeService: AuthorizeService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -52,6 +54,7 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem('bread2bun-TokenId', result.token);
         localStorage.removeItem('bread2bun-TokenId');
       }
+      this.router.navigate(['/app/timeline']);
     }, error => {
       console.log('err', error);
     });

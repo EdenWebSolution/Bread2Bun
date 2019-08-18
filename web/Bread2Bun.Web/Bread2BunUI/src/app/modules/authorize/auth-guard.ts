@@ -13,8 +13,10 @@ export class AuthGuard extends BaseService implements CanActivate {
     super();
   }
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean> | boolean {
+    console.log('loc', localStorage.getItem('bread2bun-TokenId'));
+    console.log('sess', sessionStorage.getItem('bread2bun-TokenId'));
     if (
-      (localStorage.getItem('bread2bun-TokenId') === null || localStorage.getItem('bread2bun-TokenId') === undefined) ||
+      (localStorage.getItem('bread2bun-TokenId') === null || localStorage.getItem('bread2bun-TokenId') === undefined) &&
       (sessionStorage.getItem('bread2bun-TokenId') === null || sessionStorage.getItem('bread2bun-TokenId') === undefined)
     ) {
       localStorage.removeItem('bread2bun-TokenId');
