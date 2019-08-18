@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { slideFromUp, slideFromRight, slideFromLeft } from 'src/app/animations';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
 import { LoginUserModel } from '../../models/login-user-model';
+import { AuthorizeService } from '../../services/authorize.service';
 
 @Component({
   selector: 'app-login',
@@ -14,18 +14,19 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   loginUserModel: LoginUserModel;
+  @Output() forgotPassword = new EventEmitter<boolean>();
 
   constructor(
     private fb: FormBuilder,
-    private toastr: ToastrService
+    private authorizeService: AuthorizeService
   ) { }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
       userName: ['', [Validators.required]],
-      password: ['', [Validators.required]]
+      password: ['', [Validators.required]],
+      rememberMe: [false]
     });
-    this.toastr.success('Hello world!', 'Toastr fun!');
   }
 
   get userName() {
@@ -35,8 +36,17 @@ export class LoginComponent implements OnInit {
     return this.loginForm.get('password');
   }
 
-  loginUser(){
-    console.log(this.loginForm.value);
+  loginUser() {
+    this.loginUserModel = Object.assign({}, this.loginUserModel, this.loginForm.value);
+    this.authorizeService.loginUser(this.loginUserModel).subscribe(result => {
+      console.log(result);
+    }, error => {
+      console.log('err', error);
+    });
+  }
+
+  showForgotPassword() {
+    this.forgotPassword.emit(true);
   }
 
 }

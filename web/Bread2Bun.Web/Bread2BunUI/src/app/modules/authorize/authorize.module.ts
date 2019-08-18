@@ -6,9 +6,10 @@ import { AuthorizeComponent } from './authorize/authorize.component';
 import { LoginComponent } from './authorize/login/login.component';
 import { RegisterComponent } from './authorize/register/register.component';
 import { SharedModule } from '../shared/shared.module';
+import { ForgotPasswordComponent } from './authorize/forgot-password/forgot-password.component';
 
 @NgModule({
-  declarations: [AuthorizeComponent, LoginComponent, RegisterComponent],
+  declarations: [AuthorizeComponent, LoginComponent, RegisterComponent, ForgotPasswordComponent],
   imports: [
     CommonModule,
     AuthorizeRoutingModule,

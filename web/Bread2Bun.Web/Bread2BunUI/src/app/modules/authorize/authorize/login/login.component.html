@@ -32,6 +32,17 @@
         >
       </div>
     </div>
+    <div class="row">
+      <div class="formgroup col-xs-12 col-sm-6 col-md-6">
+        <div class="b2b-checkbox">
+          <input type="checkbox" name="" id="rememberme" formControlName="rememberMe">
+          <label for="rememberme">Remember Me</label>
+        </div>
+      </div>
+      <div class="formgroup col-xs-12 col-sm-6 col-md-6">
+        <span class="forgot-password" (click)="showForgotPassword()">Forgot Password?</span>
+      </div>
+    </div>
     <button
         class="pill"
         [disabled]="loginForm.invalid"
@@ -41,3 +52,4 @@
       </button>
   </form>
 </div>
+
