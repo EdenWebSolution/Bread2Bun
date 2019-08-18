@@ -1,14 +1,15 @@
 <div class="container" @slideFromBottom>
   <div class="row">
     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-      <div class="top-bar">
-
-      </div>
+      <div class="top-bar"></div>
     </div>
     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
       <div class="left-wrapper">
         <h1 class="heading">Let's share culture</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, quidem ipsa. Vel dicta necessitatibus amet est nulla quae similique deleniti.</p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, quidem
+          ipsa. Vel dicta necessitatibus amet est nulla quae similique deleniti.
+        </p>
         <button class="pill">Learn more</button>
       </div>
     </div>
@@ -16,11 +17,16 @@
       <div class="right-wrapper">
         <div class="switcher">
           <div class="left"><Button (click)="showLogin()">Login</Button></div>
-          <div class="right"><button (click)=showRegister()>Register</button></div>
+          <div class="right">
+            <button (click)="showRegister()">Register</button>
+          </div>
         </div>
         <div class="content">
-          <app-register *ngIf="register && !login"></app-register>
-          <app-login *ngIf="!register && login"></app-login>
+          <app-register
+            *ngIf="register && !login && !forgotPassword"
+          ></app-register>
+          <app-login (forgotPassword)="showForgotPassword()" *ngIf="!register && login && !forgotPassword"></app-login>
+          <app-forgot-password (showLogin)="showLogin()" *ngIf="forgotPassword && !register && !login"></app-forgot-password>
         </div>
       </div>
     </div>

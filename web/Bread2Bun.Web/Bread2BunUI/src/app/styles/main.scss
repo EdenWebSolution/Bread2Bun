@@ -19,7 +19,6 @@ body {
   height: 50px;
   background: $main-color;
   border-radius: 25px;
-  margin: auto;
   color: #fff;
   font-family: inherit;
   font-size: inherit;
@@ -28,10 +27,10 @@ body {
   font-weight: 600;
   outline: none !important;
   cursor: pointer;
-  &:disabled{
+  &:disabled {
     color: #6c6b6b;
     background: #d9d8d8;
-    &:hover{
+    &:hover {
       width: 120px !important;
     }
   }
@@ -42,6 +41,25 @@ body {
   height: 50px;
   overflow: hidden;
   position: relative;
+}
+
+.border-pill {
+  border: 2px solid $main-color;
+  width: 120px;
+  height: 50px;
+  border-radius: 25px;
+  background: transparent;
+  color: $main-color;
+  font-family: inherit;
+  font-size: inherit;
+  transition: all 0.25s;
+  font-weight: 600;
+  outline: none !important;
+  cursor: pointer;
+  &:disabled {
+    color: #6c6b6b;
+    border: 0px solid #6c6b6b;
+  }
 }
 
 .formgroup {
@@ -78,7 +96,7 @@ body {
           box-shadow: 0 0 0 2px #ccc;
           display: inline-block;
           margin: 0 10px 0 0;
-          transition: all 0.8s
+          transition: all 0.8s;
         }
         &:checked {
           &:before {
@@ -94,5 +112,69 @@ body {
     font-size: 0.7rem;
     font-weight: 600;
     color: #fb2727;
+  }
+  .b2b-checkbox {
+    input[type='checkbox'] {
+      display: none;
+      & + label {
+        position: relative;
+        padding-left: 25px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: 0.2s;
+        &:hover {
+          color: $main-color;
+        }
+        /* checkbox aspect */
+        &:before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 2px;
+          width: 20px;
+          height: 20px;
+          border: 1px solid #aaa;
+          background: #f8f8f8;
+          border-radius: 3px;
+        }
+        /* checked mark aspect */
+        &:after {
+          content: '✔';
+          position: absolute;
+          top: 0;
+          left: 4px;
+          font-size: 16px;
+          color: $main-color;
+          transition: all 0.2s;
+          opacity: 0;
+          transform: scale(0);
+        }
+      }
+      &:checked + label:after {
+        opacity: 1;
+        transform: scale(1);
+      }
+      /* disabled checkbox */
+      &:disabled {
+        color: #aaa;
+        & + label {
+          &:before {
+            box-shadow: none;
+            border-color: #bbb;
+            background-color: #ddd;
+          }
+          &:after {
+            color: #999;
+          }
+        }
+      }
+    }
+  }
+  .forgot-password {
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.2s;
+    float: right;
+    color: $main-color;
   }
 }

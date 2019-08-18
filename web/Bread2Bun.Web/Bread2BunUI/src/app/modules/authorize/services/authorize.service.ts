@@ -6,6 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { RegisterUserModel } from '../models/register-user-model';
+import { LoginUserModel } from '../models/login-user-model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,26 @@ export class AuthorizeService extends BaseService {
       .post<RegisterUserModel>(
         `${this.baseEndPoint}/api/security/user/new`,
         registerUserModel,
+        this.httpOptions
+      )
+      .catch(this.server4xxError);
+  }
+
+  loginUser(userLoginModel: LoginUserModel) {
+    return this.http
+      .post<any>(
+        `${this.baseEndPoint}/api/security/login`,
+        userLoginModel,
+        this.httpOptions
+      )
+      .catch(this.server4xxError);
+  }
+
+  forgotPassword(emailAddress: string) {
+    return this.http
+      .post<string>(
+        `${this.baseEndPoint}/api/security/forgotpassword`,
+        emailAddress,
         this.httpOptions
       )
       .catch(this.server4xxError);

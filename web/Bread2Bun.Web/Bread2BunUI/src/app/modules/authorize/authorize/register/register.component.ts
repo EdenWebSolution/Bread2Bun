@@ -92,7 +92,6 @@ export class RegisterComponent implements OnInit {
   }
 
   registerUser() {
-    console.log(this.registerUserForm.value);
     this.registerUserModel = Object.assign({}, this.registerUserModel, this.registerUserForm.value);
     this.authorizeService.registerUser(this.registerUserModel).subscribe(result => {
       console.log(result);

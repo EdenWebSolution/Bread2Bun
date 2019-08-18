@@ -34,6 +34,7 @@ export abstract class BaseService {
       };
     } else if (error.status === 401 && isLogin) {
       localStorage.removeItem('bread2bun-TokenId');
+      sessionStorage.removeItem('bread2bun-TokenId');
       this.errorMessage = {
         message: 'Invalid username or password',
         status: error.status
@@ -45,6 +46,7 @@ export abstract class BaseService {
       error.status === 408
     ) {
       localStorage.removeItem('bread2bun-TokenId');
+      sessionStorage.removeItem('bread2bun-TokenId');
       this.errorMessage = {
         message: 'Your login time has been expired, login again',
         status: error.status

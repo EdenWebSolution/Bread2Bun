@@ -10,21 +10,31 @@ import { slideFromBottom, slideFromUp } from 'src/app/animations';
 export class AuthorizeComponent implements OnInit {
   register: boolean;
   login: boolean;
+  forgotPassword: boolean;
 
   constructor() { }
 
   ngOnInit() {
     this.login = true;
     this.register = false;
+    this.forgotPassword = false;
   }
 
   showLogin() {
     this.login = true;
     this.register = false;
+    this.forgotPassword = false;
   }
   showRegister() {
     this.login = false;
     this.register = true;
+    this.forgotPassword = false;
+  }
+
+  showForgotPassword(){
+    this.login = false;
+    this.register = false;
+    this.forgotPassword = true;
   }
 }
 
