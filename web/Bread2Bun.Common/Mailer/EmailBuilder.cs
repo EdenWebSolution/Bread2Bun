@@ -1,8 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.Net.Mail;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Bread2Bun.Common.Mailer
@@ -12,11 +9,13 @@ namespace Bread2Bun.Common.Mailer
         private static MailMessage mailMessage;
         private static SmtpClient smtpClient;
         private static string From;
+
         private static string DisplayName => "Bread 2 Bun";
 
 
         public EmailBuilder(IConfiguration configuration)
         {
+
             From = configuration["Email:credentials:username"];
 
             smtpClient = new SmtpClient()
