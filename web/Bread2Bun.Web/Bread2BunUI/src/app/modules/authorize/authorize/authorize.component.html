@@ -3,6 +3,8 @@
     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
       <div class="top-bar"></div>
     </div>
+  </div>
+  <div class="row">
     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
       <div class="left-wrapper">
         <h1 class="heading">Let's share culture</h1>
@@ -25,8 +27,14 @@
           <app-register
             *ngIf="register && !login && !forgotPassword"
           ></app-register>
-          <app-login (forgotPassword)="showForgotPassword()" *ngIf="!register && login && !forgotPassword"></app-login>
-          <app-forgot-password (showLogin)="showLogin()" *ngIf="forgotPassword && !register && !login"></app-forgot-password>
+          <app-login
+            (forgotPassword)="showForgotPassword()"
+            *ngIf="!register && login && !forgotPassword"
+          ></app-login>
+          <app-forgot-password
+            (showLogin)="showLogin()"
+            *ngIf="forgotPassword && !register && !login"
+          ></app-forgot-password>
         </div>
       </div>
     </div>

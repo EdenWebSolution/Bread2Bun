@@ -7,6 +7,7 @@ import { UniversititesModel } from 'src/app/modules/shared/universitites-model';
 import { CountriesModel } from 'src/app/modules/shared/countries-model';
 import { forkJoin } from 'rxjs';
 import { AuthorizeService } from '../../services/authorize.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -21,12 +22,14 @@ export class RegisterComponent implements OnInit {
   passwordPattern = '^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[#?!@$%^&*()\\-_]).{8,}$'; // Strong password
   registerUserModel: RegisterUserModel;
   loading = false;
+  initiated = false;
   universities: UniversititesModel[];
   countries: CountriesModel[];
   constructor(
     private fb: FormBuilder,
     private sharedService: SharedService,
-    private authorizeService: AuthorizeService
+    private authorizeService: AuthorizeService,
+    private toastr: ToastrService
   ) {
     this.registerUserModel = new RegisterUserModel();
     this.countries = new Array<CountriesModel>();
@@ -42,10 +45,14 @@ export class RegisterComponent implements OnInit {
       this.sharedService.getCountries(),
       this.sharedService.getUniversities()
     ).subscribe(result => {
+      this.initiated = true;
       this.countries = result[0],
         this.universities = result[1];
     }, error => {
-      console.log(error);
+      this.initiated = true;
+      this.toastr.error(error.message, 'Error', {
+        progressBar: true
+      });
     });
     this.registerUserForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.pattern(this.namePattern)]],
@@ -92,11 +99,16 @@ export class RegisterComponent implements OnInit {
   }
 
   registerUser() {
+    this.loading = true;
     this.registerUserModel = Object.assign({}, this.registerUserModel, this.registerUserForm.value);
     this.authorizeService.registerUser(this.registerUserModel).subscribe(result => {
       console.log(result);
+      this.loading = false;
     }, error => {
-      console.log(error);
+      this.toastr.error(error.message, 'Error', {
+        progressBar: true
+      });
+      this.loading = false;
     });
   }
 

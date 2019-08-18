@@ -1,13 +1,13 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { slideFromUp, slideFromLeft } from 'src/app/animations';
+import { slideFromUp, slideFromLeft, slideFromRight } from 'src/app/animations';
 import { AuthorizeService } from '../../services/authorize.service';
 
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.scss'],
-  animations: [slideFromLeft]
+  animations: [slideFromRight]
 })
 export class ForgotPasswordComponent implements OnInit {
 
