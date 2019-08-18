@@ -11,6 +11,7 @@
 
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
+    <Configurations>Debug;Release;Staging;Test;Testing</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
@@ -66,4 +67,27 @@
     </ItemGroup>
   </Target>
 
+  <Choose>
+    <When Condition="'$(Configuration)' == 'Debug'">
+      <ItemGroup>
+        <None Include="appsettings.json" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" />
+        <None Include="appsettings.Development.json" CopyToOutputDirectory="Never" CopyToPublishDirectory="Never" />
+        <None Include="appsettings.Production.json" CopyToOutputDirectory="Never" CopyToPublishDirectory="Never" />
+      </ItemGroup>
+    </When>
+    <When Condition="'$(Configuration)' == 'Release'">
+      <ItemGroup>
+        <None Include="appsettings.json" CopyToOutputDirectory="Never" CopyToPublishDirectory="Never" />
+        <None Include="appsettings.Development.json" CopyToOutputDirectory="Never" CopyToPublishDirectory="Never" />
+        <None Include="appsettings.Production.json" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" />
+      </ItemGroup>
+    </When>
+    <When Condition="'$(Configuration)' == 'Staging'">
+      <ItemGroup>
+        <None Include="appsettings.json" CopyToOutputDirectory="Never" CopyToPublishDirectory="Never" />
+        <None Include="appsettings.Development.json" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" />
+        <None Include="appsettings.Production.json" CopyToOutputDirectory="Never" CopyToPublishDirectory="Never" />
+      </ItemGroup>
+    </When>
+  </Choose>
 </Project>

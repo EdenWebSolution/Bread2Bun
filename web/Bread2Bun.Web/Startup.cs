@@ -3,7 +3,6 @@ using Bread2Bun.Data;
 using Bread2Bun.Domain.Security;
 using Bread2Bun.Domain.Security.TokenProviders;
 using Bread2Bun.Service;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -24,9 +23,18 @@ namespace Bread2Bun.Web
     {
         private readonly IConfiguration configuration;
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             this.configuration = configuration;
+
+            var builder = new ConfigurationBuilder()
+            .SetBasePath(env.ContentRootPath)
+            .AddJsonFile($"appsettings.json", optional: true, reloadOnChange: true)
+            .AddJsonFile($"appsettings.Development.json", optional: true, reloadOnChange: true)
+            .AddJsonFile($"appsettings.Production.json", optional: true, reloadOnChange: true)
+            .AddEnvironmentVariables();
+
+            this.configuration = builder.Build();
         }
 
 
