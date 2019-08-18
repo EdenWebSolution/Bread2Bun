@@ -82,20 +82,27 @@
       <div class="row">
         <div class="formgroup col-xs-12 col-sm-12 col-md-6">
           <select class="b2b-input" formControlName="countryId">
-              <option value="" disabled selected>Country</option>
-            <option *ngFor="let country of countries" [value]="country.id">{{country.name}}</option>
+            <option value="" disabled selected>Country</option>
+            <option *ngFor="let country of countries" [value]="country.id">{{
+              country.name
+            }}</option>
           </select>
+          <span *ngIf="!initiated" class="form-spinner"></span>
           <span
             *ngIf="countryId.errors?.required && countryId.touched"
             class="error"
             >Required!</span
           >
+
         </div>
         <div class="formgroup col-xs-12 col-sm-12 col-md-6">
           <select class="b2b-input" formControlName="universityId">
-              <option value="" disabled selected>University</option>
-              <option *ngFor="let uni of universities" [value]="uni.id">{{uni.name}}</option>
+            <option value="" disabled selected>University</option>
+            <option *ngFor="let uni of universities" [value]="uni.id">{{
+              uni.name
+            }}</option>
           </select>
+          <span *ngIf="!initiated" class="form-spinner"></span>
           <span
             *ngIf="universityId.errors?.required && universityId.touched"
             class="error"
@@ -148,8 +155,10 @@
         class="pill"
         [disabled]="registerUserForm.invalid"
         (click)="registerUser()"
+        [ngClass]="{stretch: loading}"
       >
-        Register
+        {{ loading ? 'Registering' : 'Register' }}
+        <span *ngIf="loading" class="spinner"></span>
       </button>
     </form>
   </div>

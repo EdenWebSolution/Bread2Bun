@@ -31,7 +31,7 @@ export class AuthorizeComponent implements OnInit {
     this.forgotPassword = false;
   }
 
-  showForgotPassword(){
+  showForgotPassword() {
     this.login = false;
     this.register = false;
     this.forgotPassword = true;

@@ -11,7 +11,6 @@ export class MyTimelineComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
   }
 
 }
