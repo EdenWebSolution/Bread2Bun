@@ -9,6 +9,11 @@ const routes: Routes = [
     component: AuthorizeComponent
   },
   {
+    path: 'authorize',
+    redirectTo: '',
+    pathMatch: 'full'
+  },
+  {
     path: 'app',
     component: LayoutComponent,
     children: [

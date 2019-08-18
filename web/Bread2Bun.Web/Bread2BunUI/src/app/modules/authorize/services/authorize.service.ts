@@ -29,7 +29,7 @@ export class AuthorizeService extends BaseService {
 
   loginUser(userLoginModel: LoginUserModel) {
     return this.http
-      .post<string>(
+      .post<any>(
         `${this.baseEndPoint}/api/security/login`,
         userLoginModel,
         this.httpOptions

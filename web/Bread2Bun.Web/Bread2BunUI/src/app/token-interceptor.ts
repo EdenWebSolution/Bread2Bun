@@ -12,7 +12,8 @@ import {
 export class TokenInterceptor implements HttpInterceptor {
   constructor() {}
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    const authToken = localStorage.getItem('bread2bun-TokenId');
+    // tslint:disable-next-line: max-line-length
+    const authToken = localStorage.getItem('bread2bun-TokenId') === null ? sessionStorage.getItem('bread2bun-TokenId') : localStorage.getItem('bread2bun-TokenId');
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + authToken
     });
