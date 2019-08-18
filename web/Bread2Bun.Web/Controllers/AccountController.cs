@@ -1,10 +1,8 @@
 ﻿using Bread2Bun.Service.Security.Interface;
 using Bread2Bun.Service.Security.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Bread2Bun.Web.Controllers
@@ -93,6 +91,12 @@ namespace Bread2Bun.Web.Controllers
             {
                 return HandleExcpetion(ex);
             }
+        }
+
+        [HttpGet("test")]
+        public async Task<IActionResult> Test()
+        {
+            return Ok();
         }
     }
 }

@@ -1,7 +1,12 @@
+using AutoMapper;
 using Bread2Bun.Data;
 using Bread2Bun.Domain.Security;
+using Bread2Bun.Domain.Security.TokenProviders;
+using Bread2Bun.Service;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
@@ -10,12 +15,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Text;
-using AutoMapper;
-using Bread2Bun.Service;
-using Microsoft.AspNetCore.Identity;
 using System;
-using Bread2Bun.Domain.Security.TokenProviders;
+using System.Text;
 
 namespace Bread2Bun.Web
 {
