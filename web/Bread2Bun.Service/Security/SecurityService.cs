@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Bread2Bun.Common;
 using Bread2Bun.Common.Constants;
+using Bread2Bun.Common.Mailer;
 using Bread2Bun.Common.Model;
 using Bread2Bun.Data;
 using Bread2Bun.Domain.Security;
@@ -47,8 +48,20 @@ namespace Bread2Bun.Service.Security
             if (user.Succeeded)
             {
                 var token = await userManager.GenerateEmailConfirmationTokenAsync(storeUser);
-                var confirmPasswordLink = string.Concat(GlobalConfig.BaseUrl, $"/confirmemail?token={token}&email={storeUser.Email}");
+                var confirmPasswordLink = string.Concat(GlobalConfig.LocalBaseUrl, $"/confirmemail?token={token}&email={storeUser.Email}");
                 var result = mapper.Map<StoreUserModel>(storeUser);
+
+
+                var messageBuilder = new EmailBuilder(configuration)
+                {
+                    To = new[] { storeUser.Email },
+                    Subject = "Welcome To Bread2Bun",
+                    IsBodyHtml = true,
+                    Body = $"Hi {storeUser.FirstName} {storeUser.LastName}, please click on the link below so that we can confirm your email address. " +
+                    $"\n\n\n\nHappy eating!"
+
+                };
+
                 return result;
             }
 
@@ -119,7 +132,15 @@ namespace Bread2Bun.Service.Security
             if (user != null)
             {
                 var token = await userManager.GeneratePasswordResetTokenAsync(user);
-                var passwordReseLink = string.Concat(GlobalConfig.BaseUrl, $"/resetpassword?token={token}&email={user.Email}");
+                var passwordReseLink = string.Concat(GlobalConfig.LocalBaseUrl, $"/resetpassword?token={token}&email={user.Email}");
+
+                //var messageBuilder = new EmailBuilder()
+                //{
+                //    To = user.Email,
+                //    Subject = "Reset Password",
+                //    IsBodyHtml = true,
+                //    Body = BuildMailTemplate.CreateContactUsTemplate(sendAMessageViewModel)
+                //};
             }
         }
 
