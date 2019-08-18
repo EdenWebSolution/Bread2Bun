@@ -1,5 +1,5 @@
 <div @slideFromLeft>
-  <h3>Login</h3>
+  <h3>Sign in</h3>
   <p>Lorem ipsum dolor sit amet.</p>
   <form [formGroup]="loginForm">
     <div class="row">
@@ -10,9 +10,7 @@
           placeholder="Username"
           formControlName="userName"
         />
-        <span
-          *ngIf="userName.invalid && userName.touched"
-          class="error"
+        <span *ngIf="userName.invalid && userName.touched" class="error"
           >Required!</span
         >
       </div>
@@ -25,9 +23,7 @@
           placeholder="Password"
           formControlName="password"
         />
-        <span
-          *ngIf="password.invalid && password.touched"
-          class="error"
+        <span *ngIf="password.invalid && password.touched" class="error"
           >Required!</span
         >
       </div>
@@ -35,21 +31,24 @@
     <div class="row">
       <div class="formgroup col-xs-12 col-sm-6 col-md-6">
         <div class="b2b-checkbox">
-          <input type="checkbox" name="" id="rememberme" formControlName="rememberMe">
+          <input
+            type="checkbox"
+            name=""
+            id="rememberme"
+            formControlName="rememberMe"
+          />
           <label for="rememberme">Remember Me</label>
         </div>
       </div>
       <div class="formgroup col-xs-12 col-sm-6 col-md-6">
-        <span class="forgot-password" (click)="showForgotPassword()">Forgot Password?</span>
+        <span class="forgot-password" (click)="showForgotPassword()"
+          >Forgot Password?</span
+        >
       </div>
     </div>
-    <button
-        class="pill"
-        [disabled]="loginForm.invalid"
-        (click)="loginUser()"
-      >
-        Login
-      </button>
+    <button class="pill" [disabled]="loginForm.invalid" (click)="loginUser()">
+      {{loading? 'Signing in': 'Sign in'}}
+      <span *ngIf="loading" class="spinner"></span>
+    </button>
   </form>
 </div>
-

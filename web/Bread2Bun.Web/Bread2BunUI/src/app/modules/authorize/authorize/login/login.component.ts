@@ -6,6 +6,7 @@ import { AuthorizeService } from '../../services/authorize.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { decode } from '@angular/router/src/url_tree';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -20,11 +21,13 @@ export class LoginComponent implements OnInit {
   @Output() forgotPassword = new EventEmitter<boolean>();
 
   decoder = new JwtHelperService();
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
     private authorizeService: AuthorizeService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit() {
@@ -43,9 +46,9 @@ export class LoginComponent implements OnInit {
   }
 
   loginUser() {
+    this.loading = true;
     this.loginUserModel = Object.assign({}, this.loginUserModel, this.loginForm.value);
     this.authorizeService.loginUser(this.loginUserModel).subscribe(result => {
-      console.log(result);
       const decodedToken = this.decoder.decodeToken(result.token);
       if (decodedToken.rememberMe === 'True') {
         localStorage.setItem('bread2bun-TokenId', result.token);
@@ -54,9 +57,13 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem('bread2bun-TokenId', result.token);
         localStorage.removeItem('bread2bun-TokenId');
       }
+      this.loading = false;
       this.router.navigate(['/app/timeline']);
     }, error => {
-      console.log('err', error);
+      this.loading = false;
+      this.toastr.error(error.message, 'Login Error', {
+        progressBar: true
+      });
     });
   }
 
