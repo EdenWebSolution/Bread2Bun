@@ -1,4 +1,5 @@
-﻿using Bread2Bun.Service.Security.Interface;
+﻿using Bread2Bun.Common;
+using Bread2Bun.Service.Security.Interface;
 using Bread2Bun.Service.Security.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -32,14 +33,14 @@ namespace Bread2Bun.Web.Controllers
             }
         }
 
-        [HttpPost("user/confirmemail")]
+        [HttpGet("user/confirmemail")]
         [AllowAnonymous]
-        public async Task<IActionResult> Confirmemail([FromBody] ConfirmEmailModel confirmEmailModel)
+        public async Task<IActionResult> Confirmemail([FromQuery] ConfirmEmailModel confirmEmailModel)
         {
             try
             {
                 await securityService.ConfirmEmailAsync(confirmEmailModel);
-                return Ok();
+                return Redirect(GlobalConfig.PresentationBaseUrl);
             }
             catch (Exception ex)
             {

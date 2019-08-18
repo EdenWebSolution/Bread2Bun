@@ -16,7 +16,9 @@ using System.Linq;
 using System.Security.Authentication;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace Bread2Bun.Service.Security
 {
@@ -48,7 +50,7 @@ namespace Bread2Bun.Service.Security
             if (user.Succeeded)
             {
                 var token = await userManager.GenerateEmailConfirmationTokenAsync(storeUser);
-                var confirmPasswordLink = string.Concat(GlobalConfig.LocalBaseUrl, $"/confirmemail?token={token}&email={storeUser.Email}");
+                var confirmPasswordLink = string.Concat(GlobalConfig.APIBaseUrl, $"/api/security/user/confirmemail?token={Base64UrlEncoder.Encode(token)}&email={storeUser.Email}");
                 var result = mapper.Map<StoreUserModel>(storeUser);
 
 
@@ -57,11 +59,12 @@ namespace Bread2Bun.Service.Security
                     To = new[] { storeUser.Email },
                     Subject = "Welcome To Bread2Bun",
                     IsBodyHtml = true,
-                    Body = $"Hi {storeUser.FirstName} {storeUser.LastName}, please click on the link below so that we can confirm your email address. " +
-                    $"\n\n\n\nHappy eating!"
+                    Body = $"Hi {storeUser.FirstName} {storeUser.LastName}, please click on the link below so that we can confirm your email address. <br/><br/>" +
+                    $"{confirmPasswordLink} <br/><br/>" +
+                    $"Happy eating!!!"
 
                 };
-
+                await EmailBuilder.SendEmailAsync(messageBuilder);
                 return result;
             }
 
@@ -77,7 +80,8 @@ namespace Bread2Bun.Service.Security
             var user = await userManager.FindByEmailAsync(confirmEmailModel.Email);
             if (user != null)
             {
-                var result = await userManager.ConfirmEmailAsync(user, confirmEmailModel.Token);
+
+                var result = await userManager.ConfirmEmailAsync(user, Base64UrlEncoder.Decode(confirmEmailModel.Token));
                 if (!result.Succeeded)
                 {
                     var error = result.Errors.FirstOrDefault();
@@ -132,7 +136,7 @@ namespace Bread2Bun.Service.Security
             if (user != null)
             {
                 var token = await userManager.GeneratePasswordResetTokenAsync(user);
-                var passwordReseLink = string.Concat(GlobalConfig.LocalBaseUrl, $"/resetpassword?token={token}&email={user.Email}");
+                var passwordReseLink = string.Concat(GlobalConfig.PresentationBaseUrl, $"/resetpassword?token={token}&email={user.Email}");
 
                 //var messageBuilder = new EmailBuilder()
                 //{

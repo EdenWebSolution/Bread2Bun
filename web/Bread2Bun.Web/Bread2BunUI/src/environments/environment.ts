@@ -7,7 +7,7 @@ export const environment = {
   message: 'devlopment',
 
   baseEndPoint: 'http://bread2bun.azurewebsites.net'
-  //baseEndPoint: 'http://localhost:54969'
+  // baseEndPoint: 'http://localhost:54969'
 };
 
 /*

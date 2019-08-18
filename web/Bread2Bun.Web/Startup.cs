@@ -126,7 +126,7 @@ namespace Bread2Bun.Web
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
-            app.UseCors(builder => builder.WithOrigins("http://bread2bun.azurewebsites.net", "https://bread2bun.azurewebsites.net", "http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
+            app.UseCors(builder => builder.WithOrigins("http://bread2bun.azurewebsites.net", "https://bread2bun.azurewebsites.net", "http://localhost:4200", "http://localhost:54969").AllowAnyHeader().AllowAnyMethod());
             app.UseAuthentication();
 
             app.UseMvc(routes =>

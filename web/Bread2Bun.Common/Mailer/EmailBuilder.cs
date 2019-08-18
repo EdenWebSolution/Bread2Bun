@@ -11,16 +11,21 @@ namespace Bread2Bun.Common.Mailer
     {
         private static MailMessage mailMessage;
         private static SmtpClient smtpClient;
+        private static string From;
+        private static string DisplayName => "Bread 2 Bun";
+
 
         public EmailBuilder(IConfiguration configuration)
         {
+            From = configuration["Email:credentials:username"];
+
             smtpClient = new SmtpClient()
             {
                 Host = "smtp.gmail.com",
                 Port = 587,
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
-                Credentials = new System.Net.NetworkCredential(configuration["Email:credentials:username"], configuration["Email:credentials:password"]),
+                Credentials = new System.Net.NetworkCredential(From, configuration["Email:credentials:password"]),
                 Timeout = 10000,
             };
         }
@@ -41,7 +46,7 @@ namespace Bread2Bun.Common.Mailer
                 Subject = messageBuilder.Subject,
                 Body = messageBuilder.Body
             };
-            mailMessage.From = new MailAddress(mailMessage.From.Address, mailMessage.From.DisplayName);
+            mailMessage.From = new MailAddress(From, DisplayName);
 
             foreach (var emailAddress in messageBuilder.To)
                 mailMessage.To.Add(emailAddress);
