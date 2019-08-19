@@ -1,6 +1,13 @@
 @import '../../../styles/colors';
 
-.main-wrapper{
+.bg {
+  background: url('../../../../assets/images/login.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+}
+.main-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 2rem;
@@ -12,17 +19,18 @@
     min-height: 500px;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0px 7px 20px 0px rgba(151, 150, 150, 0.73);
+    box-shadow: 0px 5px 35px 0px rgba(151, 150, 150, 0.73);
     overflow: hidden;
+    background: rgba(236, 236, 236, 0.76);
   }
   .switcher {
     display: flex;
     justify-content: center;
-    .left{
-      button{
+    .left {
+      button {
         border-radius: 5px 0 0 0;
         position: relative;
-        &:after{
+        &:after {
           content: '';
           position: absolute;
           top: 8px;
@@ -33,12 +41,12 @@
         }
       }
     }
-    .right{
-      button{
+    .right {
+      button {
         border-radius: 0 5px 0 0;
       }
     }
-    button{
+    button {
       padding: 5px 0;
       border: none;
       background: $main-color;
@@ -50,12 +58,22 @@
   }
 }
 
-.left-wrapper{
-  .top-bar{
-    .logo{
-      img{
+.left-wrapper {
+  .top-bar {
+    .logo {
+      img {
         width: 200px;
       }
     }
+  }
+  .heading {
+    text-shadow: 0 0 65px rgba(208, 191, 182, 0.09);
+    text-transform: uppercase;
+  }
+  .intro-text {
+    color: #fff;
+    font-weight: 600;
+    text-shadow: 0 0 15px black;
+    font-size: 1.1rem;
   }
 }
