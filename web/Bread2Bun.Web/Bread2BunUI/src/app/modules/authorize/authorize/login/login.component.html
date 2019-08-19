@@ -1,13 +1,12 @@
 <div @slideFromLeft>
   <h3>Sign in</h3>
-  <p>Lorem ipsum dolor sit amet.</p>
   <form [formGroup]="loginForm">
     <div class="row">
       <div class="formgroup col-xs-12 col-sm-12 col-md-12">
         <input
           type="text"
           class="b2b-input"
-          placeholder="Username"
+          placeholder="Foodie name"
           formControlName="userName"
         />
         <span *ngIf="userName.invalid && userName.touched" class="error"
@@ -46,9 +45,13 @@
         >
       </div>
     </div>
-    <button class="pill" [disabled]="loginForm.invalid" (click)="loginUser()">
-      {{loading? 'Signing in': 'Sign in'}}
-      <span *ngIf="loading" class="spinner"></span>
+    <button
+      class="b2b-btn-fwd rotate"
+      [disabled]="loginForm.invalid"
+      (click)="loginUser()"
+      [ngClass]="{rotate: loading}"
+    >
+      {{ loading ? 'Signing in' : 'Sign in' }}
     </button>
   </form>
 </div>

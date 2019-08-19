@@ -1,6 +1,5 @@
 <div class="tab" @slideFromRight>
   <h3>Register Now</h3>
-  <p>Lorem ipsum dolor sit amet.</p>
   <div class="register-form">
     <form [formGroup]="registerUserForm">
       <div class="row">
@@ -152,13 +151,11 @@
         </div>
       </div>
       <button
-        class="pill"
+        class="b2b-btn-fwd"
         [disabled]="registerUserForm.invalid"
         (click)="registerUser()"
-        [ngClass]="{stretch: loading}"
       >
         {{ loading ? 'Registering' : 'Register' }}
-        <span *ngIf="loading" class="spinner"></span>
       </button>
     </form>
   </div>
