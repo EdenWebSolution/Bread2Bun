@@ -151,13 +151,11 @@
         </div>
       </div>
       <button
-        class="pill"
+        class="b2b-btn-fwd"
         [disabled]="registerUserForm.invalid"
         (click)="registerUser()"
-        [ngClass]="{stretch: loading}"
       >
         {{ loading ? 'Registering' : 'Register' }}
-        <span *ngIf="loading" class="spinner"></span>
       </button>
     </form>
   </div>

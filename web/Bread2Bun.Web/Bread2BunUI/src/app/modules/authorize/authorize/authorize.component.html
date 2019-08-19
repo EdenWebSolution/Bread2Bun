@@ -1,45 +1,62 @@
 <div class="container" @slideFromBottom>
-  <div class="">
-    <div class="">
-      <div class="main-wrapper">
-        <div class="left-wrapper">
-          <div class="top-bar">
-            <div class="logo">
-              <img
-                src="../../../../assets/images/logo.png"
-                alt="Bread 2 bun logo"
-              />
-            </div>
-          </div>
-          <h1 class="heading">Let's share culture</h1>
-          <p class="intro-text">
-            Each an every food has it's own story, what is the story of yours?
-            Explore the unique foods around the globe through Bread2Bun.
-          </p>
-        </div>
-        <div class="right-wrapper">
-          <div class="switcher">
-            <div class="left">
-              <Button (click)="showLogin()">Sign in</Button>
-            </div>
-            <div class="right">
-              <button (click)="showRegister()">Register</button>
-            </div>
-          </div>
-          <div class="content">
-            <app-register
-              *ngIf="register && !login && !forgotPassword"
-            ></app-register>
-            <app-login
-              (forgotPassword)="showForgotPassword()"
-              *ngIf="!register && login && !forgotPassword"
-            ></app-login>
-            <app-forgot-password
-              (showLogin)="showLogin()"
-              *ngIf="forgotPassword && !register && !login"
-            ></app-forgot-password>
+
+  <div class="main-wrapper">
+    <div class="left-wrapper">
+      <div class="intro-content">
+        <h1 class="heading">Let's share culture</h1>
+        <p class="intro-text">
+          Each an every food has it's own story, what is the story of yours?
+          Explore the unique foods around the globe through
+          Bread<span>2</span>Bun.
+        </p>
+      </div>
+      <div class="top-bar">
+          <div class="logo">
+            <img src="../../../../assets/images/logo.png" alt="Bread 2 bun logo" />
           </div>
         </div>
+      <div class="image-wrapper">
+        <div class="intro-image">
+          <img
+            src="../../../../assets/images/intro-stall.png"
+            alt="Intro image"
+          />
+        </div>
+        <div class="intro-image">
+          <img
+            src="../../../../assets/images/intro-people.png"
+            alt="Intro image"
+          />
+        </div>
+        <div class="intro-image animal">
+          <img
+            src="../../../../assets/images/intro-animal.png"
+            alt="Intro image"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="right-wrapper">
+      <div class="switcher">
+        <div class="left">
+          <Button (click)="showLogin()">Sign in</Button>
+        </div>
+        <div class="right">
+          <button (click)="showRegister()">Register</button>
+        </div>
+      </div>
+      <div class="content">
+        <app-register
+          *ngIf="register && !login && !forgotPassword"
+        ></app-register>
+        <app-login
+          (forgotPassword)="showForgotPassword()"
+          *ngIf="!register && login && !forgotPassword"
+        ></app-login>
+        <app-forgot-password
+          (showLogin)="showLogin()"
+          *ngIf="forgotPassword && !register && !login"
+        ></app-forgot-password>
       </div>
     </div>
   </div>

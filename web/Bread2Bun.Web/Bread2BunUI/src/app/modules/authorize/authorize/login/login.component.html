@@ -46,13 +46,12 @@
       </div>
     </div>
     <button
-      [ngClass]="{ stretch: loading }"
-      class="pill"
+      class="b2b-btn-fwd rotate"
       [disabled]="loginForm.invalid"
       (click)="loginUser()"
+      [ngClass]="{rotate: loading}"
     >
       {{ loading ? 'Signing in' : 'Sign in' }}
-      <span *ngIf="loading" class="spinner"></span>
     </button>
   </form>
 </div>
