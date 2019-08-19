@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseEndPoint: 'http://bread2bun.azurewebsites.net'
+  baseEndPoint: 'https://bread2bun.azurewebsites.net'
 };

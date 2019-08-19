@@ -16,9 +16,7 @@ using System.Linq;
 using System.Security.Authentication;
 using System.Security.Claims;
 using System.Text;
-using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace Bread2Bun.Service.Security
 {
@@ -32,7 +30,8 @@ namespace Bread2Bun.Service.Security
 
         public SecurityService(Bread2BunContext bread2BunContext,
             IMapper mapper, UserManager<StoreUser> userManager,
-            SignInManager<StoreUser> signInManager, IConfiguration configuration)
+            SignInManager<StoreUser> signInManager, IConfiguration configuration
+            )
         {
             this.bread2BunContext = bread2BunContext;
             this.mapper = mapper;

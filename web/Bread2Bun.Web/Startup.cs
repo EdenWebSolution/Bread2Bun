@@ -26,15 +26,6 @@ namespace Bread2Bun.Web
         public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             this.configuration = configuration;
-
-            var builder = new ConfigurationBuilder()
-            .SetBasePath(env.ContentRootPath)
-            .AddJsonFile($"appsettings.json", optional: true, reloadOnChange: true)
-            .AddJsonFile($"appsettings.Development.json", optional: true, reloadOnChange: true)
-            .AddJsonFile($"appsettings.Production.json", optional: true, reloadOnChange: true)
-            .AddEnvironmentVariables();
-
-            this.configuration = builder.Build();
         }
 
 
@@ -84,6 +75,7 @@ namespace Bread2Bun.Web
                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Tokens:Key"]))
                   };
               });
+
 
 
             //services.Configure<IdentityOptions>(options =>

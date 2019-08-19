@@ -93,11 +93,5 @@ namespace Bread2Bun.Web.Controllers
                 return HandleExcpetion(ex);
             }
         }
-
-        [HttpGet("test")]
-        public async Task<IActionResult> Test()
-        {
-            return Ok();
-        }
     }
 }

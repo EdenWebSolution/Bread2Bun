@@ -3,6 +3,7 @@ using Bread2Bun.Service.Country.Interface;
 using Bread2Bun.Service.University.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace Bread2Bun.Web.Controllers
 {
@@ -11,14 +12,16 @@ namespace Bread2Bun.Web.Controllers
     {
         private readonly ICountryService countryService;
         private readonly IUniversityService universityService;
+        private readonly IConfiguration configuration;
 
-        public SharedController(ICountryService countryService, IUniversityService universityService)
+        public SharedController(ICountryService countryService, IUniversityService universityService, IConfiguration configuration)
         {
             this.countryService = countryService;
             this.universityService = universityService;
+            this.configuration = configuration;
         }
 
-        [HttpGet, AllowAnonymous, Route("countries")]
+        [HttpGet("countries"), AllowAnonymous]
         public async Task<IActionResult> GetCountries()
         {
             try
@@ -31,10 +34,9 @@ namespace Bread2Bun.Web.Controllers
 
                 return HandleExcpetion(ex);
             }
-
         }
 
-        [HttpGet, AllowAnonymous, Route("universities")]
+        [HttpGet("universities"), AllowAnonymous]
         public async Task<IActionResult> GetUniversities()
         {
             try
@@ -47,7 +49,21 @@ namespace Bread2Bun.Web.Controllers
 
                 return HandleExcpetion(ex);
             }
+        }
 
+        [HttpGet("Test"), AllowAnonymous]
+        public IActionResult Test()
+        {
+            try
+            {
+                return Ok(configuration["Env"]);
+
+            }
+            catch (System.Exception ex)
+            {
+
+                return HandleExcpetion(ex);
+            }
         }
     }
 }
