@@ -154,6 +154,7 @@
         class="b2b-btn-fwd"
         [disabled]="registerUserForm.invalid"
         (click)="registerUser()"
+        [ngClass]="{rotate: loading}"
       >
         {{ loading ? 'Registering' : 'Register' }}
       </button>
