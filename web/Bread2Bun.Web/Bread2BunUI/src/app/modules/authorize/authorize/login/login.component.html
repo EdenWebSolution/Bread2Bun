@@ -1,6 +1,5 @@
 <div @slideFromLeft>
   <h3>Sign in</h3>
-  <p>Lorem ipsum dolor sit amet.</p>
   <form [formGroup]="loginForm">
     <div class="row">
       <div class="formgroup col-xs-12 col-sm-12 col-md-12">
@@ -46,8 +45,13 @@
         >
       </div>
     </div>
-    <button class="pill" [disabled]="loginForm.invalid" (click)="loginUser()">
-      {{loading? 'Signing in': 'Sign in'}}
+    <button
+      [ngClass]="{ stretch: loading }"
+      class="pill"
+      [disabled]="loginForm.invalid"
+      (click)="loginUser()"
+    >
+      {{ loading ? 'Signing in' : 'Sign in' }}
       <span *ngIf="loading" class="spinner"></span>
     </button>
   </form>
