@@ -1,56 +1,46 @@
-<div class="bg">
-  <div class="container" @slideFromBottom>
+<div class="container" @slideFromBottom>
+  <div class="">
     <div class="">
-      <div class="">
-        <div class="main-wrapper">
-          <div class="left-wrapper">
-            <div class="top-bar">
-              <div class="logo">
-                <img
-                  src="../../../../assets/images/logo.png"
-                  alt="Bread 2 bun logo"
-                />
-              </div>
+      <div class="main-wrapper">
+        <div class="left-wrapper">
+          <div class="top-bar">
+            <div class="logo">
+              <img
+                src="../../../../assets/images/logo.png"
+                alt="Bread 2 bun logo"
+              />
             </div>
-            <p class="intro-text">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Mollitia
-              laboriosam libero voluptatum reiciendis expedita, accusamus corporis
-              in nulla omnis impedit id quis cumque. Culpa voluptas exercitationem
-              rerum. Dolorum ipsam quasi, esse vel cupiditate quam aspernatur
-              provident, similique numquam quos soluta quo deleniti sed ipsum at
-              ab labore veniam aut, modi nobis in fugit. Omnis labore consequatur
-              consectetur, expedita ipsa error laboriosam. Ipsum corrupti soluta
-              ex. Soluta, in cupiditate tempora consequatur odio provident dolor
-              molestias voluptatum officia dicta amet nulla cum eum eveniet iste
-              suscipit voluptatibus quod nesciunt quasi earum! Dicta dolorum qui
-              minus placeat non, neque accusantium dolore impedit quos.
-            </p>
-            <h1 class="heading">Let's share culture</h1>
           </div>
-          <div class="right-wrapper">
-            <div class="switcher">
-              <div class="left"><Button (click)="showLogin()">Sign in</Button></div>
-              <div class="right">
-                <button (click)="showRegister()">Register</button>
-              </div>
+          <h1 class="heading">Let's share culture</h1>
+          <p class="intro-text">
+            Each an every food has it's own story, what is the story of yours?
+            Explore the unique foods around the globe through Bread2Bun.
+          </p>
+        </div>
+        <div class="right-wrapper">
+          <div class="switcher">
+            <div class="left">
+              <Button (click)="showLogin()">Sign in</Button>
             </div>
-            <div class="content">
-              <app-register
-                *ngIf="register && !login && !forgotPassword"
-              ></app-register>
-              <app-login
-                (forgotPassword)="showForgotPassword()"
-                *ngIf="!register && login && !forgotPassword"
-              ></app-login>
-              <app-forgot-password
-                (showLogin)="showLogin()"
-                *ngIf="forgotPassword && !register && !login"
-              ></app-forgot-password>
+            <div class="right">
+              <button (click)="showRegister()">Register</button>
             </div>
+          </div>
+          <div class="content">
+            <app-register
+              *ngIf="register && !login && !forgotPassword"
+            ></app-register>
+            <app-login
+              (forgotPassword)="showForgotPassword()"
+              *ngIf="!register && login && !forgotPassword"
+            ></app-login>
+            <app-forgot-password
+              (showLogin)="showLogin()"
+              *ngIf="forgotPassword && !register && !login"
+            ></app-forgot-password>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
