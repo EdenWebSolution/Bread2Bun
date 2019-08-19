@@ -135,15 +135,18 @@ namespace Bread2Bun.Service.Security
             if (user != null)
             {
                 var token = await userManager.GeneratePasswordResetTokenAsync(user);
-                var passwordReseLink = string.Concat(GlobalConfig.PresentationBaseUrl, $"/resetpassword?token={token}&email={user.Email}");
+                var passwordReseLink = string.Concat(GlobalConfig.PresentationBaseUrl, $"/resetpassword/{Base64UrlEncoder.Encode(token)}/{user.Email}");
 
-                //var messageBuilder = new EmailBuilder()
-                //{
-                //    To = user.Email,
-                //    Subject = "Reset Password",
-                //    IsBodyHtml = true,
-                //    Body = BuildMailTemplate.CreateContactUsTemplate(sendAMessageViewModel)
-                //};
+                var messageBuilder = new EmailBuilder(configuration)
+                {
+                    To = new[] { user.Email },
+                    Subject = "Reset Password",
+                    IsBodyHtml = true,
+                    Body = $"Hi {user.FirstName} {user.LastName}, please click on the link below reset your password. <br/><br/>" +
+                    $"{passwordReseLink} <br/><br/>" +
+                    $"Happy eating!!!"
+                };
+                await EmailBuilder.SendEmailAsync(messageBuilder);
             }
         }
 
@@ -152,7 +155,7 @@ namespace Bread2Bun.Service.Security
             var user = await userManager.FindByEmailAsync(resetPasswordModel.Email);
             if (user != null)
             {
-                var result = await userManager.ResetPasswordAsync(user, resetPasswordModel.Token, resetPasswordModel.NewPassword);
+                var result = await userManager.ResetPasswordAsync(user, Base64UrlEncoder.Decode(resetPasswordModel.Token), resetPasswordModel.NewPassword);
                 if (!result.Succeeded)
                 {
                     var error = result.Errors.FirstOrDefault();
