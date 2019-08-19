@@ -3,16 +3,17 @@ import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from './modules/layout/layout/layout.component';
 import { AuthorizeComponent } from './modules/authorize/authorize/authorize.component';
 import { AuthGuard } from './modules/authorize/auth-guard';
+import { MyTimelineComponent } from './modules/timeline/my-timeline/my-timeline.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: AuthorizeComponent
+    redirectTo: 'app/timeline',
+    pathMatch: 'full'
   },
   {
     path: 'authorize',
-    redirectTo: '',
-    pathMatch: 'full'
+    component: AuthorizeComponent
   },
   {
     path: 'app',
