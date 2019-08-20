@@ -28,6 +28,8 @@ export class RegisterComponent implements OnInit {
   countries: CountriesModel[];
   registered: boolean;
   selectedCountryId: number;
+  selectedUniversityId: number;
+  showContent = false;
   constructor(
     private fb: FormBuilder,
     private sharedService: SharedService,
@@ -106,6 +108,7 @@ export class RegisterComponent implements OnInit {
     this.loading = true;
     this.registerUserModel = Object.assign({}, this.registerUserModel, this.registerUserForm.value);
     this.registerUserModel.countryId = this.selectedCountryId;
+    this.registerUserModel.universityId = this.selectedUniversityId;
     this.authorizeService.registerUser(this.registerUserModel).subscribe(result => {
       this.loading = false;
       this.registered = true;
@@ -119,6 +122,14 @@ export class RegisterComponent implements OnInit {
 
   onSelect(event: TypeaheadMatch): void {
     this.selectedCountryId = event.item.id;
+  }
+
+  onUniversitySelect(event: TypeaheadMatch): void {
+    this.selectedUniversityId = event.item.id;
+  }
+
+  loadContent() {
+    this.showContent = true;
   }
 
 }

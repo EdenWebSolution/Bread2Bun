@@ -81,6 +81,25 @@
       <div class="row">
         <div class="formgroup col-xs-12 col-sm-12 col-md-6">
           <input
+            placeholder="University"
+            class="b2b-input"
+            formControlName="universityId"
+            type="text"
+            [typeahead]="universities"
+            typeaheadOptionField="name"
+            [typeaheadScrollable]="true"
+            [typeaheadOptionsInScrollableView]="5"
+            (typeaheadOnSelect)="onUniversitySelect($event)"
+          />
+          <span *ngIf="!initiated" class="form-spinner"></span>
+          <span
+            *ngIf="universityId.errors?.required && universityId.touched"
+            class="error"
+            >Required!</span
+          >
+        </div>
+        <div class="formgroup col-xs-12 col-sm-12 col-md-6">
+          <input
             placeholder="Country"
             class="b2b-input"
             formControlName="countryId"
@@ -94,20 +113,6 @@
           <span *ngIf="!initiated" class="form-spinner"></span>
           <span
             *ngIf="countryId.errors?.required && countryId.touched"
-            class="error"
-            >Required!</span
-          >
-        </div>
-        <div class="formgroup col-xs-12 col-sm-12 col-md-6">
-          <select class="b2b-input" formControlName="universityId">
-            <option value="" disabled selected>University</option>
-            <option *ngFor="let uni of universities" [value]="uni.id">{{
-              uni.name
-            }}</option>
-          </select>
-          <span *ngIf="!initiated" class="form-spinner"></span>
-          <span
-            *ngIf="universityId.errors?.required && universityId.touched"
             class="error"
             >Required!</span
           >
