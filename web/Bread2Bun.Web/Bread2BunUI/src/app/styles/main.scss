@@ -15,19 +15,19 @@ body {
 }
 
 //fonts
-.lexend{
+.lexend {
   font-family: $lexend;
 }
 
-.quicksand{
+.quicksand {
   font-family: $quicksand;
 }
 
-.toned-header{
+.toned-header {
   margin-bottom: 1.5rem;
-  color: #fff;
+  color: $base-color;
   text-decoration: underline;
-  span{
+  span {
     font-size: 2.5rem;
     margin-right: 5px;
     font-family: $lexend;
@@ -44,20 +44,22 @@ body {
   outline: none !important;
   position: relative;
   padding: 13px 0 0 55px;
-  color: #fff;
-  &.rotate{
+  color: #000000;
+
+  &.rotate {
     pointer-events: none;
-    &:after{
+    &:after {
       animation: spinner 2.5s linear infinite;
     }
   }
-  &:disabled{
-    &:after{
+  &:disabled {
+    color: #fff;
+    &:after {
       -webkit-filter: grayscale(0.7);
       filter: grayscale(0.7);
     }
   }
-  &:after{
+  &:after {
     content: '';
     background: url('../../assets/images/doughnut.png');
     position: absolute;
@@ -72,7 +74,7 @@ body {
   cursor: pointer;
 }
 
-.b2b-btn-stay  {
+.b2b-btn-stay {
   border: none;
   background: none;
   font-family: inherit;
@@ -82,14 +84,14 @@ body {
   outline: none !important;
   position: relative;
   padding: 13px 0 0 55px;
-  &:hover{
-    &:after{
+  &:hover {
+    &:after {
       -webkit-transform: rotate(-20deg);
       -ms-transform: rotate(-20deg);
       transform: rotate(-20deg);
     }
   }
-  &:after{
+  &:after {
     content: '';
     background: url('../../assets/images/prawn.png');
     position: absolute;
@@ -118,7 +120,8 @@ body {
     outline: none;
     font-weight: 600;
     transition: 0.3s ease-in-out;
-    &:focus, &:active{
+    &:focus,
+    &:active {
       background: #fff;
     }
     &::placeholder {
@@ -126,12 +129,14 @@ body {
       opacity: 1; /* Firefox */
     }
 
-    &:-ms-input-placeholder { /* Internet Explorer 10-11 */
-     color: $base-color;
+    &:-ms-input-placeholder {
+      /* Internet Explorer 10-11 */
+      color: $base-color;
     }
 
-    &::-ms-input-placeholder { /* Microsoft Edge */
-     color: $base-color;
+    &::-ms-input-placeholder {
+      /* Microsoft Edge */
+      color: $base-color;
     }
   }
   .radio-group {
@@ -169,9 +174,9 @@ body {
   .error {
     margin: 2px 0 2px 17px;
     display: block;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     font-weight: 600;
-    color: #fb2727;
+    color: #fb0000;
   }
   .b2b-checkbox {
     input[type='checkbox'] {
@@ -179,7 +184,8 @@ body {
       & + label {
         position: relative;
         padding-left: 25px;
-        color: #fff;
+        color: #000;
+        font-weight: 600;
         cursor: pointer;
         font-weight: 500;
         transition: 0.2s;
@@ -238,8 +244,6 @@ body {
     color: $main-color;
   }
 }
-
-
 
 //spinner
 @keyframes spinner {
