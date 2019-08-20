@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { slideFromBottom, slideFromUp } from 'src/app/animations';
+import { slideFromBottom, slideFromUp, slideFromLeft, slideFromRight } from 'src/app/animations';
 
 @Component({
   selector: 'app-authorize',
   templateUrl: './authorize.component.html',
   styleUrls: ['./authorize.component.scss'],
-  animations: [slideFromBottom, slideFromUp]
+  animations: [slideFromBottom, slideFromUp, slideFromLeft, slideFromRight]
 })
 export class AuthorizeComponent implements OnInit {
   register: boolean;

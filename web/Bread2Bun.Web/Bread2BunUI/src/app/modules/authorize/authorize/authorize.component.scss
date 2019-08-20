@@ -1,5 +1,21 @@
 @import '../../../styles/colors';
 
+.top-texture{
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background-image: url('../../../../assets/images/border-texture.png');
+  background-color: lighten($main-color, 20%);
+  height: 40px;
+}
+.bottom-texture{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-image: url('../../../../assets/images/border-texture.png');
+  background-color: lighten($main-color, 20%);
+  height: 40px;
+}
 .main-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -18,7 +34,8 @@
     border-radius: 5px;
     box-shadow: 0px 5px 35px 0px rgba(151, 150, 150, 0.73);
     overflow: hidden;
-    background: #ffffff;
+    background-color: lighten($main-color, 20%);
+    background-image: url('../../../../assets/images/login-texture.png');
   }
   .switcher {
     display: flex;

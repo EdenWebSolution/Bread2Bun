@@ -1,5 +1,5 @@
 <div class="tab" *ngIf="!registered" @slideFromRight>
-  <h3>Register Now</h3>
+  <h3 class="toned-header"><span>Register</span>Now</h3>
   <div class="register-form">
     <form [formGroup]="registerUserForm">
       <div class="row">
@@ -171,7 +171,7 @@
   </div>
 </div>
 <div class="confirm-tab" *ngIf="registered" @slideFromRight>
-  <h3>Email Confirmation</h3>
+  <h3 class="toned-header"><span>Email</span>Confirmation</h3>
   <div class="confirm-email">
     <img
       src="../../../../../assets/images/email-confirmation.png"
