@@ -25,6 +25,7 @@ export class RegisterComponent implements OnInit {
   initiated = false;
   universities: UniversititesModel[];
   countries: CountriesModel[];
+  registered: boolean;
   constructor(
     private fb: FormBuilder,
     private sharedService: SharedService,
@@ -34,6 +35,7 @@ export class RegisterComponent implements OnInit {
     this.registerUserModel = new RegisterUserModel();
     this.countries = new Array<CountriesModel>();
     this.universities = new Array<UniversititesModel>();
+    this.registered = false;
   }
 
   ngOnInit() {
@@ -104,6 +106,7 @@ export class RegisterComponent implements OnInit {
     this.authorizeService.registerUser(this.registerUserModel).subscribe(result => {
       console.log(result);
       this.loading = false;
+      this.registered = true;
     }, error => {
       this.toastr.error(error.message, 'Error', {
         progressBar: true

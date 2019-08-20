@@ -1,4 +1,4 @@
-<div class="tab" @slideFromRight>
+<div class="tab" *ngIf="!registered" @slideFromRight>
   <h3>Register Now</h3>
   <div class="register-form">
     <form [formGroup]="registerUserForm">
@@ -92,7 +92,6 @@
             class="error"
             >Required!</span
           >
-
         </div>
         <div class="formgroup col-xs-12 col-sm-12 col-md-6">
           <select class="b2b-input" formControlName="universityId">
@@ -154,10 +153,17 @@
         class="b2b-btn-fwd"
         [disabled]="registerUserForm.invalid"
         (click)="registerUser()"
-        [ngClass]="{rotate: loading}"
+        [ngClass]="{ rotate: loading }"
       >
         {{ loading ? 'Registering' : 'Register' }}
       </button>
     </form>
   </div>
+</div>
+<div class="confirm-tab" *ngIf="registered" @slideFromRight>
+  <h3>Email Confirmation</h3>
+  <div class="confirm-email">
+    <img src="../../../../../assets/images/email-confirmation.png" alt="Confirm email image">
+  </div>
+  <p>A verification link has been sent to your email account to verify your email, Please Confirm and complete the registration process </p>
 </div>
