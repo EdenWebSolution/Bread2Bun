@@ -107,7 +107,6 @@ export class RegisterComponent implements OnInit {
     this.registerUserModel = Object.assign({}, this.registerUserModel, this.registerUserForm.value);
     this.registerUserModel.countryId = this.selectedCountryId;
     this.authorizeService.registerUser(this.registerUserModel).subscribe(result => {
-      console.log(result);
       this.loading = false;
       this.registered = true;
     }, error => {
