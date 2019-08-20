@@ -8,6 +8,7 @@ import { CountriesModel } from 'src/app/modules/shared/countries-model';
 import { forkJoin } from 'rxjs';
 import { AuthorizeService } from '../../services/authorize.service';
 import { ToastrService } from 'ngx-toastr';
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
 
 @Component({
   selector: 'app-register',
@@ -26,6 +27,7 @@ export class RegisterComponent implements OnInit {
   universities: UniversititesModel[];
   countries: CountriesModel[];
   registered: boolean;
+  selectedCountryId: number;
   constructor(
     private fb: FormBuilder,
     private sharedService: SharedService,
@@ -103,6 +105,7 @@ export class RegisterComponent implements OnInit {
   registerUser() {
     this.loading = true;
     this.registerUserModel = Object.assign({}, this.registerUserModel, this.registerUserForm.value);
+    this.registerUserModel.countryId = this.selectedCountryId;
     this.authorizeService.registerUser(this.registerUserModel).subscribe(result => {
       console.log(result);
       this.loading = false;
@@ -113,6 +116,10 @@ export class RegisterComponent implements OnInit {
       });
       this.loading = false;
     });
+  }
+
+  onSelect(event: TypeaheadMatch): void {
+    this.selectedCountryId = event.item.id;
   }
 
 }

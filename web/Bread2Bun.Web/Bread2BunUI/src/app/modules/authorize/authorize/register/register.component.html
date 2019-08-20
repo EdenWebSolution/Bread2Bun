@@ -80,12 +80,17 @@
       </div>
       <div class="row">
         <div class="formgroup col-xs-12 col-sm-12 col-md-6">
-          <select class="b2b-input" formControlName="countryId">
-            <option value="" disabled selected>Country</option>
-            <option *ngFor="let country of countries" [value]="country.id">{{
-              country.name
-            }}</option>
-          </select>
+          <input
+            placeholder="Country"
+            class="b2b-input"
+            formControlName="countryId"
+            type="text"
+            [typeahead]="countries"
+            typeaheadOptionField="name"
+            [typeaheadScrollable]="true"
+            [typeaheadOptionsInScrollableView]="5"
+            (typeaheadOnSelect)="onSelect($event)"
+          />
           <span *ngIf="!initiated" class="form-spinner"></span>
           <span
             *ngIf="countryId.errors?.required && countryId.touched"
@@ -151,9 +156,9 @@
       </div>
       <button
         class="b2b-btn-fwd"
-        [disabled]="registerUserForm.invalid"
         (click)="registerUser()"
         [ngClass]="{ rotate: loading }"
+        [disabled]="registerUserForm.invalid"
       >
         {{ loading ? 'Registering' : 'Register' }}
       </button>
@@ -163,7 +168,13 @@
 <div class="confirm-tab" *ngIf="registered" @slideFromRight>
   <h3>Email Confirmation</h3>
   <div class="confirm-email">
-    <img src="../../../../../assets/images/email-confirmation.png" alt="Confirm email image">
+    <img
+      src="../../../../../assets/images/email-confirmation.png"
+      alt="Confirm email image"
+    />
   </div>
-  <p>A verification link has been sent to your email account to verify your email, Please Confirm and complete the registration process </p>
+  <p>
+    A verification link has been sent to your email account to verify your
+    email, Please Confirm and complete the registration process
+  </p>
 </div>
