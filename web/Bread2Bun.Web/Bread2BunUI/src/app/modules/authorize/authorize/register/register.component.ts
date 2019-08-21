@@ -8,6 +8,7 @@ import { CountriesModel } from 'src/app/modules/shared/countries-model';
 import { forkJoin } from 'rxjs';
 import { AuthorizeService } from '../../services/authorize.service';
 import { ToastrService } from 'ngx-toastr';
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
 
 @Component({
   selector: 'app-register',
@@ -25,6 +26,10 @@ export class RegisterComponent implements OnInit {
   initiated = false;
   universities: UniversititesModel[];
   countries: CountriesModel[];
+  registered: boolean;
+  selectedCountryId: number;
+  selectedUniversityId: number;
+  showContent = false;
   constructor(
     private fb: FormBuilder,
     private sharedService: SharedService,
@@ -34,6 +39,7 @@ export class RegisterComponent implements OnInit {
     this.registerUserModel = new RegisterUserModel();
     this.countries = new Array<CountriesModel>();
     this.universities = new Array<UniversititesModel>();
+    this.registered = false;
   }
 
   ngOnInit() {
@@ -101,15 +107,29 @@ export class RegisterComponent implements OnInit {
   registerUser() {
     this.loading = true;
     this.registerUserModel = Object.assign({}, this.registerUserModel, this.registerUserForm.value);
+    this.registerUserModel.countryId = this.selectedCountryId;
+    this.registerUserModel.universityId = this.selectedUniversityId;
     this.authorizeService.registerUser(this.registerUserModel).subscribe(result => {
-      console.log(result);
       this.loading = false;
+      this.registered = true;
     }, error => {
       this.toastr.error(error.message, 'Error', {
         progressBar: true
       });
       this.loading = false;
     });
+  }
+
+  onSelect(event: TypeaheadMatch): void {
+    this.selectedCountryId = event.item.id;
+  }
+
+  onUniversitySelect(event: TypeaheadMatch): void {
+    this.selectedUniversityId = event.item.id;
+  }
+
+  loadContent() {
+    this.showContent = true;
   }
 
 }

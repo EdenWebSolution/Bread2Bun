@@ -1,12 +1,11 @@
-<div class="container" @slideFromBottom>
-
+<div class="container">
   <div class="main-wrapper">
-    <div class="left-wrapper">
+    <div class="left-wrapper" @slideFromLeft>
       <div class="intro-content">
         <h1 class="heading">Let's share culture</h1>
         <p class="intro-text">
           Each an every food has it's own story, what is the story of yours?
-          Explore the unique foods around the globe through
+          Explore the unique foods around the world through
           Bread<span>2</span>Bun.
         </p>
       </div>
@@ -36,7 +35,7 @@
         </div>
       </div>
     </div>
-    <div class="right-wrapper">
+    <div class="right-wrapper" @slideFromRight>
       <div class="switcher">
         <div class="left">
           <Button (click)="showLogin()">Sign in</Button>

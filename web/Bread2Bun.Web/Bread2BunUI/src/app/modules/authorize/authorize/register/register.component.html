@@ -1,5 +1,5 @@
-<div class="tab" @slideFromRight>
-  <h3>Register Now</h3>
+<div class="tab" *ngIf="!registered" @slideFromRight>
+  <h3 class="toned-header"><span>Register</span>Now</h3>
   <div class="register-form">
     <form [formGroup]="registerUserForm">
       <div class="row">
@@ -80,30 +80,39 @@
       </div>
       <div class="row">
         <div class="formgroup col-xs-12 col-sm-12 col-md-6">
-          <select class="b2b-input" formControlName="countryId">
-            <option value="" disabled selected>Country</option>
-            <option *ngFor="let country of countries" [value]="country.id">{{
-              country.name
-            }}</option>
-          </select>
-          <span *ngIf="!initiated" class="form-spinner"></span>
-          <span
-            *ngIf="countryId.errors?.required && countryId.touched"
-            class="error"
-            >Required!</span
-          >
-
-        </div>
-        <div class="formgroup col-xs-12 col-sm-12 col-md-6">
-          <select class="b2b-input" formControlName="universityId">
-            <option value="" disabled selected>University</option>
-            <option *ngFor="let uni of universities" [value]="uni.id">{{
-              uni.name
-            }}</option>
-          </select>
+          <input
+            placeholder="University"
+            class="b2b-input"
+            formControlName="universityId"
+            type="text"
+            [typeahead]="universities"
+            typeaheadOptionField="name"
+            [typeaheadScrollable]="true"
+            [typeaheadOptionsInScrollableView]="5"
+            (typeaheadOnSelect)="onUniversitySelect($event)"
+          />
           <span *ngIf="!initiated" class="form-spinner"></span>
           <span
             *ngIf="universityId.errors?.required && universityId.touched"
+            class="error"
+            >Required!</span
+          >
+        </div>
+        <div class="formgroup col-xs-12 col-sm-12 col-md-6">
+          <input
+            placeholder="Country"
+            class="b2b-input"
+            formControlName="countryId"
+            type="text"
+            [typeahead]="countries"
+            typeaheadOptionField="name"
+            [typeaheadScrollable]="true"
+            [typeaheadOptionsInScrollableView]="5"
+            (typeaheadOnSelect)="onSelect($event)"
+          />
+          <span *ngIf="!initiated" class="form-spinner"></span>
+          <span
+            *ngIf="countryId.errors?.required && countryId.touched"
             class="error"
             >Required!</span
           >
@@ -152,11 +161,25 @@
       </div>
       <button
         class="b2b-btn-fwd"
-        [disabled]="registerUserForm.invalid"
         (click)="registerUser()"
+        [ngClass]="{ rotate: loading }"
+        [disabled]="registerUserForm.invalid"
       >
         {{ loading ? 'Registering' : 'Register' }}
       </button>
     </form>
   </div>
+</div>
+<div class="confirm-tab" *ngIf="registered" @slideFromRight>
+  <h3 class="toned-header"><span>Email</span>Confirmation</h3>
+  <div class="confirm-email">
+    <img
+      src="../../../../../assets/images/email-confirmation.png"
+      alt="Confirm email image"
+    />
+  </div>
+  <p>
+    A verification link has been sent to your email account to verify your
+    email, Please Confirm and complete the registration process
+  </p>
 </div>
