@@ -21,6 +21,11 @@ namespace Bread2Bun.Web.Controllers
                 case ExceptionType.UnauthorizedAccessException: return StatusCode(403, ex.Message);
                 case ExceptionType.AuthenticationException: return Unauthorized(ex.Message);
 
+                //*****  status code 404 range *********
+                case ExceptionType.NullReferenceException:
+                    return NotFound(ex.Message);
+                //*****  end status code 404 range *********
+
 
                 //*****  status code 500 range *********
                 case ExceptionType.SqlException:

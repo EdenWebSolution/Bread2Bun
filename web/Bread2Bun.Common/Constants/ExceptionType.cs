@@ -9,6 +9,7 @@ namespace Bread2Bun.Common.Constants
         public const string ArgumentException = "ArgumentException";
         public const string UnauthorizedAccessException = "UnauthorizedAccessException";
         public const string AuthenticationException = "AuthenticationException";
+        public const string NullReferenceException = "NullReferenceException";
 
         #region DatabaseException
 

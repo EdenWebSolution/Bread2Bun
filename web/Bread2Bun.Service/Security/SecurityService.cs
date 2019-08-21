@@ -148,6 +148,10 @@ namespace Bread2Bun.Service.Security
                 };
                 await EmailBuilder.SendEmailAsync(messageBuilder);
             }
+            else if (user == null)
+            {
+                throw new NullReferenceException("");
+            }
         }
 
         public async Task ResetPasswordAsync(ResetPasswordModel resetPasswordModel)
