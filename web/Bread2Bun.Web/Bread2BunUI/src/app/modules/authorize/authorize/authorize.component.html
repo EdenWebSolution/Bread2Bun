@@ -46,16 +46,17 @@
       </div>
       <div class="content">
         <app-register
-          *ngIf="register && !login && !forgotPassword"
+          *ngIf="register && !login && !forgotPassword && !showResetPassword"
         ></app-register>
         <app-login
           (forgotPassword)="showForgotPassword()"
-          *ngIf="!register && login && !forgotPassword"
+          *ngIf="!register && login && !forgotPassword && !showResetPassword"
         ></app-login>
         <app-forgot-password
           (showLogin)="showLogin()"
-          *ngIf="forgotPassword && !register && !login"
+          *ngIf="forgotPassword && !register && !login && !showResetPassword"
         ></app-forgot-password>
+        <app-reset-password *ngIf="showResetPassword && !forgotPassword && !register && !login"></app-reset-password>
       </div>
     </div>
   </div>

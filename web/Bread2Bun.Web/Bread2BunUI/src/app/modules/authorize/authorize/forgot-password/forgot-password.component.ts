@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { slideFromUp, slideFromLeft, slideFromRight } from 'src/app/animations';
 import { AuthorizeService } from '../../services/authorize.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-forgot-password',
@@ -13,11 +14,16 @@ export class ForgotPasswordComponent implements OnInit {
 
   resetPasswordForm: FormGroup;
   @Output() showLogin = new EventEmitter<boolean>();
+  loading: boolean;
+  showInstruction = false;
 
   constructor(
     private fb: FormBuilder,
-    private authorizeService: AuthorizeService
-  ) { }
+    private authorizeService: AuthorizeService,
+    private toastr: ToastrService
+  ) {
+    this.loading = false;
+  }
 
   ngOnInit() {
     this.resetPasswordForm = this.fb.group({
@@ -31,10 +37,15 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   resetPassword() {
+    this.loading = true;
     this.authorizeService.forgotPassword(this.resetPasswordForm.value).subscribe(result => {
-      console.log(result);
+      this.loading = false;
+      this.showInstruction = true;
     }, error => {
-      console.log(error);
+      this.toastr.error('Could not send email', 'Error', {
+        progressBar: true
+      });
+      this.loading = false;
     });
   }
 

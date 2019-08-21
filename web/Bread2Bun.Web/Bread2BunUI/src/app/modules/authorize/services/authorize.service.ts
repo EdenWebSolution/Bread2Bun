@@ -7,6 +7,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { RegisterUserModel } from '../models/register-user-model';
 import { LoginUserModel } from '../models/login-user-model';
+import { ResetPasswordModel } from '../models/reset-password-model';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +43,16 @@ export class AuthorizeService extends BaseService {
       .post<string>(
         `${this.baseEndPoint}/api/security/forgotpassword`,
         emailAddress,
+        this.httpOptions
+      )
+      .catch(this.server4xxError);
+  }
+
+  resetPassword(resetPasswordModel: ResetPasswordModel) {
+    return this.http
+      .post(
+        `${this.baseEndPoint}/api/security/resetpassword`,
+        resetPasswordModel,
         this.httpOptions
       )
       .catch(this.server4xxError);
