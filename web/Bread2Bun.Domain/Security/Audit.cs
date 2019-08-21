@@ -7,12 +7,11 @@ namespace Bread2Bun.Domain.Security
     public abstract class Audit
     {
         [NotMapped]
-        public StoreUserModel User { get; set; }
-        public long? CreatedById { get; protected set; }
-        public DateTimeOffset CreatedOn { get; protected set; } = DateTimeOffset.UtcNow;
-        public long? EditedId { get; protected set; }
-        public DateTimeOffset? EditedOn { get; protected set; }
-        public bool IsDeleted { get; protected set; }
+        public long? CreatedById { get; set; }
+        public DateTimeOffset CreatedOn { get; set; } = DateTimeOffset.UtcNow;
+        public long? EditedId { get; set; }
+        public DateTimeOffset? EditedOn { get; set; }
+        public bool IsDeleted { get; set; }
 
         protected void AuditCreate()
         {

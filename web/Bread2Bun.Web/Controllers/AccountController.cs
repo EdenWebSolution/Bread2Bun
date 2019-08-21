@@ -93,5 +93,19 @@ namespace Bread2Bun.Web.Controllers
                 return HandleExcpetion(ex);
             }
         }
+
+        [HttpPost("claims/add")]
+        public async Task<IActionResult> AddClaim()
+        {
+            try
+            {
+                securityService.AddNewClaim();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return HandleExcpetion(ex);
+            }
+        }
     }
 }

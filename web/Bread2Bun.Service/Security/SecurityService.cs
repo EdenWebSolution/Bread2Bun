@@ -166,9 +166,14 @@ namespace Bread2Bun.Service.Security
 
 
 
-        public async Task AddNewClaim()
+        public void AddNewClaim()
         {
-
+            var asas = new Claims()
+            {
+                Claim = "test"
+            };
+            bread2BunContext.Claim.Add(asas);
+            bread2BunContext.SaveChanges();
         }
     }
 }
