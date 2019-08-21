@@ -42,7 +42,8 @@ export class ForgotPasswordComponent implements OnInit {
       this.loading = false;
       this.showInstruction = true;
     }, error => {
-      this.toastr.error('Could not send email', 'Error', {
+      console.log(error);
+      this.toastr.error(error.message, 'Oops!!', {
         progressBar: true
       });
       this.loading = false;
