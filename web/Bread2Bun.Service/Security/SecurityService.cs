@@ -150,7 +150,7 @@ namespace Bread2Bun.Service.Security
             }
             else if (user == null)
             {
-                throw new NullReferenceException("");
+                throw new NullReferenceException("This email does not belong to any acccount");
             }
         }
 
