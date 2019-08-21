@@ -163,5 +163,12 @@ namespace Bread2Bun.Service.Security
                 }
             }
         }
+
+
+
+        public async Task AddNewClaim()
+        {
+
+        }
     }
 }
