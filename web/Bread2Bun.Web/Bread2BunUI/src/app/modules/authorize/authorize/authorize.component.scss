@@ -21,6 +21,9 @@
     overflow: hidden;
     background-color: lighten($main-color, 25%);
     background-image: url('../../../../assets/images/login-texture.png');
+    @media only screen and (max-width: 767px){
+      padding: 35px 20px;
+    }
   }
   .switcher {
     display: flex;
@@ -38,6 +41,7 @@
           height: 20px;
           background: #fff;
         }
+
       }
     }
     .right {
@@ -53,10 +57,14 @@
       outline: none;
       min-width: 150px;
       font-weight: 600;
+      @media only screen and (max-width: 400px){
+        min-width: 125px;
+      }
     }
+
   }
   @media only screen and (max-width: 991px) {
-    margin: 20px 0;
+    margin: 35px 0;
   }
 }
 

@@ -1,0 +1,12 @@
+@import '../../../../styles/colors';
+
+.forgot-password {
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+  float: right;
+  color: $main-color;
+  @media only screen and (max-width: 767px){
+    float: none;
+  }
+}
