@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { slideFromUp } from 'src/app/animations';
 import { MenuItem } from '../models/menu-item';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +15,9 @@ export class NavbarComponent implements OnInit {
   showDropdown: boolean;
   menuItem: MenuItem[];
 
-  constructor() {
+  constructor(
+    private t: ToastrService
+  ) {
     this.show = false;
     this.showDropdown = false;
     this.menuItem = new Array<MenuItem>();
