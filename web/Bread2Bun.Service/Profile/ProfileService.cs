@@ -31,8 +31,7 @@ namespace Bread2Bun.Service.Profile
         public async Task<BasicInfoModel> GetBasicInfo()
         {
             var user = await userManager.Users.Include(i => i.Country).Include(i => i.University).FirstOrDefaultAsync(f => f.Id == userResolverService.UserId);
-            var ma = mapper.Map<BasicInfoModel>(user);
-            return ma;
+            return mapper.Map<BasicInfoModel>(user);
         }
     }
 }
