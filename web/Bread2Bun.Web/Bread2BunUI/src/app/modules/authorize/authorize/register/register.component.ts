@@ -56,9 +56,7 @@ export class RegisterComponent implements OnInit {
         this.universities = result[1];
     }, error => {
       this.initiated = true;
-      this.toastr.error(error.message, 'Error', {
-        progressBar: true
-      });
+      this.toastr.error(error.message, 'Error');
     });
     this.registerUserForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.pattern(this.namePattern)]],
@@ -113,9 +111,7 @@ export class RegisterComponent implements OnInit {
       this.loading = false;
       this.registered = true;
     }, error => {
-      this.toastr.error(error.message, 'Error', {
-        progressBar: true
-      });
+      this.toastr.error(error.message, 'Error');
       this.loading = false;
     });
   }

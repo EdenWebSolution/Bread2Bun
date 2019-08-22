@@ -10,7 +10,11 @@ import { TypeaheadModule } from 'ngx-bootstrap';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot(
+      {
+        progressBar: true
+      }
+    ),
     TypeaheadModule.forRoot(),
   ],
   exports: [

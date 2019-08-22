@@ -31,8 +31,7 @@
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.scss",
-              "src/app/styles/main.scss",
-              "node_modules/ngx-toastr/toastr.css"
+              "src/app/styles/main.scss"
             ],
             "scripts": [],
             "es5BrowserSupport": true

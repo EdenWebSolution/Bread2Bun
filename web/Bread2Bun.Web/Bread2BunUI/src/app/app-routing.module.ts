@@ -8,7 +8,7 @@ import { MyTimelineComponent } from './modules/timeline/my-timeline/my-timeline.
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'app/timeline',
+    redirectTo: 'app/feed',
     pathMatch: 'full'
   },
   {
@@ -23,6 +23,11 @@ const routes: Routes = [
     path: 'app',
     component: LayoutComponent,
     children: [
+      {
+        path: '',
+        redirectTo: 'feed',
+        pathMatch: 'full'
+      },
       {
         path: 'feed',
         loadChildren: './modules/feed/feed.module#FeedModule',
