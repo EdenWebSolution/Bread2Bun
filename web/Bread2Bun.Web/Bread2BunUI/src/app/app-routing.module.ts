@@ -24,8 +24,8 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: 'timeline',
-        loadChildren: './modules/timeline/timeline.module#TimelineModule',
+        path: 'feed',
+        loadChildren: './modules/feed/feed.module#FeedModule',
         canActivate: [AuthGuard]
       },
       {
