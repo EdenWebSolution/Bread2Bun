@@ -1,4 +1,5 @@
 ﻿using Bread2Bun.Common;
+using Bread2Bun.Domain.Food;
 using Bread2Bun.Domain.Security;
 using Bread2Bun.Domain.Shared;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -29,6 +30,10 @@ namespace Bread2Bun.Data
         public DbSet<University> University { get; set; }
         #endregion
 
+        #region food
+        public DbSet<Food> Foods { get; set; }
+        public DbSet<Reviews> Reviews { get; set; }
+        #endregion
 
         #region Overides
         protected override void OnModelCreating(ModelBuilder builder)

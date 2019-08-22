@@ -4,51 +4,22 @@ using Bread2Bun.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bread2Bun.Data.Migrations
 {
     [DbContext(typeof(Bread2BunContext))]
-    partial class Bread2BunContextModelSnapshot : ModelSnapshot
+    [Migration("20190822181037_review table added")]
+    partial class reviewtableadded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Bread2Bun.Domain.Food.Food", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CountryId");
-
-                    b.Property<long?>("CreatedById");
-
-                    b.Property<DateTimeOffset>("CreatedOn");
-
-                    b.Property<string>("DefaultFoodImagepath");
-
-                    b.Property<string>("Description");
-
-                    b.Property<long?>("EditedId");
-
-                    b.Property<DateTimeOffset?>("EditedOn");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CountryId");
-
-                    b.ToTable("Foods");
-                });
 
             modelBuilder.Entity("Bread2Bun.Domain.Food.Reviews", b =>
                 {
@@ -332,14 +303,6 @@ namespace Bread2Bun.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("Bread2Bun.Domain.Food.Food", b =>
-                {
-                    b.HasOne("Bread2Bun.Domain.Shared.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Bread2Bun.Domain.Food.Reviews", b =>

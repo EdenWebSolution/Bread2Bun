@@ -6,21 +6,10 @@ namespace Bread2Bun.Domain.Security
 {
     public abstract class Audit
     {
-        
         public long? CreatedById { get; set; }
-        public DateTimeOffset CreatedOn { get; set; } = DateTimeOffset.UtcNow;
+        public DateTimeOffset CreatedOn { get; set; }
         public long? EditedId { get; set; }
         public DateTimeOffset? EditedOn { get; set; }
         public bool IsDeleted { get; set; }
-
-        protected void AuditCreate()
-        {
-
-        }
-
-        protected void AuditEdit()
-        {
-            EditedOn = DateTimeOffset.UtcNow;
-        }
     }
 }
