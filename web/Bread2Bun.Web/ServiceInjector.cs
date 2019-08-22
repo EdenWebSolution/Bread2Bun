@@ -1,4 +1,5 @@
 ﻿using Bread2Bun.Common;
+using Bread2Bun.Data;
 using Bread2Bun.Service.Country;
 using Bread2Bun.Service.Country.Interface;
 using Bread2Bun.Service.Security;
@@ -21,7 +22,7 @@ namespace Bread2Bun.Web
             services.AddScoped<ISecurityService, SecurityService>();
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<IUniversityService, UniversityService>();
-            services.AddTransient<UserResolverService>();
+            services.AddScoped<UserResolverService>();
         }
     }
 }

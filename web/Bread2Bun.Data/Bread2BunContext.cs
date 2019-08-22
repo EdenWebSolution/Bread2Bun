@@ -6,21 +6,19 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Bread2Bun.Data
 {
     public class Bread2BunContext : IdentityDbContext<StoreUser, StoreUserRole, long>
     {
-        private readonly UserResolverService userService;
+        private readonly UserResolverService userResolverService;
 
-        public Bread2BunContext(DbContextOptions<Bread2BunContext> options) : base(options)
+        public Bread2BunContext(DbContextOptions<Bread2BunContext> options, UserResolverService userResolverService) : base(options)
         {
+            this.userResolverService = userResolverService;
         }
-
-        //public Bread2BunContext(UserResolverService userService)
-        //{
-        //    this.userService = userService;
-        //}
 
         #region security
         public DbSet<Claims> Claim { get; set; }
@@ -39,10 +37,37 @@ namespace Bread2Bun.Data
             builder.SeedDB();
         }
 
-        public override int SaveChanges()
+        //public override int SaveChanges()
+        //{
+
+        //    long? userId = null;
+
+        //    var modifiedEntries = ChangeTracker.Entries<Audit>()
+        //            .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified);
+
+        //    foreach (EntityEntry<Audit> entry in modifiedEntries)
+        //    {
+        //        if (entry.State == EntityState.Added)
+        //        {
+        //            entry.Entity.CreatedById = userResolverService.GetUser();
+        //            entry.Entity.CreatedOn = DateTimeOffset.Now;
+        //        }
+
+        //        else if (entry.State == EntityState.Modified)
+        //        {
+        //            entry.Entity.EditedId = userId;
+        //            entry.Entity.EditedOn = DateTimeOffset.Now;
+        //        }
+        //    }
+
+        //    return base.SaveChanges();
+        //}
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
+
             long? userId = null;
-           
+
             var modifiedEntries = ChangeTracker.Entries<Audit>()
                     .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified);
 
@@ -50,7 +75,7 @@ namespace Bread2Bun.Data
             {
                 if (entry.State == EntityState.Added)
                 {
-                    entry.Entity.CreatedById = userId;
+                    entry.Entity.CreatedById = userResolverService.GetUser();
                     entry.Entity.CreatedOn = DateTimeOffset.Now;
                 }
 
@@ -60,11 +85,8 @@ namespace Bread2Bun.Data
                     entry.Entity.EditedOn = DateTimeOffset.Now;
                 }
             }
-
-            return base.SaveChanges();
+            return base.SaveChangesAsync(cancellationToken);
         }
-
-
         #endregion
     }
 }

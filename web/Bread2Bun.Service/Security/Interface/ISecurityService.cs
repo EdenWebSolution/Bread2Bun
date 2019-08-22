@@ -14,6 +14,6 @@ namespace Bread2Bun.Service.Security.Interface
         Task ForgotPasswordAsync(ForgotPassowrdModel forgotPassowrdModel);
         Task ResetPasswordAsync(ResetPasswordModel resetPasswordModel);
         Task ConfirmEmailAsync(ConfirmEmailModel confirmEmailModel);
-        void AddNewClaim();
+        Task AddNewClaim();
     }
 }

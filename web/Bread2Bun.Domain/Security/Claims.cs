@@ -6,7 +6,7 @@ namespace Bread2Bun.Domain.Security
 {
     public class Claims : Audit
     {
-        public int Id { get; set; }
-        public string Claim { get; set; }
+        public virtual int Id { get; set; }
+        public virtual string Claim { get; set; }
     }
 }

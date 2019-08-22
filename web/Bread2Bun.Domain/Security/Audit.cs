@@ -6,7 +6,7 @@ namespace Bread2Bun.Domain.Security
 {
     public abstract class Audit
     {
-        [NotMapped]
+        
         public long? CreatedById { get; set; }
         public DateTimeOffset CreatedOn { get; set; } = DateTimeOffset.UtcNow;
         public long? EditedId { get; set; }

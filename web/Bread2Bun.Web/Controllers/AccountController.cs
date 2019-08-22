@@ -99,7 +99,7 @@ namespace Bread2Bun.Web.Controllers
         {
             try
             {
-                securityService.AddNewClaim();
+                await securityService.AddNewClaim();
                 return Ok();
             }
             catch (Exception ex)

@@ -83,7 +83,7 @@ namespace Bread2Bun.Web
             //    options.SignIn.RequireConfirmedEmail = true;
             //});
 
-            services.AddDbContextPool<Bread2BunContext>(cfg =>
+            services.AddDbContext<Bread2BunContext>(cfg =>
             {
                 cfg.UseSqlServer(configuration.GetConnectionString("B2BContext"));
             });
