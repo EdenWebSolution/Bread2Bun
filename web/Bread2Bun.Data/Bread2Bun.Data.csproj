@@ -9,6 +9,12 @@
     <Compile Remove="Migrations\20190810063545_added virtual properties.Designer.cs" />
     <Compile Remove="Migrations\20190822022524_test.cs" />
     <Compile Remove="Migrations\20190822022524_test.Designer.cs" />
+    <Compile Remove="Migrations\20190822145932_added profile picture image path.cs" />
+    <Compile Remove="Migrations\20190822145932_added profile picture image path.Designer.cs" />
+    <Compile Remove="Migrations\20190822150846_added profile picture image path.cs" />
+    <Compile Remove="Migrations\20190822150846_added profile picture image path.Designer.cs" />
+    <Compile Remove="Migrations\20190822151852_added profile picture image path.cs" />
+    <Compile Remove="Migrations\20190822151852_added profile picture image path.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

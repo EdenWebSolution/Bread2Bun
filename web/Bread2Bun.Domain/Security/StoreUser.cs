@@ -17,8 +17,9 @@ namespace Bread2Bun.Domain.Security
         public virtual DateTimeOffset? EditedOn { get; protected set; }
         public virtual long? EditedById { get; protected set; }
         public virtual bool IsDeleted { get; protected set; }
-        public virtual Gender Gender { get; set; }
-        public virtual bool IsAdmin { get; set; }
+        public virtual Gender Gender { get; protected set; }
+        public virtual bool IsAdmin { get; protected set; }
+        public virtual string ProfilePictureImagePath { get; protected set; }
 
 
         #region Relationships
