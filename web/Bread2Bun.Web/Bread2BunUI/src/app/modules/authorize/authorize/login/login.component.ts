@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
         localStorage.removeItem('bread2bun-TokenId');
       }
       this.loading = false;
-      this.router.navigate(['/app/timeline']);
+      this.router.navigate(['/app/feed']);
     }, error => {
       this.loading = false;
       this.toastr.error(error.message, 'Login Error', {
