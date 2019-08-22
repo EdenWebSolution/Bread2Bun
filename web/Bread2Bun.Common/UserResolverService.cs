@@ -8,26 +8,27 @@ namespace Bread2Bun.Common
 {
     public class UserResolverService
     {
+        private IEnumerable<Claim> Claims { get; set; }
         private readonly IHttpContextAccessor _context;
         public UserResolverService(IHttpContextAccessor context)
         {
+            Claims = new List<Claim>();
             _context = context;
+            Claims = SetClaims();
         }
 
-        public ClaimsPrincipal User
+
+        private IEnumerable<Claim> SetClaims()
+        {
+            return _context.HttpContext.User.Claims;
+        }
+
+        public long UserId
         {
             get
             {
-                return _context.HttpContext?.User;
+                return 1;
             }
         }
-
-        public long GetUser()
-        {
-            var identity = _context.HttpContext.User.Identity as ClaimsIdentity;
-            return 2;//_context.HttpContext.User?.Identity?.Name;
-        }
-
-       
     }
 }

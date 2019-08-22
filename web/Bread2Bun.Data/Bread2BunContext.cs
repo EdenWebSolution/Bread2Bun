@@ -37,32 +37,6 @@ namespace Bread2Bun.Data
             builder.SeedDB();
         }
 
-        //public override int SaveChanges()
-        //{
-
-        //    long? userId = null;
-
-        //    var modifiedEntries = ChangeTracker.Entries<Audit>()
-        //            .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified);
-
-        //    foreach (EntityEntry<Audit> entry in modifiedEntries)
-        //    {
-        //        if (entry.State == EntityState.Added)
-        //        {
-        //            entry.Entity.CreatedById = userResolverService.GetUser();
-        //            entry.Entity.CreatedOn = DateTimeOffset.Now;
-        //        }
-
-        //        else if (entry.State == EntityState.Modified)
-        //        {
-        //            entry.Entity.EditedId = userId;
-        //            entry.Entity.EditedOn = DateTimeOffset.Now;
-        //        }
-        //    }
-
-        //    return base.SaveChanges();
-        //}
-
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
 
@@ -75,7 +49,7 @@ namespace Bread2Bun.Data
             {
                 if (entry.State == EntityState.Added)
                 {
-                    entry.Entity.CreatedById = userResolverService.GetUser();
+                    entry.Entity.CreatedById = userResolverService.UserId;
                     entry.Entity.CreatedOn = DateTimeOffset.Now;
                 }
 

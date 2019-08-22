@@ -109,7 +109,7 @@ namespace Bread2Bun.Service.Security
                         new Claim(JwtRegisteredClaimNames.Sub,user.Id.ToString()),
                         new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
                         new Claim(JwtRegisteredClaimNames.UniqueName,user.UserName),
-                        new Claim(CustomClaims.IsAdmin,user.IsAdmin.ToString()),
+                        new Claim(ClaimTypes.Role,user.IsAdmin.ToString()),
                         new Claim(CustomClaims.RememberMe,loginModel.RememberMe.ToString()),
                     };
 
