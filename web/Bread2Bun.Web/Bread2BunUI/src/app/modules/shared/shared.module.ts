@@ -12,8 +12,7 @@ import { TypeaheadModule } from 'ngx-bootstrap';
     ReactiveFormsModule,
     ToastrModule.forRoot(
       {
-        progressBar: true,
-        closeButton: true
+        progressBar: true
       }
     ),
     TypeaheadModule.forRoot(),
