@@ -41,7 +41,6 @@ export abstract class BaseService {
       };
     } else if (
       error.status === 401 ||
-      error.status === 404 ||
       error.status === 408
     ) {
       localStorage.removeItem('bread2bun-TokenId');
