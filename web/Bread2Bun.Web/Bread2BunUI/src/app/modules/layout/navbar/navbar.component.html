@@ -9,41 +9,26 @@
       aria-controls="navbarSupportedContent"
       aria-expanded="false"
       aria-label="Toggle navigation"
-      (click)="show=!show"
+      (click)="show = !show"
     >
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" [ngClass]="{show: show}" id="navbarSupportedContent">
+    <div
+      class="collapse navbar-collapse"
+      [ngClass]="{ show: show }"
+      id="navbarSupportedContent"
+    >
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#"
-            >Home <span class="sr-only">(current)</span></a
-          >
+        <li
+          class="nav-item"
+          routerLinkActive="active"
+          *ngFor="let item of menuItem"
+        >
+          <a class="nav-link" [routerLink]="[item.path]">{{ item.title }}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item dropdown" [ngClass]="{show: showDropdown}" (click)="showDropdown=!showDropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            id="navbarDropdown"
-            role="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Dropdown
-          </a>
-          <div class="dropdown-menu" [ngClass]="{show: showDropdown}" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
+          <div class="nav-link" (click)="logout()">Logout</div>
         </li>
       </ul>
     </div>

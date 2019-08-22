@@ -61,9 +61,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/app/feed']);
     }, error => {
       this.loading = false;
-      this.toastr.error(error.message, 'Login Error', {
-        progressBar: true
-      });
+      this.toastr.error(error.message, 'Login Error');
     });
   }
 

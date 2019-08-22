@@ -57,15 +57,11 @@ export class ResetPasswordComponent implements OnInit {
     this.resetPasswordModel.newPassword = this.resetPasswordForm.value.password;
     this.authorizeService.resetPassword(this.resetPasswordModel).subscribe(result => {
       this.loading = false;
-      this.toastr.success('Password reset successful', 'Success', {
-        progressBar: true
-      });
+      this.toastr.success('Password reset successful', 'Success');
       this.router.navigate(['/authorize']);
     }, error => {
       this.loading = false;
-      this.toastr.error('Could not reset password', 'Error', {
-        progressBar: true
-      });
+      this.toastr.error('Could not reset password', 'Error');
     });
   }
 
