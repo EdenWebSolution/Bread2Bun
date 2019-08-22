@@ -39,7 +39,6 @@ namespace Bread2Bun.Data
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-
             long? userId = null;
 
             var modifiedEntries = ChangeTracker.Entries<Audit>()

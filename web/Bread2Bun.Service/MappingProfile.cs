@@ -1,11 +1,10 @@
-﻿using AutoMapper;
-using Bread2Bun.Common.Model;
+﻿using Bread2Bun.Common.Model;
 using Bread2Bun.Domain.Security;
 using Bread2Bun.Service.Security.Models;
 
 namespace Bread2Bun.Service
 {
-    public class MappingProfile : Profile
+    public class MappingProfile : AutoMapper.Profile
     {
         public MappingProfile()
         {

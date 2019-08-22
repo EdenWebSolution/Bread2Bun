@@ -5,6 +5,7 @@ using Bread2Bun.Service.University.Interface;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,7 +23,7 @@ namespace Bread2Bun.Service.University
         }
         public async Task<IEnumerable<UniversityModel>> GetUniversities()
         {
-            var entity = await bread2BunContext.University.ToListAsync();
+            var entity = await bread2BunContext.University.OrderBy(o => o.Name).AsNoTracking().ToListAsync();
             var universities = mapper.Map<IEnumerable<UniversityModel>>(entity);
             return universities;
         }

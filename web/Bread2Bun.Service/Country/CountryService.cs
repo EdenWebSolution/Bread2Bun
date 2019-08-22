@@ -5,6 +5,7 @@ using Bread2Bun.Service.Country.Interface;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,7 +23,7 @@ namespace Bread2Bun.Service.Country
         }
         public async Task<IEnumerable<CountryModel>> GetCountries()
         {
-            var entity = await bread2BunContext.Country.ToListAsync();
+            var entity = await bread2BunContext.Country.OrderBy(o => o.Name).AsNoTracking().ToListAsync();
             var countries = mapper.Map<IEnumerable<CountryModel>>(entity);
             return countries;
         }
