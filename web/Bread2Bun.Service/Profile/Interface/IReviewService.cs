@@ -11,6 +11,6 @@ namespace Bread2Bun.Service.Profile.Interface
         Task<ReviewModel> AddReviewAsync(ReviewCreateModel reviewCreateModel);
         Task<ReviewModel> GetReviewByIdAsync(long reviewId);
         Task<ReviewModel> UpdateReviewAsync(ReviewUpdateModel reviewUpdateModel);
-
+        Task<ReviewModel> DeleteReviewAsync(long id);
     }
 }

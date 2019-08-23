@@ -65,5 +65,20 @@ namespace Bread2Bun.Web.Controllers
                 return HandleExcpetion(ex);
             }
         }
+
+        [HttpDelete("review/{id:long}")]
+        public async Task<IActionResult> DeleteReview(long id)
+        {
+            try
+            {
+                var result = await reviewService.DeleteReviewAsync(id);
+                return Ok(result);
+            }
+
+            catch (Exception ex)
+            {
+                return HandleExcpetion(ex);
+            }
+        }
     }
 }

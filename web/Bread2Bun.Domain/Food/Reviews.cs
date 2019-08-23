@@ -8,16 +8,22 @@ namespace Bread2Bun.Domain.Food
 {
     public class Reviews : Audit
     {
-        public long Id { get; set; }
-        public long RevieweeId { get; set; }
+        public long Id { get; protected set; }
+        public long RevieweeId { get; protected set; }
         [ForeignKey(nameof(RevieweeId))]
-        public StoreUser Reviewee { get; set; }
-        public string Review { get; set; }
-        public int Rating { get; set; }
+        public StoreUser Reviewee { get; protected set; }
+        public string Review { get; protected set; }
+        public int Rating { get; protected set; }
 
         public Reviews Update(string review)
         {
             Review = review;
+            return this;
+        }
+
+        public Reviews Delete()
+        {
+            IsDeleted = true;
             return this;
         }
     }

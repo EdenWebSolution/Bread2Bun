@@ -32,9 +32,19 @@ namespace Bread2Bun.Service.Profile
             return mapper.Map<ReviewModel>(entity);
         }
 
-        public Task<ReviewModel> GetReviewByIdAsync(long reviewId)
+        public async Task<ReviewModel> DeleteReviewAsync(long id)
         {
-            throw new NotImplementedException();
+            var entity = await bread2BunContext.Reviews.FirstOrDefaultAsync(f => f.Id == id);
+            entity.Delete();
+            bread2BunContext.Entry(entity).State = EntityState.Modified;
+            await bread2BunContext.SaveChangesAsync();
+            return mapper.Map<ReviewModel>(entity);
+        }
+
+        public async Task<ReviewModel> GetReviewByIdAsync(long reviewId)
+        {
+            var entity = await bread2BunContext.Reviews.FirstOrDefaultAsync(f => f.Id == reviewId);
+            return mapper.Map<ReviewModel>(entity);
         }
 
         public async Task<ReviewModel> UpdateReviewAsync(ReviewUpdateModel reviewUpdateModel)
