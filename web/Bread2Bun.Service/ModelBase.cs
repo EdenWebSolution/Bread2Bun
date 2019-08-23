@@ -4,8 +4,9 @@ using System.Text;
 
 namespace Bread2Bun.Service
 {
-    public abstract class ModelBase
+    public abstract class ModelBase<TKey> 
     {
+        public TKey Id { get; set; }
         public long? CreatedById { get; set; }
         public DateTimeOffset CreatedOn { get; set; }
         public long? EditedId { get; set; }

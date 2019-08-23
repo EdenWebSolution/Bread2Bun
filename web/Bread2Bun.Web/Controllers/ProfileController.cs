@@ -24,16 +24,46 @@ namespace Bread2Bun.Web.Controllers
         [HttpGet("basic")]
         public async Task<IActionResult> GetBasicProfile()
         {
-            var result = await profileService.GetBasicInfo();
-            return Ok(result);
+            try
+            {
+                var result = await profileService.GetBasicInfo();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return HandleExcpetion(ex);
+            }
         }
 
 
         [HttpPost("review")]
         public async Task<IActionResult> CreateNewReview([FromBody]ReviewCreateModel reviewCreateModel)
         {
-            var result = await reviewService.AddReviewAsync(reviewCreateModel);
-            return Ok(result);
+            try
+            {
+                var result = await reviewService.AddReviewAsync(reviewCreateModel);
+                return Created(string.Empty, result);
+            }
+
+            catch (Exception ex)
+            {
+                return HandleExcpetion(ex);
+            }
+        }
+
+        [HttpPut("review")]
+        public async Task<IActionResult> UpdateReview([FromBody]ReviewUpdateModel reviewUpdateModel)
+        {
+            try
+            {
+                var result = await reviewService.UpdateReviewAsync(reviewUpdateModel);
+                return Ok(result);
+            }
+
+            catch (Exception ex)
+            {
+                return HandleExcpetion(ex);
+            }
         }
     }
 }

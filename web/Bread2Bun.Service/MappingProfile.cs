@@ -12,12 +12,13 @@ namespace Bread2Bun.Service
         public MappingProfile()
         {
             CreateMap<CreateStoreUserModel, StoreUser>().ReverseMap();
-            CreateMap<StoreUser, StoreUserModel>();
+            CreateMap<StoreUser, StoreUserModel>().ReverseMap();
             CreateMap<CountryModel, Bread2Bun.Domain.Shared.Country>().ReverseMap();
             CreateMap<UniversityModel, Bread2Bun.Domain.Shared.University>().ReverseMap();
             CreateMap<StoreUser, BasicInfoModel>();
             CreateMap<ReviewCreateModel, Reviews>();
             CreateMap<Reviews, ReviewModel>();
+            CreateMap<ReviewUpdateModel, Reviews>();
         }
     }
 }

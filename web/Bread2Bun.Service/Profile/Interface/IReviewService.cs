@@ -9,5 +9,8 @@ namespace Bread2Bun.Service.Profile.Interface
     public interface IReviewService
     {
         Task<ReviewModel> AddReviewAsync(ReviewCreateModel reviewCreateModel);
+        Task<ReviewModel> GetReviewByIdAsync(long reviewId);
+        Task<ReviewModel> UpdateReviewAsync(ReviewUpdateModel reviewUpdateModel);
+
     }
 }

@@ -44,7 +44,7 @@ namespace Bread2Bun.Data
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            long? userId = null;
+            long? userId = userResolverService.UserId;
 
             var modifiedEntries = ChangeTracker.Entries<Audit>()
                     .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified);
@@ -53,7 +53,7 @@ namespace Bread2Bun.Data
             {
                 if (entry.State == EntityState.Added)
                 {
-                    entry.Entity.CreatedById = userResolverService.UserId;
+                    entry.Entity.CreatedById = userId;
                     entry.Entity.CreatedOn = DateTimeOffset.Now;
                 }
 

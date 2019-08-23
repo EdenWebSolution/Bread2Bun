@@ -14,5 +14,11 @@ namespace Bread2Bun.Domain.Food
         public StoreUser Reviewee { get; set; }
         public string Review { get; set; }
         public int Rating { get; set; }
+
+        public Reviews Update(string review)
+        {
+            Review = review;
+            return this;
+        }
     }
 }
