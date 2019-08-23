@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { BaseService } from '../core/services/base.service';
+import { Injectable, Injector } from '@angular/core';
+import { BaseService } from '../../core/services/base.service';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import { CountriesModel } from './countries-model';
-import { UniversititesModel } from './universitites-model';
+import { CountriesModel } from '../models/countries-model';
+import { UniversititesModel } from '../models/universitites-model';
 
 @Injectable({
   providedIn: 'root'

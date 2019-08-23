@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { slideFromUp } from 'src/app/animations';
+import { UserResolverService } from '../../shared/services/user-resolver.service';
 
 @Component({
   selector: 'app-layout',
@@ -7,10 +8,7 @@ import { slideFromUp } from 'src/app/animations';
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
