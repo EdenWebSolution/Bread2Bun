@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Bread2Bun.Service
 {
-    public abstract class ModelBase<TKey> 
+    public abstract class ModelBase<TKey> where TKey : struct
     {
         public TKey Id { get; set; }
         public long? CreatedById { get; set; }
