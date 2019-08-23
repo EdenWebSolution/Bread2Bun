@@ -4,14 +4,16 @@ using Bread2Bun.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bread2Bun.Data.Migrations
 {
     [DbContext(typeof(Bread2BunContext))]
-    partial class Bread2BunContextModelSnapshot : ModelSnapshot
+    [Migration("20190823151934_review_edited_decimal-changed-to-int-for-rating-column")]
+    partial class review_edited_decimalchangedtointforratingcolumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

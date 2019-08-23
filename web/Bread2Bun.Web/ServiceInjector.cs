@@ -26,6 +26,7 @@ namespace Bread2Bun.Web
             services.AddScoped<IUniversityService, UniversityService>();
             services.AddScoped<UserResolverService>();
             services.AddScoped<IProfileService, ProfileService>();
+            services.AddScoped<IReviewService, ReviewService>();
         }
     }
 }
