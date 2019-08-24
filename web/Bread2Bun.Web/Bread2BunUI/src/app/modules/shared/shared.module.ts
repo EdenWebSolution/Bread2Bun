@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
-import { TypeaheadModule } from 'ngx-bootstrap';
+import { TypeaheadModule, RatingModule } from 'ngx-bootstrap';
 
 @NgModule({
   declarations: [],
@@ -16,12 +16,14 @@ import { TypeaheadModule } from 'ngx-bootstrap';
       }
     ),
     TypeaheadModule.forRoot(),
+    RatingModule
   ],
   exports: [
     ReactiveFormsModule,
     FormsModule,
     ToastrModule,
-    TypeaheadModule
+    TypeaheadModule,
+    RatingModule
   ]
 })
 export class SharedModule { }

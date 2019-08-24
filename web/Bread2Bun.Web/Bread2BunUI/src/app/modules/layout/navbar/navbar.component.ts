@@ -14,6 +14,9 @@ export class NavbarComponent implements OnInit {
   show: boolean;
   showDropdown: boolean;
   menuItem: MenuItem[];
+  rate = 5;
+  max = 5;
+  isReadonly: boolean = false;
 
   constructor(
     private t: ToastrService
@@ -24,6 +27,10 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadMenu()
+  }
+
+  loadMenu(){
     this.menuItem = [
       {
         path: '/app/feed',
@@ -56,6 +63,10 @@ export class NavbarComponent implements OnInit {
     // implementation
     // localStorage.removeItem('bread2bun-TokenId');
     // sessionStorage.removeItem('bread2bun-TokenId');
+  }
+
+  getRating(){
+    console.log('rayting', this.rate);
   }
 
 }
