@@ -38,7 +38,7 @@ namespace Bread2Bun.Data
         #region Overides
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Reviews>().HasQueryFilter(c => !c.IsDeleted);
+            ApplyFilters(builder);
             base.OnModelCreating(builder);
             builder.SeedDB();
         }
@@ -66,6 +66,13 @@ namespace Bread2Bun.Data
             }
             return base.SaveChangesAsync(cancellationToken);
         }
+        #endregion
+        public void ApplyFilters(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Reviews>().HasQueryFilter(c => !c.IsDeleted);
+        }
+        #region filters
+
         #endregion
     }
 }
