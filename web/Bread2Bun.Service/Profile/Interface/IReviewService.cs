@@ -1,4 +1,5 @@
-﻿using Bread2Bun.Service.Profile.Models.Review;
+﻿using Bread2Bun.Common;
+using Bread2Bun.Service.Profile.Models.Review;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,8 +10,9 @@ namespace Bread2Bun.Service.Profile.Interface
     public interface IReviewService
     {
         Task<ReviewModel> AddReviewAsync(ReviewCreateModel reviewCreateModel);
-        Task<ReviewModel> GetReviewByIdAsync(long reviewId);
         Task<ReviewModel> UpdateReviewAsync(ReviewUpdateModel reviewUpdateModel);
         Task<ReviewModel> DeleteReviewAsync(long id);
+        Task<PaginationModel<ReviewModel>> GetAll(PaginationBase paginationBase);
+        Task<ReviewModel> GetById(long id);
     }
 }

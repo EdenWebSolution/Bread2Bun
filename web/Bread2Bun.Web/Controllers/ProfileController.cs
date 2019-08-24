@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bread2Bun.Common;
 using Bread2Bun.Service.Profile.Interface;
 using Bread2Bun.Service.Profile.Models.Review;
 using Microsoft.AspNetCore.Authorization;
@@ -72,6 +73,36 @@ namespace Bread2Bun.Web.Controllers
             try
             {
                 var result = await reviewService.DeleteReviewAsync(id);
+                return Ok(result);
+            }
+
+            catch (Exception ex)
+            {
+                return HandleExcpetion(ex);
+            }
+        }
+
+        [HttpGet("review")]
+        public async Task<IActionResult> GetAll([FromQuery]PaginationBase paginationBase)
+        {
+            try
+            {
+                var result = await reviewService.GetAll(paginationBase);
+                return Ok(result);
+            }
+
+            catch (Exception ex)
+            {
+                return HandleExcpetion(ex);
+            }
+        }
+
+        [HttpGet("review/{id:long}")]
+        public async Task<IActionResult> GetById(long id)
+        {
+            try
+            {
+                var result = await reviewService.GetById(id);
                 return Ok(result);
             }
 
