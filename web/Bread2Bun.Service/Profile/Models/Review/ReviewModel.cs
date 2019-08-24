@@ -11,6 +11,5 @@ namespace Bread2Bun.Service.Profile.Models.Review
         public long RevieweeId { get; set; }
         public string Review { get; set; }
         public int Rating { get; set; }
-        public StoreUserModel Reviewee { get; set; }
     }
 }
