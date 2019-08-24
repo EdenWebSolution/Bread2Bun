@@ -5,6 +5,7 @@ import { ProfileBasicModel } from '../models/profile-basic-model';
 import { CreateReviewModel } from '../models/create-review-model';
 import { ReviewModel } from '../models/review-model';
 import { UpdateReviewModel } from '../models/update-review-model';
+import { PaginationModel } from '../../shared/models/pagination-model';
 
 @Injectable({
   providedIn: 'root'
@@ -54,7 +55,7 @@ export class ProfileService extends BaseService {
 
   getAllReview() {
     return this.http
-      .get<ReviewModel[]>(
+      .get<PaginationModel<ReviewModel>>(
         // to be changed to exact API
         `${this.baseEndPoint}/api/profile/review`,
         this.httpOptions
