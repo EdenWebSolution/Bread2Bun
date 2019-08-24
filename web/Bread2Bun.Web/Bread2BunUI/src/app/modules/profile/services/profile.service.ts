@@ -6,7 +6,6 @@ import { CreateReviewModel } from '../models/create-review-model';
 import { ReviewModel } from '../models/review-model';
 import { UpdateReviewModel } from '../models/update-review-model';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -53,4 +52,13 @@ export class ProfileService extends BaseService {
       .catch(this.server4xxError);
   }
 
+  getAllReview() {
+    return this.http
+      .get<ReviewModel[]>(
+        // to be changed to exact API
+        `${this.baseEndPoint}/api/profile/review`,
+        this.httpOptions
+      )
+      .catch(this.server4xxError);
+  }
 }
