@@ -3,4 +3,9 @@ export class ReviewModel {
   revieweeId: string;
   rating: number;
   review: string;
+  createdOn: Date;
+  editedOn: Date;
+  constructor() {
+
+  }
 }

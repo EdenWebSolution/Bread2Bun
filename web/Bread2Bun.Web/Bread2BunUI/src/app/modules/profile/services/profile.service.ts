@@ -6,6 +6,8 @@ import { CreateReviewModel } from '../models/create-review-model';
 import { ReviewModel } from '../models/review-model';
 import { UpdateReviewModel } from '../models/update-review-model';
 import { PaginationModel } from '../../shared/models/pagination-model';
+import { PaginationBase } from '../../shared/models/pagination-base';
+import { UserProfileModel } from '../models/user-profile-model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +16,8 @@ export class ProfileService extends BaseService {
   constructor(private http: HttpClient) {
     super();
   }
+
+  // profile app services
 
   getProfileBasics() {
     return this.http
@@ -24,10 +28,42 @@ export class ProfileService extends BaseService {
       .catch(this.server4xxError);
   }
 
+  getProfileBasicsById(id: number) {
+    return this.http
+      .get<ProfileBasicModel>(
+        `${this.baseEndPoint}/api/profile/basic/${id}`,
+        this.httpOptions
+      )
+      .catch(this.server4xxError);
+  }
+
+  setUserProfile(userProfileModel: UserProfileModel) {
+    return this.http
+      .post<UserProfileModel>(
+        `${this.baseEndPoint}/api/profile/userprofile`,
+        userProfileModel,
+        this.httpOptions
+      )
+      .catch(this.server4xxError);
+  }
+
+  updateUserProfile(userProfileModel: UserProfileModel) {
+    return this.http
+      .put<UserProfileModel>(
+        `${this.baseEndPoint}/api/profile/userprofile`,
+        userProfileModel,
+        this.httpOptions
+      )
+      .catch(this.server4xxError);
+  }
+
+
+  // review app services
+
   postReview(createReviewModel: CreateReviewModel) {
     return this.http
       .post<ReviewModel>(
-        `${this.baseEndPoint}/api/profile/review`,
+        `${this.baseEndPoint}/api/review`,
         createReviewModel,
         this.httpOptions
       )
@@ -37,7 +73,7 @@ export class ProfileService extends BaseService {
   updateReview(updateReviewModel: UpdateReviewModel) {
     return this.http
       .put<ReviewModel>(
-        `${this.baseEndPoint}/api/profile/review`,
+        `${this.baseEndPoint}/api/review`,
         updateReviewModel,
         this.httpOptions
       )
@@ -47,17 +83,18 @@ export class ProfileService extends BaseService {
   deleteReview(id: number) {
     return this.http
       .delete<ReviewModel>(
-        `${this.baseEndPoint}/api/profile/review/${id}`,
+        `${this.baseEndPoint}/api/review/${id}`,
         this.httpOptions
       )
       .catch(this.server4xxError);
   }
 
-  getAllReview() {
+  getAllReview(pagination: PaginationBase) {
     return this.http
       .get<PaginationModel<ReviewModel>>(
-        // to be changed to exact API
-        `${this.baseEndPoint}/api/profile/review`,
+        `${this.baseEndPoint}/api/review?skip=${pagination.skip}&take=${
+          pagination.take
+        }&searchQuery=${pagination.searchQuery}`,
         this.httpOptions
       )
       .catch(this.server4xxError);
