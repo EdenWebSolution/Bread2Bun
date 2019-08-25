@@ -33,19 +33,18 @@ namespace Bread2Bun.Service.Profile
             return mapper.Map<BasicInfoModel>(user);
         }
 
-        public async Task<UserProfileModel> CreateUserProfile(UserProfileCreateModel userProfileCreateModel)
+        public async Task CreateUserProfile(long userId)
         {
-            var entity = mapper.Map<UserProfile>(userProfileCreateModel).SetUserId(userResolverService.UserId);
+            var entity = new UserProfile().SetUserId(userId);
 
             await context.UserProfile.AddAsync(entity);
             await context.SaveChangesAsync();
-            return mapper.Map<UserProfileModel>(entity);
         }
 
         public async Task<UserProfileModel> UpdateUserProfile(UserProfileUpdateModel model)
         {
             var entity = await context.UserProfile.FirstOrDefaultAsync(f => f.Id == userResolverService.UserId);
-            entity.Update(model.AboutMe,model.Facebook,model.Instagram,model.Twitter);
+            entity.Update(model.AboutMe, model.Facebook, model.Instagram, model.Twitter);
             await context.SaveChangesAsync();
             return mapper.Map<UserProfileModel>(entity);
         }

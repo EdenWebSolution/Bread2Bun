@@ -52,22 +52,6 @@ namespace Bread2Bun.Web.Controllers
             }
         }
 
-
-        [HttpPost("userprofile")]
-        [ProducesResponseType(typeof(UserProfileModel), 201)]
-        public async Task<IActionResult> CreateUserProfile([FromBody] UserProfileCreateModel userProfileCreateModel)
-        {
-            try
-            {
-                var result = await profileService.CreateUserProfile(userProfileCreateModel);
-                return Created(string.Empty, result);
-            }
-            catch (Exception ex)
-            {
-                return HandleExcpetion(ex);
-            }
-        }
-
         [HttpPut("userprofile")]
         [ProducesResponseType(typeof(UserProfileModel), 200)]
         public async Task<IActionResult> UpdateUserProfile([FromBody] UserProfileUpdateModel userProfileUpdateModel)

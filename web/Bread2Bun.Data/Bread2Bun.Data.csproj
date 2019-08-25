@@ -17,6 +17,8 @@
     <Compile Remove="Migrations\20190822151852_added profile picture image path.Designer.cs" />
     <Compile Remove="Migrations\20190822180752_review table added.cs" />
     <Compile Remove="Migrations\20190822180752_review table added.Designer.cs" />
+    <Compile Remove="Migrations\20190825154358_test.cs" />
+    <Compile Remove="Migrations\20190825154358_test.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

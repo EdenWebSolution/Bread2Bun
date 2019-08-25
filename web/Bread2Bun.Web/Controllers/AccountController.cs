@@ -1,5 +1,6 @@
 ﻿using Bread2Bun.Common;
 using Bread2Bun.Common.Model;
+using Bread2Bun.Service.Profile.Interface;
 using Bread2Bun.Service.Security.Interface;
 using Bread2Bun.Service.Security.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -13,10 +14,12 @@ namespace Bread2Bun.Web.Controllers
     public class AccountController : BaseAPIController
     {
         private readonly ISecurityService securityService;
+        private readonly IProfileService profileService;
 
-        public AccountController(ISecurityService securityService)
+        public AccountController(ISecurityService securityService, IProfileService profileService)
         {
             this.securityService = securityService;
+            this.profileService = profileService;
         }
 
         [HttpPost("user/new")]
@@ -27,6 +30,7 @@ namespace Bread2Bun.Web.Controllers
             try
             {
                 var result = await securityService.CreateUserAsync(createStoreUserModel);
+                await profileService.CreateUserProfile(result.Id);
                 return Created("", result);
             }
             catch (Exception ex)

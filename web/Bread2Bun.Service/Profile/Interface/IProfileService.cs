@@ -10,7 +10,7 @@ namespace Bread2Bun.Service.Profile.Interface
     public interface IProfileService
     {
         Task<BasicInfoModel> GetBasicInfo(long userId = 0);
-        Task<UserProfileModel> CreateUserProfile(UserProfileCreateModel userProfileCreateModel);
+        Task CreateUserProfile(long userId);
         Task<UserProfileModel> UpdateUserProfile(UserProfileUpdateModel userProfileUpdateModel);
     }
 }

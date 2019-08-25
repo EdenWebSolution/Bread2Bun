@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Bread2Bun.Domain.UserProfile
 {
-    public class UserProfile : Audit
+    public class UserProfile
     {
         public long Id { get; protected set; }
         [ForeignKey(nameof(Id))]
