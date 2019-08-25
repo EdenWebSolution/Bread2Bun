@@ -42,9 +42,9 @@ namespace Bread2Bun.Service.Profile
             return mapper.Map<ReviewModel>(entity);
         }
 
-        public async Task<PaginationModel<ReviewModel>> GetAll(PaginationBase paginationBase)
+        public async Task<PaginationModel<ReviewModel>> GetAll(PaginationBase paginationBase, long userId = 0)
         {
-            var query = context.Reviews.AsQueryable();
+            var query = context.Reviews.Include(i => i.Reviewer).Where(w => w.RevieweeId == (userId != 0 ? userId : userResolverService.UserId));
 
             var totalNumberOfRecord = await query.CountAsync();
 
@@ -64,7 +64,7 @@ namespace Bread2Bun.Service.Profile
 
         public async Task<ReviewModel> GetById(long id)
         {
-            var entity = await context.Reviews.FirstOrDefaultAsync(f =>  f.Id == id);
+            var entity = await context.Reviews.FirstOrDefaultAsync(f => f.Id == id);
             var model = mapper.Map<ReviewModel>(entity);
             return model;
         }
@@ -72,7 +72,7 @@ namespace Bread2Bun.Service.Profile
         public async Task<ReviewModel> UpdateReviewAsync(ReviewUpdateModel reviewUpdateModel)
         {
             var entity = await context.Reviews.FirstOrDefaultAsync(f => f.Id == reviewUpdateModel.Id);
-            entity.Update(reviewUpdateModel.Review);
+            entity.Update(reviewUpdateModel.Review, reviewUpdateModel.Rating);
             context.Entry(entity).State = EntityState.Modified;
             await context.SaveChangesAsync();
             return mapper.Map<ReviewModel>(entity);

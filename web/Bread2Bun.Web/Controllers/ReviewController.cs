@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Bread2Bun.Common;
+﻿using Bread2Bun.Common;
 using Bread2Bun.Service.Profile.Interface;
 using Bread2Bun.Service.Profile.Models.Review;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Bread2Bun.Web.Controllers
 {
@@ -70,13 +67,29 @@ namespace Bread2Bun.Web.Controllers
             }
         }
 
-        [HttpGet()]
+        [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<ReviewModel>), 200)]
         public async Task<IActionResult> GetAll([FromQuery]PaginationBase paginationBase)
         {
             try
             {
                 var result = await reviewService.GetAll(paginationBase);
+                return Ok(result);
+            }
+
+            catch (Exception ex)
+            {
+                return HandleExcpetion(ex);
+            }
+        }
+
+        [HttpGet("{userId:long}")]
+        [ProducesResponseType(typeof(IEnumerable<ReviewModel>), 200)]
+        public async Task<IActionResult> GetAll([FromQuery]PaginationBase paginationBase, long userId)
+        {
+            try
+            {
+                var result = await reviewService.GetAll(paginationBase, userId);
                 return Ok(result);
             }
 

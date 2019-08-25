@@ -17,12 +17,10 @@ namespace Bread2Bun.Web.Controllers
     public class ProfileController : BaseAPIController
     {
         private readonly IProfileService profileService;
-        private readonly IReviewService reviewService;
 
-        public ProfileController(IProfileService profileService, IReviewService reviewService)
+        public ProfileController(IProfileService profileService)
         {
             this.profileService = profileService;
-            this.reviewService = reviewService;
         }
         [HttpGet("basic")]
         [ProducesResponseType(typeof(BasicInfoModel), 200)]
@@ -63,6 +61,21 @@ namespace Bread2Bun.Web.Controllers
             {
                 var result = await profileService.CreateUserProfile(userProfileCreateModel);
                 return Created(string.Empty, result);
+            }
+            catch (Exception ex)
+            {
+                return HandleExcpetion(ex);
+            }
+        }
+
+        [HttpPut("userprofile")]
+        [ProducesResponseType(typeof(UserProfileModel), 200)]
+        public async Task<IActionResult> UpdateUserProfile([FromBody] UserProfileUpdateModel userProfileUpdateModel)
+        {
+            try
+            {
+                var result = await profileService.UpdateUserProfile(userProfileUpdateModel);
+                return Ok(result);
             }
             catch (Exception ex)
             {

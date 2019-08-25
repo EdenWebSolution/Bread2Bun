@@ -21,5 +21,14 @@ namespace Bread2Bun.Domain.UserProfile
             Id = userId;
             return this;
         }
+
+        public UserProfile Update(string aboutMe, string facebook, string instagram, string twitter)
+        {
+            AboutMe = aboutMe;
+            Facebook = facebook;
+            Instagram = instagram;
+            Twitter = twitter;
+            return this;
+        }
     }
 }
