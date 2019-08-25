@@ -1,4 +1,5 @@
 ﻿using Bread2Bun.Common;
+using Bread2Bun.Common.Model;
 using Bread2Bun.Service.Security.Interface;
 using Bread2Bun.Service.Security.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -20,6 +21,7 @@ namespace Bread2Bun.Web.Controllers
 
         [HttpPost("user/new")]
         [AllowAnonymous]
+        [ProducesResponseType(typeof(StoreUserModel), 201)]
         public async Task<IActionResult> Create([FromBody] CreateStoreUserModel createStoreUserModel)
         {
             try
