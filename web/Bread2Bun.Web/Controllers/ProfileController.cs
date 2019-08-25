@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bread2Bun.Common;
 using Bread2Bun.Service.Profile.Interface;
+using Bread2Bun.Service.Profile.Models;
 using Bread2Bun.Service.Profile.Models.Review;
+using Bread2Bun.Service.Profile.Models.UserProfile;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +25,7 @@ namespace Bread2Bun.Web.Controllers
             this.reviewService = reviewService;
         }
         [HttpGet("basic")]
+        [ProducesResponseType(typeof(BasicInfoModel), 200)]
         public async Task<IActionResult> GetBasicProfile()
         {
             try
@@ -36,76 +39,31 @@ namespace Bread2Bun.Web.Controllers
             }
         }
 
-
-        [HttpPost("review")]
-        public async Task<IActionResult> CreateNewReview([FromBody]ReviewCreateModel reviewCreateModel)
+        [HttpGet("basic/{userId:long}")]
+        [ProducesResponseType(typeof(BasicInfoModel), 200)]
+        public async Task<IActionResult> GetBasicProfile(long userId)
         {
             try
             {
-                var result = await reviewService.AddReviewAsync(reviewCreateModel);
+                var result = await profileService.GetBasicInfo(userId);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return HandleExcpetion(ex);
+            }
+        }
+
+
+        [HttpPost("userprofile")]
+        [ProducesResponseType(typeof(UserProfileModel), 201)]
+        public async Task<IActionResult> CreateUserProfile([FromBody] UserProfileCreateModel userProfileCreateModel)
+        {
+            try
+            {
+                var result = await profileService.CreateUserProfile(userProfileCreateModel);
                 return Created(string.Empty, result);
             }
-
-            catch (Exception ex)
-            {
-                return HandleExcpetion(ex);
-            }
-        }
-
-        [HttpPut("review")]
-        public async Task<IActionResult> UpdateReview([FromBody]ReviewUpdateModel reviewUpdateModel)
-        {
-            try
-            {
-                var result = await reviewService.UpdateReviewAsync(reviewUpdateModel);
-                return Ok(result);
-            }
-
-            catch (Exception ex)
-            {
-                return HandleExcpetion(ex);
-            }
-        }
-
-        [HttpDelete("review/{id:long}")]
-        public async Task<IActionResult> DeleteReview(long id)
-        {
-            try
-            {
-                var result = await reviewService.DeleteReviewAsync(id);
-                return Ok(result);
-            }
-
-            catch (Exception ex)
-            {
-                return HandleExcpetion(ex);
-            }
-        }
-
-        [HttpGet("review")]
-        public async Task<IActionResult> GetAll([FromQuery]PaginationBase paginationBase)
-        {
-            try
-            {
-                var result = await reviewService.GetAll(paginationBase);
-                return Ok(result);
-            }
-
-            catch (Exception ex)
-            {
-                return HandleExcpetion(ex);
-            }
-        }
-
-        [HttpGet("review/{id:long}")]
-        public async Task<IActionResult> GetById(long id)
-        {
-            try
-            {
-                var result = await reviewService.GetById(id);
-                return Ok(result);
-            }
-
             catch (Exception ex)
             {
                 return HandleExcpetion(ex);

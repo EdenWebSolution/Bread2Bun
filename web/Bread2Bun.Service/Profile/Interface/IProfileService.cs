@@ -1,4 +1,5 @@
 ﻿using Bread2Bun.Service.Profile.Models;
+using Bread2Bun.Service.Profile.Models.UserProfile;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,7 @@ namespace Bread2Bun.Service.Profile.Interface
 {
     public interface IProfileService
     {
-        Task<BasicInfoModel> GetBasicInfo();
+        Task<BasicInfoModel> GetBasicInfo(long userId = 0);
+        Task<UserProfileModel> CreateUserProfile(UserProfileCreateModel userProfileCreateModel);
     }
 }

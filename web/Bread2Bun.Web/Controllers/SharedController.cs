@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Bread2Bun.Common.Model;
 using Bread2Bun.Service.Country.Interface;
 using Bread2Bun.Service.University.Interface;
 using Microsoft.AspNetCore.Authorization;
@@ -22,6 +24,7 @@ namespace Bread2Bun.Web.Controllers
         }
 
         [HttpGet("countries"), AllowAnonymous]
+        [ProducesResponseType(typeof(IEnumerable<CountryModel>), 200)]
         public async Task<IActionResult> GetCountries()
         {
             try
@@ -37,6 +40,7 @@ namespace Bread2Bun.Web.Controllers
         }
 
         [HttpGet("universities"), AllowAnonymous]
+        [ProducesResponseType(typeof(IEnumerable<UniversityModel>), 200)]
         public async Task<IActionResult> GetUniversities()
         {
             try

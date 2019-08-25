@@ -2,6 +2,7 @@
 using Bread2Bun.Domain.Food;
 using Bread2Bun.Domain.Security;
 using Bread2Bun.Domain.Shared;
+using Bread2Bun.Domain.UserProfile;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -21,7 +22,7 @@ namespace Bread2Bun.Data
             this.userResolverService = userResolverService;
         }
 
-        #region security
+        #region Security
         public DbSet<Claims> Claim { get; set; }
         #endregion
 
@@ -30,15 +31,19 @@ namespace Bread2Bun.Data
         public DbSet<University> University { get; set; }
         #endregion
 
-        #region food
+        #region Food
         public DbSet<Food> Foods { get; set; }
+        #endregion
+
+        #region Profile
+        public DbSet<UserProfile> UserProfile { get; set; }
         public DbSet<Reviews> Reviews { get; set; }
         #endregion
 
-        #region Overides
+        #region Overrides
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Reviews>().HasQueryFilter(c => !c.IsDeleted);
+            ApplyFilters(builder);
             base.OnModelCreating(builder);
             builder.SeedDB();
         }
@@ -66,6 +71,13 @@ namespace Bread2Bun.Data
             }
             return base.SaveChangesAsync(cancellationToken);
         }
+        #endregion
+        public void ApplyFilters(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Reviews>().HasQueryFilter(c => !c.IsDeleted);
+        }
+        #region filters
+
         #endregion
     }
 }
