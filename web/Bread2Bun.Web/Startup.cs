@@ -88,6 +88,7 @@ namespace Bread2Bun.Web
                 cfg.UseSqlServer(configuration.GetConnectionString("B2BContext"));
             });
 
+            services.AddSignalR();
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddJsonOptions(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
@@ -128,6 +129,11 @@ namespace Bread2Bun.Web
 
             app.UseCors(builder => builder.WithOrigins("http://bread2bun.azurewebsites.net", "https://bread2bun.azurewebsites.net", "http://localhost:4200", "http://localhost:54969").AllowAnyHeader().AllowAnyMethod());
             app.UseAuthentication();
+
+            app.UseSignalR(routes =>
+            {
+                //routes.MapHub<ChartHub>("/chart");
+            });
 
             app.UseMvc(routes =>
             {
