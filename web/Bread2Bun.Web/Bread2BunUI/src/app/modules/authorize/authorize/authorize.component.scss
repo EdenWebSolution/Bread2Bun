@@ -19,7 +19,7 @@
     border-radius: 5px;
     box-shadow: 0px 5px 35px 0px rgba(151, 150, 150, 0.73);
     overflow: hidden;
-    background-color: lighten($main-color, 25%);
+    background-color: lighten($brand-color, 25%);
     background-image: url('../../../../assets/images/login-texture.png');
     @media only screen and (max-width: 767px){
       padding: 35px 20px;
@@ -52,7 +52,7 @@
     button {
       padding: 5px 0;
       border: none;
-      background: $main-color;
+      background: $brand-color;
       color: #fff;
       outline: none;
       min-width: 150px;

@@ -1,0 +1,31 @@
+@import '../../../styles/fonts';
+@import '../../../styles/colors';
+
+.b2b-menu{
+  .navbar{
+    background: $brand-color;
+    // background-image: url('../../../../assets/images/login-texture.png');
+    .navbar-brand{
+      cursor: pointer;
+      outline: none;
+      .logo{
+        font-weight: 600;
+        font-family: $lexend;
+        span{
+          color: $logo-red;
+        }
+      }
+    }
+    .navbar-nav{
+      .nav-item{
+        position: relative;
+        &.active{
+
+        }
+        .nav-link{
+          color: #ffffff;
+        }
+      }
+    }
+  }
+}

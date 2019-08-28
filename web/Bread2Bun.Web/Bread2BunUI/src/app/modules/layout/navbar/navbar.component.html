@@ -1,6 +1,8 @@
 <div class="b2b-menu" @slideFromUp>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="navbar-brand" href="#">Navbar</div>
+  <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand" [routerLink]="['/app/feed']" >
+      <div class="logo">Bread<span>2</span>Bun</div>
+    </div>
     <button
       class="navbar-toggler"
       type="button"
@@ -13,13 +15,12 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div
       class="collapse navbar-collapse"
       [ngClass]="{ show: show }"
       id="navbarSupportedContent"
     >
-      <ul class="navbar-nav mr-auto">
+      <ul class="navbar-nav mr-auto ">
         <li
           class="nav-item"
           routerLinkActive="active"
@@ -33,5 +34,4 @@
       </ul>
     </div>
   </nav>
-  <rating (click)="getRating()" [(ngModel)]="rate" [max]="max" [readonly]="isReadonly"></rating>
 </div>
