@@ -11,7 +11,7 @@ body {
 
 //colors
 .heading {
-  color: $main-color;
+  color: $brand-color;
   font-family: $lexend;
 }
 
@@ -168,7 +168,7 @@ body {
         }
         &:checked {
           &:before {
-            background: $main-color;
+            background: $brand-color;
           }
         }
       }
@@ -193,7 +193,7 @@ body {
         font-weight: 500;
         transition: 0.2s;
         &:hover {
-          color: $main-color;
+          color: $brand-color;
         }
         /* checkbox aspect */
         &:before {
@@ -213,7 +213,7 @@ body {
           top: 0;
           left: 4px;
           font-size: 16px;
-          color: $main-color;
+          color: $brand-color;
           transition: all 0.2s;
           opacity: 0;
           transform: scale(0);
