@@ -19,6 +19,8 @@
     <Compile Remove="Migrations\20190822180752_review table added.Designer.cs" />
     <Compile Remove="Migrations\20190825154358_test.cs" />
     <Compile Remove="Migrations\20190825154358_test.Designer.cs" />
+    <Compile Remove="Migrations\20190829024247_message table added.cs" />
+    <Compile Remove="Migrations\20190829024247_message table added.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

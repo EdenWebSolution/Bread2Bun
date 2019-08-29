@@ -1,4 +1,5 @@
 ﻿using Bread2Bun.Common.Enum;
+using Bread2Bun.Domain.Chat;
 using Bread2Bun.Domain.Shared;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -31,7 +32,6 @@ namespace Bread2Bun.Domain.Security
         public virtual int UniversityId { get; protected set; }
         [ForeignKey(nameof(UniversityId))]
         public University University { get; protected set; }
-
         #endregion
     }
 }

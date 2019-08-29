@@ -3,6 +3,7 @@ using Bread2Bun.Data;
 using Bread2Bun.Domain.Security;
 using Bread2Bun.Domain.Security.TokenProviders;
 using Bread2Bun.Service;
+using Bread2Bun.Web.AppHubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -132,7 +133,7 @@ namespace Bread2Bun.Web
 
             app.UseSignalR(routes =>
             {
-                //routes.MapHub<ChartHub>("/chart");
+                routes.MapHub<ChatHub>("/api/chat/message");
             });
 
             app.UseMvc(routes =>

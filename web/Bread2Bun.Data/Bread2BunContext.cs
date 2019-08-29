@@ -1,4 +1,5 @@
 ﻿using Bread2Bun.Common;
+using Bread2Bun.Domain.Chat;
 using Bread2Bun.Domain.Food;
 using Bread2Bun.Domain.Security;
 using Bread2Bun.Domain.Shared;
@@ -38,6 +39,10 @@ namespace Bread2Bun.Data
         #region Profile
         public DbSet<UserProfile> UserProfile { get; set; }
         public DbSet<Reviews> Reviews { get; set; }
+        #endregion
+
+        #region Chat
+        public DbSet<Message> Message{ get; set; }
         #endregion
 
         #region Overrides

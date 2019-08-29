@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Bread2Bun.Service.Chat.Model;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,16 @@ namespace Bread2Bun.Web.AppHubs
     {
         public ChatHub()
         {
+        }
+
+        public async Task SendMessage(MessageModel message)
+        {
+            await Clients.All.SendAsync("reviewMessage", message);
+        }
+
+        public async Task SendPrivateMessage()
+        {
+
         }
     }
 }
