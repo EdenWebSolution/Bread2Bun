@@ -1,5 +1,154 @@
 <div class="my-profile">
   <div class="row">
+    <div class="col-md-3">
+      <div class="left-wrapper">
+        <div class="profile-card my-card">
+          <div class="profile-basic">
+            <div class="cover-img-wrapper">
+              <img [src]="coverImgUrl" [alt]="">
+            </div>
+            <div class="profile-image-wrapper">
+              <img class="image-responsive" [src]="profileImgUrl" [alt]="">
+            </div>
+            <div class="contents-wrapper">
+              <div class="username">@Foodie</div>
+              <div class="name">Akmal Nawfer</div>
+              <div class="rating">
+                <rating [(ngModel)]="rate" [max]="max" [customTemplate]="tt" [readonly]="true"></rating>
+                <ng-template #tt let-i="index" let-v="value">
+                  <span class="stars">
+                    {{i < v ? '&#9733;' : '&#9734;'}}
+                  </span>
+                </ng-template>
+              </div>
+              <div class="country">Sri Lanka<span></span></div>
+            </div>
+          </div>
+        </div>
+        <div class="about-card my-card">
+          <div class="about-wrapper">
+            <div class="about-text">
+              <p class="header">About me</p>
+              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque odio suscipit quasi minus cupiditate
+                labore?</p>
+            </div>
+            <div class="university"><span><i class="fas fa-landmark"></i></span> <span>Rhine-Waal University of Applied
+                Sciences, Kamp-lintfort</span></div>
+            <div class="lives"> <span><i class="fas fa-map-marker-alt"></i></span> <span> Kandy, Srilanka</span></div>
+            <div class="socialmedia">
+              <span class="fb"><i class="fab fa-facebook-square"></i></span>
+              <span class="twitter"><i class="fab fa-twitter"></i></span>
+              <span class="instagram"><i class="fab fa-instagram"></i></span>
+            </div>
+          </div>
+        </div>
+        <div class="foods-card my-card">
+          <div class="foods-wrapper">
+            <p class="header">Food Offered</p>
+            <div class="display-food">
+              <div class="food-details">
+                <img
+                  src="https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/epic-summer-salad.jpg"
+                  alt="" [popover]="description" [popoverTitle]="title" outsideClick="true">
+                <div class="food-name">Labaka</div>
+              </div>
+              <div class="food-details">
+                <img
+                  src="https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/epic-summer-salad.jpg"
+                  alt="" [popover]="description" [popoverTitle]="title" outsideClick="true">
+                <div class="food-name">Labaka</div>
+              </div>
+              <div class="food-details">
+                <img
+                  src="https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/epic-summer-salad.jpg"
+                  alt="" [popover]="description" [popoverTitle]="title" outsideClick="true">
+                <div class="food-name">Labaka</div>
+              </div>
+              <div class="food-details">
+                <img
+                  src="https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/epic-summer-salad.jpg"
+                  alt="" [popover]="description" [popoverTitle]="title" outsideClick="true">
+                <div class="food-name">Labaka</div>
+              </div>
+              <div class="food-details">
+                <img
+                  src="https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/epic-summer-salad.jpg"
+                  alt="" [popover]="description" [popoverTitle]="title" outsideClick="true">
+                <div class="food-name">Labaka</div>
+              </div>
+              <div class="food-details">
+                <img
+                  src="https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/epic-summer-salad.jpg"
+                  alt="" [popover]="description" [popoverTitle]="title" outsideClick="true">
+                <div class="food-name">Labaka</div>
+              </div>
+              <div class="food-details">
+                <img
+                  src="https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/epic-summer-salad.jpg"
+                  alt="" [popover]="description" [popoverTitle]="title" outsideClick="true">
+                <div class="food-name">Labaka</div>
+              </div>
+              <div class="food-details">
+                <img
+                  src="https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/epic-summer-salad.jpg"
+                  alt="" [popover]="description" [popoverTitle]="title" outsideClick="true">
+                <div class="food-name">Labaka</div>
+              </div>
+              <div class="food-details">
+                <img
+                  src="https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/epic-summer-salad.jpg"
+                  alt="" [popover]="description" [popoverTitle]="title" outsideClick="true">
+                <div class="food-name">Labaka</div>
+              </div>
+              <div class="food-details">
+                <img
+                  src="https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/epic-summer-salad.jpg"
+                  alt="" [popover]="description" [popoverTitle]="title" outsideClick="true">
+                <div class="food-name">Labaka</div>
+              </div>
+              <div class="food-details">
+                <img
+                  src="https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/epic-summer-salad.jpg"
+                  alt="" [popover]="description" [popoverTitle]="title" outsideClick="true">
+                <div class="food-name">Labaka</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="availability-card my-card">
+          <div class="availability-wrapper">
+            <p class="header">Available days</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="center-wrapper">
+        <div class="post my-card">
+          <div class="create-post">
+            <form [formGroup]="createPostForm">
+              <div class="type-post">
+                <textarea [maxlength]="maxCharacter" (focus)="growHeight()" [style.height.px]="textAreaHeight" formControlName="postContent" (keyup)="measureLength()"></textarea>
+                <span class="character-limit">Characters Remaining: {{characterCount}}/{{maxCharacter}}</span>
+                <div *ngIf="imageUrl.length>0" class="image-preview" [style.backgroundImage]="'url('+ imageUrl +')'">
+                  <button class="remove-img" *ngIf="removeUpload" (click)="removeImage()"><i class="fas fa-times"></i></button>
+                </div>
+                <input style="display: none" type='file' id="imageUpload" accept=".png, .jpg, .jpeg" #fileInput
+                (change)="onFileChange($event)" />
+                <div class="bottom-btns">
+                    <button class="image-select" (click)="fileInput.click()"><i class="fas fa-images"></i></button>
+                    <button [disabled]="createPostForm.invalid" (click)="createPost()" class="create-post">Create post</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="right-wrapper">
 
+      </div>
+    </div>
   </div>
 </div>
