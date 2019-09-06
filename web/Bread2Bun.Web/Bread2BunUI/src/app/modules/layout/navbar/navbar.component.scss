@@ -1,28 +1,32 @@
-@import '../../../styles/fonts';
-@import '../../../styles/colors';
+@import "../../../styles/fonts";
+@import "../../../styles/colors";
 
-.b2b-menu{
-  .navbar{
+.b2b-menu {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+  box-shadow: 0 5px 10px 0px #adadad;
+  .navbar {
     background: $brand-color;
     // background-image: url('../../../../assets/images/login-texture.png');
-    .navbar-brand{
+    .navbar-brand {
       cursor: pointer;
       outline: none;
-      .logo{
+      .logo {
         font-weight: 600;
         font-family: $lexend;
-        span{
+        span {
           color: $logo-red;
         }
       }
     }
-    .navbar-nav{
-      .nav-item{
+    .navbar-nav {
+      .nav-item {
         position: relative;
-        &.active{
-
+        &.active {
         }
-        .nav-link{
+        .nav-link {
           color: #ffffff;
         }
       }

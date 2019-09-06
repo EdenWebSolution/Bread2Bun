@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { TypeaheadModule, RatingModule, PopoverModule } from 'ngx-bootstrap';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
 
 @NgModule({
   declarations: [],
@@ -17,7 +19,8 @@ import { TypeaheadModule, RatingModule, PopoverModule } from 'ngx-bootstrap';
     ),
     TypeaheadModule.forRoot(),
     RatingModule,
-    PopoverModule.forRoot()
+    PopoverModule.forRoot(),
+    InfiniteScrollModule
   ],
   exports: [
     ReactiveFormsModule,
@@ -25,7 +28,8 @@ import { TypeaheadModule, RatingModule, PopoverModule } from 'ngx-bootstrap';
     ToastrModule,
     TypeaheadModule,
     RatingModule,
-    PopoverModule
+    PopoverModule,
+    InfiniteScrollModule
   ]
 })
 export class SharedModule { }

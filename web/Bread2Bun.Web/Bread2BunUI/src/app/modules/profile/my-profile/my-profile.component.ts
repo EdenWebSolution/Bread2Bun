@@ -1,11 +1,13 @@
 import { Component, OnInit, ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { bloom, slideFromUp } from 'src/app/animations';
 
 
 @Component({
   selector: 'app-my-profile',
   templateUrl: './my-profile.component.html',
-  styleUrls: ['./my-profile.component.scss']
+  styleUrls: ['./my-profile.component.scss'],
+  animations: [bloom, slideFromUp]
 })
 export class MyProfileComponent implements OnInit {
 
@@ -23,10 +25,23 @@ export class MyProfileComponent implements OnInit {
   maxCharacter = 300;
   characterCount = 0;
 
+  scrollDistance = 2;
+  scrollUpDistance = 2;
+  throttle = 1500;
+
+  posts = [];
+  reviews = ['a','a','a','a','a'];
+
+  narrowImg = 'https://images.unsplash.com/photo-1532980400857-e8d9d275d858?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80';
+
+  landscapeImg = 'https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80';
+
   @ViewChild('fileInput') el: ElementRef;
   imageUrl: any = '';
   editFile: boolean = true;
   removeUpload: boolean = false;
+  postDate = new Date();
+  commentDate = new Date();
 
   constructor(
     private fb: FormBuilder,
@@ -53,7 +68,7 @@ export class MyProfileComponent implements OnInit {
     this.textAreaHeight = 160;
   }
 
-  resetHeight(){
+  resetHeight() {
     if (this.characterCount === 0) {
       this.textAreaHeight = 35;
     }
@@ -87,8 +102,22 @@ export class MyProfileComponent implements OnInit {
     this.removeUpload = false;
   }
 
-  createPost(){
+  createPost() {
     console.log(this.createPostForm.value);
   }
 
+  getPosts() {
+    this.posts.push('aaaaa');
+  }
+  onUp() {
+    console.log('up we go');
+  }
+
+  getReviews() {
+    console.log('adsa')
+    this.reviews.push('a');
+  }
+  onReviewUp() {
+    console.log('up psts');
+  }
 }

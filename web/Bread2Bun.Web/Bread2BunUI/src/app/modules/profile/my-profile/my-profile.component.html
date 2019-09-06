@@ -128,26 +128,199 @@
           <div class="create-post">
             <form [formGroup]="createPostForm">
               <div class="type-post">
-                <textarea [maxlength]="maxCharacter" (focus)="growHeight()" [style.height.px]="textAreaHeight" formControlName="postContent" (keyup)="measureLength()"></textarea>
+                <textarea [maxlength]="maxCharacter" (focus)="growHeight()" [style.height.px]="textAreaHeight"
+                  formControlName="postContent" (keyup)="measureLength()"></textarea>
                 <span class="character-limit">Characters Remaining: {{characterCount}}/{{maxCharacter}}</span>
                 <div *ngIf="imageUrl.length>0" class="image-preview" [style.backgroundImage]="'url('+ imageUrl +')'">
-                  <button class="remove-img" *ngIf="removeUpload" (click)="removeImage()"><i class="fas fa-times"></i></button>
+                  <button class="remove-img" *ngIf="removeUpload" (click)="removeImage()"><i
+                      class="fas fa-times"></i></button>
                 </div>
                 <input style="display: none" type='file' id="imageUpload" accept=".png, .jpg, .jpeg" #fileInput
-                (change)="onFileChange($event)" />
+                  (change)="onFileChange($event)" />
                 <div class="bottom-btns">
-                    <button class="image-select" (click)="fileInput.click()"><i class="fas fa-images"></i></button>
-                    <button [disabled]="createPostForm.invalid" (click)="createPost()" class="create-post">Create post</button>
+                  <button class="image-select" (click)="fileInput.click()"><i class="fas fa-images"></i></button>
+                  <button [disabled]="createPostForm.invalid" (click)="createPost()" class="create-post">Create
+                    post</button>
                 </div>
               </div>
             </form>
           </div>
         </div>
+        <div class="posts" infinite-scroll [infiniteScrollDistance]="scrollDistance"
+          [infiniteScrollUpDistance]="scrollUpDistance" [infiniteScrollThrottle]="throttle" (scrolled)="getPosts()"
+          (scrolledUp)="onUp()">
+          <div @slideFromUp class="my-card post-card" *ngFor="let content of posts">
+            <div class="post-img">
+              <div class="image-container">
+                <img [src]="narrowImg" alt="">
+              </div>
+            </div>
+            <div class="post-content">
+              <div class="user-details">
+                <div class="user-img">
+                  <img [src]="profileImgUrl" alt="">
+                </div>
+                <div class="user-basic">
+                  <span class="foodie-name">@foodieman</span>
+                  <span class="post-date">{{postDate | timeAgo}}</span>
+                </div>
+              </div>
+              <div class="options">
+                <button class="option-btn"><i class="fas fa-ellipsis-h"></i></button>
+              </div>
+              <div class="caption">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure minus commodi maxime
+                deleniti fugiat ex ab maiores magnam recusandae nesciunt cumque minima nihil voluptates nostrum debitis
+                accusantium rem perspiciatis reprehenderit temporibus magni hic voluptate molestias, impedit tempora!
+                Delectus consectetur nisi dolores? Non ab magnam amet, quasi ea natus sequi illo?</div>
+              <div class="comments">
+                <div class="commenting-user">
+                  <img [src]="profileImgUrl" alt="">
+                </div>
+                <div class="comment-area">
+                  <textarea placeholder="Write a comment"></textarea>
+                </div>
+                <div class="comment-button">
+                  <button>Comment</button>
+                </div>
+              </div>
+              <div class="comments-list">
+                <div class="comment">
+                  <div class="commented-user">
+                    <img [src]="profileImgUrl" alt="">
+                  </div>
+                  <div class="commented-user-details">
+                    <div class="username">@cookie eater</div>
+                    <div class="comment-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus optio
+                      aliquid commodi natus hic quae?</div>
+                    <div class="comment-time">{{commentDate| timeAgo}}</div>
+                  </div>
+                </div>
+                <div class="comment">
+                  <div class="commented-user">
+                    <img [src]="profileImgUrl" alt="">
+                  </div>
+                  <div class="commented-user-details">
+                    <div class="username">@cookie eater</div>
+                    <div class="comment-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus optio
+                      aliquid commodi natus hic quae?</div>
+                    <div class="comment-time">{{commentDate| timeAgo}}</div>
+                  </div>
+                </div>
+                <div class="comment">
+                  <div class="commented-user">
+                    <img [src]="profileImgUrl" alt="">
+                  </div>
+                  <div class="commented-user-details">
+                    <div class="username">@cookie eater</div>
+                    <div class="comment-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus optio
+                      aliquid commodi natus hic quae?</div>
+                    <div class="comment-time">{{commentDate| timeAgo}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="loader-wrapper">
+          <div class="loader" id="loader-3"></div>
+        </div>
       </div>
     </div>
     <div class="col-md-3">
       <div class="right-wrapper">
-
+        <div class="my-card reviews">
+          <p class="header">@foodie's reviews</p>
+          <div class="review">
+            <div class="review-user">
+              <img [src]="profileImgUrl" alt="">
+              <div class="username">@cookie eater <span class="review-time">{{commentDate| timeAgo}}</span></div>
+            </div>
+            <div class="review-user-details">
+              <div class="review-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus optio
+                aliquid commodi natus hic quae?</div>
+              <div class="rating">
+                <rating [(ngModel)]="rate" [max]="max" [customTemplate]="tt" [readonly]="true"></rating>
+                <ng-template #tt let-i="index" let-v="value">
+                  <span class="stars">
+                    {{i < v ? '&#9733;' : '&#9734;'}}
+                  </span>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+          <div class="review">
+            <div class="review-user">
+              <img [src]="profileImgUrl" alt="">
+              <div class="username">@cookie eater <span class="review-time">{{commentDate| timeAgo}}</span></div>
+            </div>
+            <div class="review-user-details">
+              <div class="review-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus optio
+                aliquid commodi natus hic quae?</div>
+              <div class="rating">
+                <rating [(ngModel)]="rate" [max]="max" [customTemplate]="tt" [readonly]="true"></rating>
+                <ng-template #tt let-i="index" let-v="value">
+                  <span class="stars">
+                    {{i < v ? '&#9733;' : '&#9734;'}}
+                  </span>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+          <div class="review">
+            <div class="review-user">
+              <img [src]="profileImgUrl" alt="">
+              <div class="username">@cookie eater <span class="review-time">{{commentDate| timeAgo}}</span></div>
+            </div>
+            <div class="review-user-details">
+              <div class="review-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus optio
+                aliquid commodi natus hic quae?</div>
+              <div class="rating">
+                <rating [(ngModel)]="rate" [max]="max" [customTemplate]="tt" [readonly]="true"></rating>
+                <ng-template #tt let-i="index" let-v="value">
+                  <span class="stars">
+                    {{i < v ? '&#9733;' : '&#9734;'}}
+                  </span>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+          <div class="review">
+            <div class="review-user">
+              <img [src]="profileImgUrl" alt="">
+              <div class="username">@cookie eater <span class="review-time">{{commentDate| timeAgo}}</span></div>
+            </div>
+            <div class="review-user-details">
+              <div class="review-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus optio
+                aliquid commodi natus hic quae?</div>
+              <div class="rating">
+                <rating [(ngModel)]="rate" [max]="max" [customTemplate]="tt" [readonly]="true"></rating>
+                <ng-template #tt let-i="index" let-v="value">
+                  <span class="stars">
+                    {{i < v ? '&#9733;' : '&#9734;'}}
+                  </span>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+          <div class="review">
+            <div class="review-user">
+              <img [src]="profileImgUrl" alt="">
+              <div class="username">@cookie eater <span class="review-time">{{commentDate| timeAgo}}</span></div>
+            </div>
+            <div class="review-user-details">
+              <div class="review-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus optio
+                aliquid commodi natus hic quae?</div>
+              <div class="rating">
+                <rating [(ngModel)]="rate" [max]="max" [customTemplate]="tt" [readonly]="true"></rating>
+                <ng-template #tt let-i="index" let-v="value">
+                  <span class="stars">
+                    {{i < v ? '&#9733;' : '&#9734;'}}
+                  </span>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

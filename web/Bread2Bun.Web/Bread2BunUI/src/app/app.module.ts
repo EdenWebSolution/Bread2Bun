@@ -10,6 +10,9 @@ import { AuthorizeModule } from './modules/authorize/authorize.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { LayoutModule } from './modules/layout/layout.module';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+
 
 
 @NgModule({
@@ -25,7 +28,8 @@ import { LayoutModule } from './modules/layout/layout.module';
     AuthorizeModule,
     SharedModule,
     RouterModule,
-    LayoutModule
+    LayoutModule,
+    InfiniteScrollModule
   ],
   providers: [
     {
@@ -37,3 +41,6 @@ import { LayoutModule } from './modules/layout/layout.module';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+platformBrowserDynamic().bootstrapModule(AppModule);
+
