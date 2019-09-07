@@ -4,6 +4,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { TypeaheadModule, RatingModule, PopoverModule } from 'ngx-bootstrap';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ClipboardModule } from 'ngx-clipboard';
+
 
 
 @NgModule({
@@ -20,7 +22,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     TypeaheadModule.forRoot(),
     RatingModule,
     PopoverModule.forRoot(),
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    ClipboardModule
   ],
   exports: [
     ReactiveFormsModule,
@@ -29,7 +32,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     TypeaheadModule,
     RatingModule,
     PopoverModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    ClipboardModule
   ]
 })
 export class SharedModule { }

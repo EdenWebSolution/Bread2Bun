@@ -13,146 +13,69 @@
             <div class="contents-wrapper">
               <div class="username">@Foodie</div>
               <div class="name">Akmal Nawfer</div>
-              <div class="rating">
-                <rating [(ngModel)]="rate" [max]="max" [customTemplate]="tt" [readonly]="true"></rating>
-                <ng-template #tt let-i="index" let-v="value">
-                  <span class="stars">
-                    {{i < v ? '&#9733;' : '&#9734;'}}
-                  </span>
-                </ng-template>
+              <div class="country">
+               <span class="country-name">Belgium</span>
+               <span class="country-flag"><img src="https://www.countryflags.io/be/flat/64.png"></span>
               </div>
-              <div class="country">Sri Lanka<span></span></div>
+              <div class="university"><span><i class="fas fa-landmark"></i></span> <span>Rhine-Waal University of
+                  Applied
+                  Sciences, Kamp-lintfort</span></div>
+              <div class="lives"> <span><i class="fas fa-map-marker-alt"></i></span> <span>Kandy, Srilanka</span></div>
+            </div>
+            <div class="action-btns">
+              <button class="message">Message <span> <i class="fas fa-comments"></i></span></button>
+              <button class="share" (click)="copyToShare()">Share <span> <i class="fas fa-share-alt"></i></span></button>
             </div>
           </div>
         </div>
+        <div class="reviews-btn">
+          <button [routerLink]="['reviews']">See reviews</button>
+        </div>
         <div class="about-card my-card">
           <div class="about-wrapper">
+            <div class="availability-text">
+              <p class="header">Available days</p>
+              <div class="days">
+                <span class="day">Monday</span>
+                <span class="day highlight">Tuesday</span>
+                <span class="day">Wednesday</span>
+                <span class="day highlight">Thursday</span>
+                <span class="day highlight">Friday</span>
+                <span class="day">Saturday</span>
+                <span class="day">Sunday</span>
+              </div>
+            </div>
             <div class="about-text">
               <p class="header">About me</p>
               <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque odio suscipit quasi minus cupiditate
                 labore?</p>
             </div>
-            <div class="university"><span><i class="fas fa-landmark"></i></span> <span>Rhine-Waal University of Applied
-                Sciences, Kamp-lintfort</span></div>
-            <div class="lives"> <span><i class="fas fa-map-marker-alt"></i></span> <span> Kandy, Srilanka</span></div>
+            <div class="languages">
+              <p class="header">Languages</p>
+              <p>English, Sinhala, Tamil</p>
+            </div>
             <div class="socialmedia">
-              <span class="fb"><i class="fab fa-facebook-square"></i></span>
               <span class="twitter"><i class="fab fa-twitter"></i></span>
               <span class="instagram"><i class="fab fa-instagram"></i></span>
             </div>
-          </div>
-        </div>
-        <div class="foods-card my-card">
-          <div class="foods-wrapper">
-            <p class="header">Food Offered</p>
-            <div class="display-food">
-              <div class="food-details">
-                <img
-                  src="https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/epic-summer-salad.jpg"
-                  alt="" [popover]="description" [popoverTitle]="title" outsideClick="true">
-                <div class="food-name">Labaka</div>
-              </div>
-              <div class="food-details">
-                <img
-                  src="https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/epic-summer-salad.jpg"
-                  alt="" [popover]="description" [popoverTitle]="title" outsideClick="true">
-                <div class="food-name">Labaka</div>
-              </div>
-              <div class="food-details">
-                <img
-                  src="https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/epic-summer-salad.jpg"
-                  alt="" [popover]="description" [popoverTitle]="title" outsideClick="true">
-                <div class="food-name">Labaka</div>
-              </div>
-              <div class="food-details">
-                <img
-                  src="https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/epic-summer-salad.jpg"
-                  alt="" [popover]="description" [popoverTitle]="title" outsideClick="true">
-                <div class="food-name">Labaka</div>
-              </div>
-              <div class="food-details">
-                <img
-                  src="https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/epic-summer-salad.jpg"
-                  alt="" [popover]="description" [popoverTitle]="title" outsideClick="true">
-                <div class="food-name">Labaka</div>
-              </div>
-              <div class="food-details">
-                <img
-                  src="https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/epic-summer-salad.jpg"
-                  alt="" [popover]="description" [popoverTitle]="title" outsideClick="true">
-                <div class="food-name">Labaka</div>
-              </div>
-              <div class="food-details">
-                <img
-                  src="https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/epic-summer-salad.jpg"
-                  alt="" [popover]="description" [popoverTitle]="title" outsideClick="true">
-                <div class="food-name">Labaka</div>
-              </div>
-              <div class="food-details">
-                <img
-                  src="https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/epic-summer-salad.jpg"
-                  alt="" [popover]="description" [popoverTitle]="title" outsideClick="true">
-                <div class="food-name">Labaka</div>
-              </div>
-              <div class="food-details">
-                <img
-                  src="https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/epic-summer-salad.jpg"
-                  alt="" [popover]="description" [popoverTitle]="title" outsideClick="true">
-                <div class="food-name">Labaka</div>
-              </div>
-              <div class="food-details">
-                <img
-                  src="https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/epic-summer-salad.jpg"
-                  alt="" [popover]="description" [popoverTitle]="title" outsideClick="true">
-                <div class="food-name">Labaka</div>
-              </div>
-              <div class="food-details">
-                <img
-                  src="https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/epic-summer-salad.jpg"
-                  alt="" [popover]="description" [popoverTitle]="title" outsideClick="true">
-                <div class="food-name">Labaka</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="availability-card my-card">
-          <div class="availability-wrapper">
-            <p class="header">Available days</p>
           </div>
         </div>
       </div>
     </div>
     <div class="col-md-6">
       <div class="center-wrapper">
-        <div class="post my-card">
-          <div class="create-post">
-            <form [formGroup]="createPostForm">
-              <div class="type-post">
-                <textarea [maxlength]="maxCharacter" (focus)="growHeight()" [style.height.px]="textAreaHeight"
-                  formControlName="postContent" (keyup)="measureLength()"></textarea>
-                <span class="character-limit">Characters Remaining: {{characterCount}}/{{maxCharacter}}</span>
-                <div *ngIf="imageUrl.length>0" class="image-preview" [style.backgroundImage]="'url('+ imageUrl +')'">
-                  <button class="remove-img" *ngIf="removeUpload" (click)="removeImage()"><i
-                      class="fas fa-times"></i></button>
-                </div>
-                <input style="display: none" type='file' id="imageUpload" accept=".png, .jpg, .jpeg" #fileInput
-                  (change)="onFileChange($event)" />
-                <div class="bottom-btns">
-                  <button class="image-select" (click)="fileInput.click()"><i class="fas fa-images"></i></button>
-                  <button [disabled]="createPostForm.invalid" (click)="createPost()" class="create-post">Create
-                    post</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-        <div class="posts" infinite-scroll [infiniteScrollDistance]="scrollDistance"
-          [infiniteScrollUpDistance]="scrollUpDistance" [infiniteScrollThrottle]="throttle" (scrolled)="getPosts()"
-          (scrolledUp)="onUp()">
-          <div @slideFromUp class="my-card post-card" *ngFor="let content of posts">
+        <div class="posts">
+          <div @slideFromUp class="my-card post-card">
             <div class="post-img">
               <div class="image-container">
-                <img [src]="narrowImg" alt="">
+                <img [src]="landscapeImg" alt="">
+              </div>
+              <div class="food-details">
+                <div class="food-name">Watalappan curry</div>
+                <div class="country-flag">
+                  <img src="https://www.countryflags.io/be/flat/64.png">
+                </div>
+                <div class="veg-badge veg"> <span></span> </div>
               </div>
             </div>
             <div class="post-content">
@@ -162,71 +85,48 @@
                 </div>
                 <div class="user-basic">
                   <span class="foodie-name">@foodieman</span>
-                  <span class="post-date">{{postDate | timeAgo}}</span>
+                  <span class="fullname">Akmal Nawfer</span>
                 </div>
-              </div>
-              <div class="options">
-                <button class="option-btn"><i class="fas fa-ellipsis-h"></i></button>
               </div>
               <div class="caption">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure minus commodi maxime
                 deleniti fugiat ex ab maiores magnam recusandae nesciunt cumque minima nihil voluptates nostrum debitis
                 accusantium rem perspiciatis reprehenderit temporibus magni hic voluptate molestias, impedit tempora!
                 Delectus consectetur nisi dolores? Non ab magnam amet, quasi ea natus sequi illo?</div>
-              <div class="comments">
-                <div class="commenting-user">
-                  <img [src]="profileImgUrl" alt="">
-                </div>
-                <div class="comment-area">
-                  <textarea placeholder="Write a comment"></textarea>
-                </div>
-                <div class="comment-button">
-                  <button>Comment</button>
-                </div>
-              </div>
-              <div class="comments-list">
-                <div class="comment">
-                  <div class="commented-user">
-                    <img [src]="profileImgUrl" alt="">
-                  </div>
-                  <div class="commented-user-details">
-                    <div class="username">@cookie eater</div>
-                    <div class="comment-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus optio
-                      aliquid commodi natus hic quae?</div>
-                    <div class="comment-time">{{commentDate| timeAgo}}</div>
-                  </div>
-                </div>
-                <div class="comment">
-                  <div class="commented-user">
-                    <img [src]="profileImgUrl" alt="">
-                  </div>
-                  <div class="commented-user-details">
-                    <div class="username">@cookie eater</div>
-                    <div class="comment-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus optio
-                      aliquid commodi natus hic quae?</div>
-                    <div class="comment-time">{{commentDate| timeAgo}}</div>
-                  </div>
-                </div>
-                <div class="comment">
-                  <div class="commented-user">
-                    <img [src]="profileImgUrl" alt="">
-                  </div>
-                  <div class="commented-user-details">
-                    <div class="username">@cookie eater</div>
-                    <div class="comment-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus optio
-                      aliquid commodi natus hic quae?</div>
-                    <div class="comment-time">{{commentDate| timeAgo}}</div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
-        </div>
-        <div class="loader-wrapper">
-          <div class="loader" id="loader-3"></div>
+          <div @slideFromUp class="my-card post-card">
+              <div class="post-img">
+                <div class="image-container">
+                  <img [src]="landscapeImg" alt="">
+                </div>
+                <div class="food-details">
+                  <div class="food-name">Watalappan curry</div>
+                  <div class="country-flag">
+                    <img src="https://www.countryflags.io/be/flat/64.png">
+                  </div>
+                  <div class="veg-badge non-veg"> <span></span> </div>
+                </div>
+              </div>
+              <div class="post-content">
+                <div class="user-details">
+                  <div class="user-img">
+                    <img [src]="profileImgUrl" alt="">
+                  </div>
+                  <div class="user-basic">
+                    <span class="foodie-name">@foodieman</span>
+                    <span class="fullname">Akmal Nawfer</span>
+                  </div>
+                </div>
+                <div class="caption">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure minus commodi maxime
+                  deleniti fugiat ex ab maiores magnam recusandae nesciunt cumque minima nihil voluptates nostrum debitis
+                  accusantium rem perspiciatis reprehenderit temporibus magni hic voluptate molestias, impedit tempora!
+                  Delectus consectetur nisi dolores? Non ab magnam amet, quasi ea natus sequi illo?</div>
+              </div>
+            </div>
         </div>
       </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3 d-none d-md-block">
       <div class="right-wrapper">
         <div class="my-card reviews">
           <p class="header">@foodie's reviews</p>

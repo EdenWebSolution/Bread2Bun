@@ -337,3 +337,12 @@ body {
     }
   }
 }
+
+.my-card {
+  position: relative;
+  background-color: #fff;
+  border: 0.0625rem solid rgba(34, 42, 66, 0.05);
+  box-shadow: 0 1px 15px 0 rgba(122, 122, 122, 0.05);
+  margin-bottom: 1rem;
+  color: #8c8c8c;
+}

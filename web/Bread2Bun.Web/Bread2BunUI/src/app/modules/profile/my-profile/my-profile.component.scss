@@ -8,14 +8,7 @@
   text-transform: capitalize;
 }
 
-.my-card {
-  position: relative;
-  background-color: #fff;
-  border: 0.0625rem solid rgba(34, 42, 66, 0.05);
-  box-shadow: 0 1px 15px 0 rgba(122, 122, 122, 0.05);
-  margin-bottom: 1rem;
-  color: #8c8c8c;
-}
+
 .my-profile {
   padding-top: 1.5rem;
   .left-wrapper {
@@ -50,13 +43,6 @@
         .contents-wrapper {
           padding: 10px;
           text-align: center;
-          .rating {
-            pointer-events: none;
-            .stars {
-              font-size: 35px;
-              color: gold;
-            }
-          }
           .username {
             color: #f9690e;
             font-weight: 600;
@@ -66,11 +52,78 @@
             font-size: 18px;
           }
           .origin {
-            .university {
-              display: block;
+          }
+          .university {
+            display: block;
+          }
+          .country {
+            align-items: center;
+            margin: 10px 0;
+            .country-name {
+              text-transform: uppercase;
+              font-weight: 600;
+              margin-right: 10px;
             }
-            .country {
-              display: block;
+          }
+          .university,
+          .lives {
+            display: flex;
+            margin-bottom: 5px;
+            text-align: left;
+            span {
+              &:first-child {
+                min-width: 15px;
+                margin-right: 10px;
+                color: lighten($brand-color, 20%);
+              }
+              &:nth-child(2) {
+                word-break: break-word;
+              }
+            }
+          }
+        }
+        .action-btns {
+          display: flex;
+          flex-direction: column;
+          padding: 0 10px;
+          margin: 20px 10px;
+          button {
+            position: relative;
+            border: none;
+            padding: 15px 0;
+            font-size: 16px;
+            font-weight: 600;
+            border: 2px solid $brand-color;
+            outline: none;
+            span {
+              position: absolute;
+              top: -10px;
+              left: 50%;
+              transform: translate(-50%, -10px);
+              display: inline-block;
+              width: 40px;
+              height: 40px;
+              border: 2px solid;
+              border-radius: 50%;
+              padding: 4px;
+            }
+          }
+          .message {
+            margin-bottom: 1.5rem;
+            color: #fff;
+            background: $brand-color;
+            span {
+              background: #fff;
+              color: $brand-color;
+            }
+          }
+          .share {
+            margin-bottom: 1.5rem;
+            background: #fff;
+            color: $brand-color;
+            span {
+              color: #fff;
+              background: $brand-color;
             }
           }
         }
@@ -82,25 +135,10 @@
         .about-text {
           margin: 10px 0;
           p {
-            text-align: center;
             margin-bottom: 5px;
           }
         }
-        .university,
-        .lives {
-          display: flex;
-          margin-bottom: 5px;
-          span {
-            &:first-child {
-              min-width: 15px;
-              margin-right: 10px;
-              color: lighten($brand-color, 20%);
-            }
-            &:nth-child(2) {
-              word-break: break-word;
-            }
-          }
-        }
+
         .socialmedia {
           display: flex;
           justify-content: space-around;
@@ -141,118 +179,47 @@
             }
           }
         }
-      }
-    }
-    .foods-card {
-      .foods-wrapper {
-        padding: 20px 15px;
-        .display-food {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          grid-row-gap: 1.5rem;
-          grid-column-gap: 0.5rem;
-          .food-details {
-            &:nth-child(3n + 1) {
-              grid-column-end: span 2;
-            }
-            .food-name {
-              margin-top: 5px;
-              word-break: break-word;
-              text-align: center;
+        .availability-text {
+          .days {
+            display: flex;
+            flex-direction: column;
+            margin: 10px 0;
+            .day {
+              text-transform: uppercase;
+              color: #ccc;
+              font-weight: 600;
+              text-decoration: line-through;
+              border-bottom: 1px solid #ccc;
               font-size: 0.9rem;
-              font-weight: 500;
-            }
-            img {
-              width: 100%;
-              height: 100%;
-              object-fit: cover;
-              cursor: pointer;
+              font-weight: 300;
+              &.highlight {
+                color: $brand-color;
+                text-decoration: none !important;
+                text-shadow: 0 0 2px $brand-color;
+              }
             }
           }
         }
       }
     }
-    .availability-card {
-      .availability-wrapper {
-        padding: 20px 15px;
+    .reviews-btn {
+      margin-bottom: 1rem;
+      button {
+        width: 100%;
+        position: relative;
+        border: none;
+        box-shadow: 0 0 0 0 rgba($brand-color, 0.7);
+        background-color: $brand-color;
+        color: #fff;
+        font-weight: 600;
+        padding: 20px 0;
+        cursor: pointer;
       }
     }
   }
   .center-wrapper {
     .post {
-      .create-post {
-        .type-post {
-          padding: 15px;
-          textarea {
-            width: 100%;
-            padding: 5px;
-            resize: none;
-            outline: none;
-            background: #f5f6fa;
-            border: none;
-            // min-height: 150px;
-            transition: 0.3s;
-            &:focus,
-            &:active {
-              box-shadow: 0 0 3px 3px #efefef;
-            }
-          }
-          .character-limit {
-            display: block;
-            text-align: right;
-            font-weight: 600;
-            font-size: 0.8rem;
-          }
-          .image-preview {
-            position: relative;
-            width: 130px;
-            height: 130px;
-            background-size: cover;
-            box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.3);
-            border-radius: 0.25rem;
-            .remove-img {
-              position: absolute;
-              top: -10px;
-              right: -10px;
-              border-radius: 50%;
-              background: #ff5454;
-              color: #fff;
-              border: none;
-              font-size: 15px;
-            }
-          }
-          .bottom-btns {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 15px;
-            .create-post {
-              background: $brand-color;
-              border: none;
-              color: #fff;
-              transition: 0.3s ease-in-out;
-              border: 1px solid #fff;
-              min-width: 150px;
-              &:disabled {
-                background: lighten($brand-color, 20%);
-              }
-            }
-            .image-select {
-              width: 40px;
-              height: 40px;
-              background: #fff;
-              border: none;
-              color: $brand-color;
-              font-size: 20px;
-              transition: 0.3s ease-in-out;
-              border-radius: 50%;
-              &:hover {
-                background: $brand-color;
-                color: #fff;
-              }
-            }
-          }
-        }
-      }
+
     }
     .post-card {
       margin-bottom: 1.5rem;
@@ -267,6 +234,42 @@
             max-width: 100%;
             max-height: 500px;
             object-fit: contain;
+          }
+        }
+        .food-details {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0 20px;
+          background: #ffe8da;
+          .food-name {
+            font-weight: 600;
+            color: #000;
+          }
+          .country-flag {
+          }
+          .veg-badge {
+            &.veg {
+              border: 2px solid #007e00;
+              span {
+                background: #007e00;
+              }
+            }
+            &.non-veg {
+              border: 2px solid #923f21;
+              span {
+                background: #923f21;
+              }
+            }
+            width: 40px;
+            height: 40px;
+            padding: 5px;
+            span {
+              width: 25px;
+              height: 25px;
+              border-radius: 50%;
+              display: inline-block;
+            }
           }
         }
       }
@@ -287,7 +290,6 @@
         .caption {
           font-size: 0.9rem;
           overflow: hidden;
-          border-bottom: 1px solid #d4d4d4;
           padding-bottom: 15px;
           line-height: 1.3;
         }
@@ -304,9 +306,9 @@
             }
           }
           .user-basic {
-            .post-date {
+            .fullname {
               display: block;
-              font-size: 0.8rem;
+              font-size: 0.9rem;
             }
             .foodie-name {
               font-size: 25px;

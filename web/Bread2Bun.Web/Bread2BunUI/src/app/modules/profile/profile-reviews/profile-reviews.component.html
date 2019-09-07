@@ -1,0 +1,60 @@
+<div class="reviews-page">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="write-review">
+        <div class="post my-card">
+          <div class="create-post">
+            <form [formGroup]="createPostForm">
+              <div class="type-post">
+                <div class="foodieheader">Leave a review for <span (click)="goBackToProfile()">@foodie</span></div>
+                <textarea [maxlength]="maxCharacter" placeholder="Write review" (focus)="growHeight()"
+                  [style.height.px]="textAreaHeight" formControlName="postContent" (keyup)="measureLength()"></textarea>
+                <span class="character-limit">Characters Remaining: {{characterCount}}/{{maxCharacter}}</span>
+                <div *ngIf="imageUrl.length>0" class="image-preview" [style.backgroundImage]="'url('+ imageUrl +')'">
+                  <button class="remove-img" *ngIf="removeUpload" (click)="removeImage()"><i
+                      class="fas fa-times"></i></button>
+                </div>
+                <input style="display: none" type='file' id="imageUpload" accept=".png, .jpg, .jpeg" #fileInput
+                  (change)="onFileChange($event)" />
+                <div class="bottom-btns">
+                  <button class="image-select" (click)="fileInput.click()"><i class="fas fa-images"></i></button>
+                  <button [disabled]="createPostForm.invalid" (click)="createPost()" class="create-post">Create
+                    post</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="posts" infinite-scroll [infiniteScrollDistance]="scrollDistance"
+          [infiniteScrollUpDistance]="scrollUpDistance" [infiniteScrollThrottle]="throttle" (scrolled)="getReviews()"
+          (scrolledUp)="onReviewUp()">
+          <div @slideFromUp class="my-card post-card" *ngFor="let content of reviews">
+            <div class="post-img">
+              <div class="image-container">
+                <img [src]="landscapeImg" alt="">
+              </div>
+            </div>
+            <div class="post-content">
+              <div class="user-details">
+                <div class="user-img">
+                  <img [src]="profileImgUrl" alt="">
+                </div>
+                <div class="user-basic">
+                  <span class="foodie-name">@foodieman</span>
+                  <span class="post-date">{{reviewDate | timeAgo}}</span>
+                </div>
+              </div>
+              <div class="caption">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure minus commodi maxime
+                deleniti fugiat ex ab maiores magnam recusandae nesciunt cumque minima nihil voluptates nostrum debitis
+                accusantium rem perspiciatis reprehenderit temporibus magni hic voluptate molestias, impedit tempora!
+                Delectus consectetur nisi dolores? Non ab magnam amet, quasi ea natus sequi illo?</div>
+            </div>
+          </div>
+        </div>
+        <div class="loader-wrapper">
+          <div class="loader" id="loader-3"></div>
+        </div>
+    </div>
+  </div>
+</div>
