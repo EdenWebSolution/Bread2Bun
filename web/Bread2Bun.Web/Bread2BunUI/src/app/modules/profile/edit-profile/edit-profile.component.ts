@@ -31,7 +31,8 @@ export class EditProfileComponent implements OnInit {
       socialmedia: this.fb.group({
         twitterUsername: [''],
         instagramUsername: ['']
-      })
+      }),
+      foodIds: ['', Validators.required]
     });
   }
 
@@ -83,4 +84,11 @@ export class EditProfileComponent implements OnInit {
     return this.editProfileForm.get('socialmedia.instagramUsername');
   }
 
+  get foodIds() {
+    return this.editProfileForm.get('foodIds');
+  }
+
+  updateProfile() {
+    console.log(this.editProfileForm.value);
+  }
 }

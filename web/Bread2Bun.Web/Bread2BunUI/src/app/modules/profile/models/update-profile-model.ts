@@ -13,5 +13,6 @@ export class UpdateProfileModel {
     twitterUsername: string,
     instagramUsername: string
   };
+  foodIds: Array<number>;
 
 }
