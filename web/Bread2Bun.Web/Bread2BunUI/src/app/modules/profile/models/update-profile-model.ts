@@ -14,5 +14,4 @@ export class UpdateProfileModel {
     instagramUsername: string
   };
   foodIds: Array<number>;
-
 }

@@ -1,3 +1,126 @@
-<p>
-  edit-profile works!
-</p>
+<div class="update-profile-page">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="update-profile-card my-card">
+        <form [formGroup]="editProfileForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="group-gap">
+                <!-- Upload image -->
+                <div class="avatar-upload">
+                  <div class="avatar-preview">
+                    <div id="imagePreview" [style.backgroundImage]="'url('+ imageUrl +')'">
+                    </div>
+                  </div>
+                  <div class="avatar-edit">
+                    <input style="display: none" type='file' id="imageUpload" accept=".png, .jpg, .jpeg" #fileInput
+                      (change)="uploadFile($event)" />
+                    <button class="image-select" (click)="fileInput.click()">Change profile image<i
+                        class="fas fa-images"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="cover-food-img">
+                <input type="text" formControlName="coverFoodImage">
+              </div>
+              <div class="image-wrapper">
+                <img [src]="coverPhotoUrl" alt="">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="group">
+                <label>First name</label>
+                <input placeholder="First Name" type="text" formControlName="firstName">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="group">
+                <label>Last name</label>
+                <input placeholder="Last Name" type="text" formControlName="lastName">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="group">
+                <label for="">University</label>
+                <input formControlName="universityId" type="text" placeholder="Enter university">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="group">
+                <label for="">Country</label>
+                <input formControlName="countryId" type="text" placeholder="Enter Country">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="group">
+                <label>Available days</label>
+                <ng-multiselect-dropdown [placeholder]="'Choose days'" [data]="days" [(ngModel)]="selectedDays"
+                  [settings]="dropdownSettings" (onSelect)="onDaySelect($event)" (onSelectAll)="onSelectAllDays($event)"
+                  (onDeSelect)="onDaysDeSelect($event)" formControlName="availableDays">
+                </ng-multiselect-dropdown>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="group">
+                <label>Food offered</label>
+                <ng-multiselect-dropdown formControlName="foodIds" [placeholder]="'Choose foods'" [data]="foodList"
+                  [(ngModel)]="selectedFood" [settings]="foodDropdownSettings" (onSelect)="onFoodSelect($event)"
+                  (onSelectAll)="onSelectAllFoods($event)" (onDeSelect)="onFoodDeSelect($event)">
+                </ng-multiselect-dropdown>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="group">
+                <label>Languages</label>
+                <tag-input [secondaryPlaceholder]="langPlaceholder" theme='minimal' formControlName="languages"
+                  (onRemove)="onLanguageRemoved($event)" (onAdd)="onLanguageAdded($event)" [maxItems]='5'
+                  [(ngModel)]='languagesArr'></tag-input>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="group">
+                <label>About me</label>
+                <textarea formControlName="aboutMe"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="group">
+                <label>Email</label>
+                <input type="text" formControlName="email">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="group">
+                <label>Twitter</label>
+                <input type="text" formControlName="twitterUsername">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="group">
+                <label>Instagram</label>
+                <input type="text" formControlName="instagramUsername">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <button class="update" (click)="updateProfile()">Update profile</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

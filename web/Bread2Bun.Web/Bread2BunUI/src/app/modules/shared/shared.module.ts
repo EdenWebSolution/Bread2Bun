@@ -6,8 +6,8 @@ import { TypeaheadModule, RatingModule, PopoverModule } from 'ngx-bootstrap';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ClipboardModule } from 'ngx-clipboard';
 import { TimeAgoPipe } from 'time-ago-pipe';
-
-
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { TagInputModule } from 'ngx-chips';
 
 @NgModule({
   declarations: [TimeAgoPipe],
@@ -24,7 +24,9 @@ import { TimeAgoPipe } from 'time-ago-pipe';
     RatingModule,
     PopoverModule.forRoot(),
     InfiniteScrollModule,
-    ClipboardModule
+    ClipboardModule,
+    NgMultiSelectDropDownModule.forRoot(),
+    TagInputModule
   ],
   exports: [
     ReactiveFormsModule,
@@ -35,7 +37,9 @@ import { TimeAgoPipe } from 'time-ago-pipe';
     PopoverModule,
     InfiniteScrollModule,
     ClipboardModule,
-    TimeAgoPipe
+    TimeAgoPipe,
+    NgMultiSelectDropDownModule,
+    TagInputModule
   ]
 })
 export class SharedModule { }

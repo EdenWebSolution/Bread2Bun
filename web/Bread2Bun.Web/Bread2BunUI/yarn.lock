@@ -4547,10 +4547,32 @@ neo-async@^2.5.0, neo-async@^2.6.0:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
 
+ng-multiselect-dropdown@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/ng-multiselect-dropdown/-/ng-multiselect-dropdown-0.2.4.tgz#a6d928fb659c6d568b6ad87d932cb3b5f8984209"
+  integrity sha512-8EUzxo1lJjOhaTSe30zlNbuN+YXlEbDvJQ4x0mJBEqksKJN6oHBN0lhYX8eEf7kajL3SV4yLdDlifDx2howdAw==
+  dependencies:
+    tslib "^1.7.1"
+
+ng2-material-dropdown@0.10.1:
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/ng2-material-dropdown/-/ng2-material-dropdown-0.10.1.tgz#0120ce1bbabfb065c62610fe3b572cd09f61b1e1"
+  integrity sha512-dOmk4+T6Rbtk60Un7sxOOFU546z5JEYupSL+RiG0/rN4DmJvxPp297AvA2Qm9LSMNszUZMi55cRzj79zQYu85g==
+  dependencies:
+    tslib "^1.9.0"
+
 ngx-bootstrap@^5.1.0:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-5.1.1.tgz#aab63b218611eeeaed0c9e224f2033a992ac6e57"
   integrity sha512-++6+YHbIWTR/3sHH9C0aelIP25KMKhylWSEet6HonZfVr8quzEUjq6xEzTnDbZpnxlly2j58Gg0O9DWXu0UCxA==
+
+ngx-chips@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/ngx-chips/-/ngx-chips-2.0.2.tgz#bf1342d8d6a741d86e506f7ab51b0d49e9191416"
+  integrity sha512-r3XwfE9VCzdbXso1qWeR5AhWlluljOwef4MdpIIJ9wFVcTAHCAU11wO+K6dUVw7mNWeGOhLCMEmi2+tNrKOCpg==
+  dependencies:
+    ng2-material-dropdown "0.10.1"
+    tslib "^1.9.0"
 
 ngx-clipboard@^12.2.1:
   version "12.2.1"
