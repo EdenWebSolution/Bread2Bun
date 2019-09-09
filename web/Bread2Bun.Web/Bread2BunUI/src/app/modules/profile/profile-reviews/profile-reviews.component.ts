@@ -17,7 +17,7 @@ export class ProfileReviewsComponent implements OnInit {
   scrollDistance = 2;
   scrollUpDistance = 2;
   throttle = 1500;
-  reviews = ['a','b','c'];
+  reviews = [false, false, false];
   textAreaHeight: number = 35;
   imageUrl: any = '';
   removeUpload: boolean = false;
@@ -90,15 +90,16 @@ export class ProfileReviewsComponent implements OnInit {
   }
 
   getReviews() {
-    console.log('adsa')
-    this.reviews.push('a');
+    console.log('adsa');
+    this.reviews.push(false);
   }
   onReviewUp() {
     console.log('up psts');
   }
 
-  goBackToProfile(){
+  goBackToProfile() {
     this.router.navigate(['/app/profile']);
   }
+
 
 }

@@ -27,19 +27,13 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadMenu()
+    this.loadMenu();
   }
 
-  loadMenu(){
+  loadMenu() {
     this.menuItem = [
       {
         path: '/app/feed',
-        title: 'Feed',
-        icon: '',
-        class: ''
-      },
-      {
-        path: '/app/explore',
         title: 'Explore',
         icon: '',
         class: ''
@@ -65,7 +59,7 @@ export class NavbarComponent implements OnInit {
     // sessionStorage.removeItem('bread2bun-TokenId');
   }
 
-  getRating(){
+  getRating() {
     console.log('rayting', this.rate);
   }
 

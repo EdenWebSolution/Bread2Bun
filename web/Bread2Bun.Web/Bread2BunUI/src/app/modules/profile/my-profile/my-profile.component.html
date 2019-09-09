@@ -14,8 +14,8 @@
               <div class="username">@Foodie</div>
               <div class="name">Akmal Nawfer</div>
               <div class="country">
-               <span class="country-name">Belgium</span>
-               <span class="country-flag"><img src="https://www.countryflags.io/be/flat/64.png"></span>
+                <span class="country-name">Belgium</span>
+                <span class="country-flag"><img src="https://www.countryflags.io/be/flat/64.png"></span>
               </div>
               <div class="university"><span><i class="fas fa-landmark"></i></span> <span>Rhine-Waal University of
                   Applied
@@ -24,7 +24,9 @@
             </div>
             <div class="action-btns">
               <button class="message">Message <span> <i class="fas fa-comments"></i></span></button>
-              <button class="share" (click)="copyToShare()">Share <span> <i class="fas fa-share-alt"></i></span></button>
+              <button class="share" (click)="copyToShare()">Share <span> <i
+                    class="fas fa-share-alt"></i></span></button>
+              <button class="message" (click)="editProfile()">Edit <span><i class="fas fa-user-edit"></i></span></button>
             </div>
           </div>
         </div>
@@ -95,34 +97,34 @@
             </div>
           </div>
           <div @slideFromUp class="my-card post-card">
-              <div class="post-img">
-                <div class="image-container">
-                  <img [src]="landscapeImg" alt="">
-                </div>
-                <div class="food-details">
-                  <div class="food-name">Watalappan curry</div>
-                  <div class="country-flag">
-                    <img src="https://www.countryflags.io/be/flat/64.png">
-                  </div>
-                  <div class="veg-badge non-veg"> <span></span> </div>
-                </div>
+            <div class="post-img">
+              <div class="image-container">
+                <img [src]="landscapeImg" alt="">
               </div>
-              <div class="post-content">
-                <div class="user-details">
-                  <div class="user-img">
-                    <img [src]="profileImgUrl" alt="">
-                  </div>
-                  <div class="user-basic">
-                    <span class="foodie-name">@foodieman</span>
-                    <span class="fullname">Akmal Nawfer</span>
-                  </div>
+              <div class="food-details">
+                <div class="food-name">Watalappan curry</div>
+                <div class="country-flag">
+                  <img src="https://www.countryflags.io/be/flat/64.png">
                 </div>
-                <div class="caption">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure minus commodi maxime
-                  deleniti fugiat ex ab maiores magnam recusandae nesciunt cumque minima nihil voluptates nostrum debitis
-                  accusantium rem perspiciatis reprehenderit temporibus magni hic voluptate molestias, impedit tempora!
-                  Delectus consectetur nisi dolores? Non ab magnam amet, quasi ea natus sequi illo?</div>
+                <div class="veg-badge non-veg"> <span></span> </div>
               </div>
             </div>
+            <div class="post-content">
+              <div class="user-details">
+                <div class="user-img">
+                  <img [src]="profileImgUrl" alt="">
+                </div>
+                <div class="user-basic">
+                  <span class="foodie-name">@foodieman</span>
+                  <span class="fullname">Akmal Nawfer</span>
+                </div>
+              </div>
+              <div class="caption">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure minus commodi maxime
+                deleniti fugiat ex ab maiores magnam recusandae nesciunt cumque minima nihil voluptates nostrum debitis
+                accusantium rem perspiciatis reprehenderit temporibus magni hic voluptate molestias, impedit tempora!
+                Delectus consectetur nisi dolores? Non ab magnam amet, quasi ea natus sequi illo?</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -135,17 +137,11 @@
               <img [src]="profileImgUrl" alt="">
               <div class="username">@cookie eater <span class="review-time">{{commentDate| timeAgo}}</span></div>
             </div>
-            <div class="review-user-details">
+            <div class="review-details">
               <div class="review-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus optio
                 aliquid commodi natus hic quae?</div>
-              <div class="rating">
-                <rating [(ngModel)]="rate" [max]="max" [customTemplate]="tt" [readonly]="true"></rating>
-                <ng-template #tt let-i="index" let-v="value">
-                  <span class="stars">
-                    {{i < v ? '&#9733;' : '&#9734;'}}
-                  </span>
-                </ng-template>
-              </div>
+              <button class="view" [routerLink]="['reviews']" routerLinkActive="router-link-active"><i
+                  class="fas fa-eye"></i></button>
             </div>
           </div>
           <div class="review">
@@ -153,17 +149,9 @@
               <img [src]="profileImgUrl" alt="">
               <div class="username">@cookie eater <span class="review-time">{{commentDate| timeAgo}}</span></div>
             </div>
-            <div class="review-user-details">
+            <div class="review-details">
               <div class="review-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus optio
                 aliquid commodi natus hic quae?</div>
-              <div class="rating">
-                <rating [(ngModel)]="rate" [max]="max" [customTemplate]="tt" [readonly]="true"></rating>
-                <ng-template #tt let-i="index" let-v="value">
-                  <span class="stars">
-                    {{i < v ? '&#9733;' : '&#9734;'}}
-                  </span>
-                </ng-template>
-              </div>
             </div>
           </div>
           <div class="review">
@@ -171,17 +159,9 @@
               <img [src]="profileImgUrl" alt="">
               <div class="username">@cookie eater <span class="review-time">{{commentDate| timeAgo}}</span></div>
             </div>
-            <div class="review-user-details">
+            <div class="review-details">
               <div class="review-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus optio
                 aliquid commodi natus hic quae?</div>
-              <div class="rating">
-                <rating [(ngModel)]="rate" [max]="max" [customTemplate]="tt" [readonly]="true"></rating>
-                <ng-template #tt let-i="index" let-v="value">
-                  <span class="stars">
-                    {{i < v ? '&#9733;' : '&#9734;'}}
-                  </span>
-                </ng-template>
-              </div>
             </div>
           </div>
           <div class="review">
@@ -189,17 +169,9 @@
               <img [src]="profileImgUrl" alt="">
               <div class="username">@cookie eater <span class="review-time">{{commentDate| timeAgo}}</span></div>
             </div>
-            <div class="review-user-details">
+            <div class="review-details">
               <div class="review-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus optio
                 aliquid commodi natus hic quae?</div>
-              <div class="rating">
-                <rating [(ngModel)]="rate" [max]="max" [customTemplate]="tt" [readonly]="true"></rating>
-                <ng-template #tt let-i="index" let-v="value">
-                  <span class="stars">
-                    {{i < v ? '&#9733;' : '&#9734;'}}
-                  </span>
-                </ng-template>
-              </div>
             </div>
           </div>
           <div class="review">
@@ -207,17 +179,9 @@
               <img [src]="profileImgUrl" alt="">
               <div class="username">@cookie eater <span class="review-time">{{commentDate| timeAgo}}</span></div>
             </div>
-            <div class="review-user-details">
+            <div class="review-details">
               <div class="review-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus optio
                 aliquid commodi natus hic quae?</div>
-              <div class="rating">
-                <rating [(ngModel)]="rate" [max]="max" [customTemplate]="tt" [readonly]="true"></rating>
-                <ng-template #tt let-i="index" let-v="value">
-                  <span class="stars">
-                    {{i < v ? '&#9733;' : '&#9734;'}}
-                  </span>
-                </ng-template>
-              </div>
             </div>
           </div>
         </div>

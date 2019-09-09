@@ -13,14 +13,16 @@
       aria-label="Toggle navigation"
       (click)="show = !show"
     >
-      <span class="navbar-toggler-icon"></span>
+      <span *ngIf="!show"><i class="fas fa-grip-lines"></i></span>
+      <span *ngIf="show"><i class="fas fa-times"></i></span>
     </button>
     <div
       class="collapse navbar-collapse"
       [ngClass]="{ show: show }"
       id="navbarSupportedContent"
+      @slideFromUp
     >
-      <ul class="navbar-nav mr-auto ">
+      <ul class="navbar-nav mr-auto">
         <li
           class="nav-item"
           routerLinkActive="active"

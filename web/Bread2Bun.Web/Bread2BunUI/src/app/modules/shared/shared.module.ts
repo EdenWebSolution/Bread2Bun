@@ -5,11 +5,12 @@ import { ToastrModule } from 'ngx-toastr';
 import { TypeaheadModule, RatingModule, PopoverModule } from 'ngx-bootstrap';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ClipboardModule } from 'ngx-clipboard';
+import { TimeAgoPipe } from 'time-ago-pipe';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [TimeAgoPipe],
   imports: [
     CommonModule,
     FormsModule,
@@ -33,7 +34,8 @@ import { ClipboardModule } from 'ngx-clipboard';
     RatingModule,
     PopoverModule,
     InfiniteScrollModule,
-    ClipboardModule
+    ClipboardModule,
+    TimeAgoPipe
   ]
 })
 export class SharedModule { }

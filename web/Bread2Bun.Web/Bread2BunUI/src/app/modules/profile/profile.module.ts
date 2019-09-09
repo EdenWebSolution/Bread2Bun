@@ -6,10 +6,11 @@ import { SharedModule } from '../shared/shared.module';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import {TimeAgoPipe} from 'time-ago-pipe';
 import { ProfileReviewsComponent } from './profile-reviews/profile-reviews.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 
 @NgModule({
-  declarations: [MyProfileComponent, TimeAgoPipe, ProfileReviewsComponent],
+  declarations: [MyProfileComponent, ProfileReviewsComponent, EditProfileComponent],
   imports: [
     CommonModule,
     ProfileRoutingModule,

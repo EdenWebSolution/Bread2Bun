@@ -105,7 +105,7 @@
               height: 40px;
               border: 2px solid;
               border-radius: 50%;
-              padding: 4px;
+              padding: 5px;
             }
           }
           .message {
@@ -313,6 +313,14 @@
             .foodie-name {
               font-size: 25px;
               color: $brand-color;
+              font-weight: 60;
+            }
+          }
+          @media only screen and (max-width: 500px) {
+            .user-basic {
+              .foodie-name {
+                font-size: 1.2rem !important;
+              }
             }
           }
         }
@@ -417,12 +425,11 @@
   }
   .right-wrapper {
     .reviews {
-      min-height: 100vh;
       padding: 20px 15px;
       .review {
         margin-bottom: 15px;
         &:last-child {
-          .review-user-details {
+          .review-details {
             border: none;
           }
         }
@@ -445,12 +452,17 @@
             }
           }
         }
-        .review-user-details {
+        .review-details {
           padding-bottom: 10px;
           border-bottom: 1px solid #d4d4d4;
           .review-text {
             margin-top: 5px;
             font-size: 0.8rem;
+          }
+          .view{
+            color: $brand-color;
+            border: none;
+            background: none;
           }
           .rating {
             text-align: right;
