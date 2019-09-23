@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { ProfileReviewsComponent } from './profile-reviews/profile-reviews.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { ViewProfileComponent } from './view-profile/view-profile.component';
 
 const routes: Routes = [
   {
@@ -10,12 +11,16 @@ const routes: Routes = [
     component: MyProfileComponent
   },
   {
-    path: 'reviews',
+    path: 'reviews/:userId',
     component: ProfileReviewsComponent
   },
   {
     path: 'editProfile',
     component: EditProfileComponent
+  },
+  {
+    path: 'view/:username',
+    component: ViewProfileComponent
   }
 ];
 

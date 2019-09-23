@@ -1,8 +1,4 @@
 ﻿using Bread2Bun.Common.Model;
-using Bread2Bun.Domain.Security;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Bread2Bun.Service.Profile.Models.Review
 {
@@ -12,5 +8,6 @@ namespace Bread2Bun.Service.Profile.Models.Review
         public string Review { get; set; }
         public int Rating { get; set; }
         public StoreUserModel Reviewer { get; set; }
+        public string ReviewImage { get; set; }
     }
 }

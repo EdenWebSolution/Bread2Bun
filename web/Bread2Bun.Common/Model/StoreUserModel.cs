@@ -15,5 +15,6 @@ namespace Bread2Bun.Common.Model
         public long? EditedById { get; set; }
         public bool IsDeleted { get; set; }
         public Gender Gender { get; set; }
+        public string ProfilePictureImagePath { get; set; }
     }
 }

@@ -57,4 +57,13 @@ export class AuthorizeService extends BaseService {
       )
       .catch(this.server4xxError);
   }
+
+  logout() {
+    return this.http
+      .post(
+        `${this.baseEndPoint}/api/security/logout`,
+        this.httpOptions
+      )
+      .catch(this.server4xxError);
+  }
 }

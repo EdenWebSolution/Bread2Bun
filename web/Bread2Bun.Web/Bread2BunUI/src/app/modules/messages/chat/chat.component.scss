@@ -29,7 +29,7 @@
       li {
         display: flex;
         justify-content: space-between;
-        align-content: start;
+        align-content: flex-start;
         padding: 10px;
         border-bottom: 1px solid #ccc;
         background: #fff;
@@ -49,6 +49,7 @@
               width: 60px;
               border-radius: 50%;
               border: 3px solid #fff;
+              object-fit: cover;
               &.online {
                 border-color: #7ed481;
               }

@@ -5,16 +5,19 @@ using Bread2Bun.Domain.Security.TokenProviders;
 using Bread2Bun.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
+using System.IO;
 using System.Text;
 
 namespace Bread2Bun.Web
@@ -127,13 +130,15 @@ namespace Bread2Bun.Web
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
-            app.UseCors(builder => builder.WithOrigins("http://bread2bun.azurewebsites.net", "https://bread2bun.azurewebsites.net", "http://localhost:4200", "http://localhost:54969").AllowAnyHeader().AllowAnyMethod());
+            //app.UseCors(builder => builder.WithOrigins("https://www.bread2bun.com/", "http://bread2bun.azurewebsites.net", "http://www.bread2bun.com", "https://bread2bun.azurewebsites.net", "http://localhost:4200", "http://localhost:54969").AllowAnyHeader().AllowAnyMethod());
+            app.UseCors(builder => builder.WithOrigins("*").AllowAnyHeader().AllowAnyMethod());
+
             app.UseAuthentication();
 
-            app.UseSignalR(routes =>
-            {
-                //routes.MapHub<ChartHub>("/chart");
-            });
+            //app.UseSignalR(routes =>
+            //{
+            //    //routes.MapHub<ChartHub>("/chart");
+            //});
 
             app.UseMvc(routes =>
             {

@@ -1,18 +1,141 @@
-.update-profile-page{
+@import "../../../styles/colors";
+@import "../../../styles/fonts";
+
+.update-profile-page {
   padding: 1.5rem;
-  .update-profile-card{
-    .group-gap{
-      .avatar-upload{
-        .avatar-preview{
-          #imagePreview{
-            width: 200px;
-            height: 200px;
+  .update-profile-card {
+    padding: 20px 45px;
+    @media only screen and (max-width: 576px){
+      padding: 20px 15px;
+    }
+    .header-area{
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+
+      .profile-header {
+        font-family: $lexend;
+        font-size: 2rem;
+        color: $brand-color;
+        span {
+          color: $logo-red;
+        }
+      }
+      @media only screen and (max-width: 576px){
+        display: block;
+        .profile-header{
+          font-size: 1.2rem;
+          margin-bottom: 15px;
+        }
+      }
+    }
+    .group {
+      margin-bottom: 10px;
+      label {
+        width: 100%;
+        margin-bottom: 0.5rem;
+      }
+      input,
+      textarea {
+        width: 100%;
+        padding: 5px 0 5px 15px;
+        border-radius: 30px;
+        box-shadow: none;
+        border: 1px solid #ccc;
+        outline: 0;
+        font-weight: 600;
+        transition: 0.3s ease-in-out;
+      }
+    }
+    .group-gap {
+      .avatar-upload {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin-bottom: 30px;
+        @media only screen and (max-width: 576px){
+          display: block;
+          text-align: center;
+          .avatar-preview{
+            #imagePreview{
+              margin: 10px auto;
+            }
+          }
+        }
+        .avatar-preview {
+          margin-bottom: 15px;
+          #imagePreview {
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             background-repeat: no-repeat;
             background-size: contain;
+            box-shadow: 0 0px 46px -14px #6f6f6f;
+            background-size: cover;
+            background-color: #ccc;
+          }
+        }
+        .avatar-edit {
+          .image-select {
+            color: #fff;
+            background: $brand-color;
+            border: none;
+            font-weight: 600;
+            padding: 10px;
+            border-radius: 30px;
+            min-width: 115px;
+            @media only screen and (max-width: 576px){
+              span{
+                display: none;
+              }
+            }
           }
         }
       }
+    }
+  }
+}
+
+.image-wrapper {
+  img {
+    margin: 10px 0;
+    box-shadow: 0 0px 46px -14px #6f6f6f;
+    border-radius: 5px;
+    max-width: 100%;
+  }
+}
+
+.multiselect-dropdown {
+  .dropdown-btn {
+    border-radius: 30px !important;
+    border: 1px solid #ccc !important;
+  }
+}
+
+.error {
+  margin: 2px 0 2px 17px;
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #fb0000;
+}
+
+::ng-deep {
+  .ng2-tags-container {
+    border-radius: 30px;
+    padding: 0 20px;
+    border: 1px solid #ccc;
+    .ng2-tag-input__text-input{
+      background: transparent;
+    }
+  }
+}
+
+.button-container {
+  margin: 20px 0px 10px;
+  button {
+    &:disabled {
+      color: #ccc !important;
     }
   }
 }

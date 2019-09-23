@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Bread2Bun.Common;
+using Bread2Bun.Common.Constants;
+using Bread2Bun.Common.Model;
 using Bread2Bun.Data;
 using Bread2Bun.Domain.Food;
 using Bread2Bun.Service.Profile.Interface;
@@ -27,8 +29,8 @@ namespace Bread2Bun.Service.Profile
         }
         public async Task<ReviewModel> AddReviewAsync(ReviewCreateModel reviewCreateModel)
         {
-            var entity = mapper.Map<Reviews>(reviewCreateModel);
-            await context.AddAsync(entity);
+            var entity = new Reviews().Create(reviewCreateModel.RevieweeId, userResolverService.UserId, reviewCreateModel.Review, reviewCreateModel.ReviewImage);
+            context.Add(entity);
             await context.SaveChangesAsync();
             return mapper.Map<ReviewModel>(entity);
         }
@@ -42,7 +44,7 @@ namespace Bread2Bun.Service.Profile
             return mapper.Map<ReviewModel>(entity);
         }
 
-        public async Task<PaginationModel<ReviewModel>> GetAll(PaginationBase paginationBase, long userId = 0)
+        public async Task<PageList<ReviewModel>> GetAll(PaginationBase paginationBase, long userId = 0)
         {
             var query = context.Reviews.Include(i => i.Reviewer).Where(w => w.RevieweeId == (userId != 0 ? userId : userResolverService.UserId));
 
@@ -54,10 +56,17 @@ namespace Bread2Bun.Service.Profile
 
             var resultData = mapper.Map<IEnumerable<ReviewModel>>(entities);
 
-            var resultSet = new PaginationModel<ReviewModel>()
+            foreach (var res in resultData)
             {
-                TotalRecords = totalNumberOfRecord,
-                Details = resultData
+                res.ReviewImage = res.ReviewImage == null ? null : FolderPath.ImagePath + FolderPath.Review + res.ReviewImage;
+                res.Reviewer.ProfilePictureImagePath = res.Reviewer.ProfilePictureImagePath == null ? null : FolderPath.ImagePath + FolderPath.ProfileImages + res.Reviewer.ProfilePictureImagePath;
+            }
+            var resultSet = new PageList<ReviewModel>()
+            {
+                Skip = paginationBase.Skip,
+                Take = paginationBase.Take,
+                Items = resultData,
+                TotalRecordCount = totalNumberOfRecord
             };
             return resultSet;
         }
@@ -66,6 +75,7 @@ namespace Bread2Bun.Service.Profile
         {
             var entity = await context.Reviews.FirstOrDefaultAsync(f => f.Id == id);
             var model = mapper.Map<ReviewModel>(entity);
+            model.ReviewImage = model.ReviewImage == null ? null : FolderPath.ImagePath + FolderPath.Review + model.ReviewImage;
             return model;
         }
 

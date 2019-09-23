@@ -3,15 +3,20 @@ export class UpdateProfileModel {
   lastName: string;
   universityId: number;
   countryId: number;
-  profileImg: string;
-  coverFoodImage: string;
+  profileImage: string;
+  coverFoodImageId: number;
   availableDays: Array<number>;
   aboutMe: string;
   languages: Array<string>;
   email: string;
-  socialmedia: {
-    twitterUsername: string,
-    instagramUsername: string
-  };
+  instagram: string;
+  twitter: string;
   foodIds: Array<number>;
+  address: Address = new Address();
+  constructor() { }
+}
+
+export class Address {
+  city: string;
+  country: string;
 }

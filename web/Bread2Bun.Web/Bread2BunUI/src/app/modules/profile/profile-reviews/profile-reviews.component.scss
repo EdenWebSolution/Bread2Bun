@@ -4,6 +4,17 @@
 .reviews-page {
   padding-top: 1.5rem;
 }
+
+.myheader {
+  padding: 15px;
+  color: $brand-color;
+  font-weight: 600;
+  font-family: $lexend;
+  font-size: 25px;
+  span {
+    cursor: pointer;
+  }
+}
 .create-post {
   .type-post {
     padding: 15px;
@@ -125,6 +136,7 @@
       }
       .name {
         font-size: 18px;
+        text-transform: capitalize;
       }
       .origin {
       }
@@ -167,7 +179,7 @@
   .post-img {
     .image-container {
       text-align: center;
-      background: rgba(255, 168, 112, 0.19);
+      background: #fff;
       img {
         width: 100%;
         max-width: 100%;
@@ -263,6 +275,7 @@
           width: 70px;
           height: 70px;
           border-radius: 50%;
+          object-fit: cover;
         }
       }
     }
@@ -322,5 +335,8 @@
   .foodie-name {
     font-size: 25px;
     color: $brand-color;
+  }
+  .reviwer-name{
+    display: block;
   }
 }

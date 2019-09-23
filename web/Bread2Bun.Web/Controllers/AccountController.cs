@@ -69,6 +69,20 @@ namespace Bread2Bun.Web.Controllers
             }
         }
 
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            try
+            {
+                await securityService.Logout();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return HandleExcpetion(ex);
+            }
+        }
+
 
         [HttpPost("forgotpassword")]
         [AllowAnonymous]

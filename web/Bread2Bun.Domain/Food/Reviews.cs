@@ -1,8 +1,5 @@
 ﻿using Bread2Bun.Domain.Security;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace Bread2Bun.Domain.Food
 {
@@ -17,11 +14,23 @@ namespace Bread2Bun.Domain.Food
         public StoreUser Reviewer { get; protected set; }
         public string Review { get; protected set; }
         public int Rating { get; protected set; }
+        public string ReviewImage { get; set; }
+
+
+        public Reviews Create(long revieweeId,long reviewerId,string review,string reviewImage)
+        {
+            RevieweeId = revieweeId;
+            ReviewerId = reviewerId;
+            Review = review;
+            ReviewImage = reviewImage;
+            return this;
+        }
 
         public Reviews Update(string review, int rating)
         {
             Review = review;
             Rating = rating;
+            ReviewImage = review;
             return this;
         }
 

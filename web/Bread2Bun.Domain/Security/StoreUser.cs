@@ -2,9 +2,7 @@
 using Bread2Bun.Domain.Shared;
 using Microsoft.AspNetCore.Identity;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace Bread2Bun.Domain.Security
 {
@@ -23,7 +21,6 @@ namespace Bread2Bun.Domain.Security
 
 
         #region Relationships
-
         public virtual int CountryId { get; protected set; }
         [ForeignKey(nameof(CountryId))]
         public Country Country { get; protected set; }
@@ -32,6 +29,21 @@ namespace Bread2Bun.Domain.Security
         [ForeignKey(nameof(UniversityId))]
         public University University { get; protected set; }
 
+        public StoreUser Update(string firstName,string lastName,string email,int countryId,int universityId)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Email = email;
+            CountryId = countryId;
+            UniversityId = universityId;
+            return this;
+        }
+
+        public StoreUser UpdateImage(string profilePictureImage)
+        {
+            ProfilePictureImagePath = profilePictureImage;
+            return this;
+        }
         #endregion
     }
 }

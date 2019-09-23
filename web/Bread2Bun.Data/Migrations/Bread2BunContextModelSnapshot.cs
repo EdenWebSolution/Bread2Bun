@@ -41,6 +41,8 @@ namespace Bread2Bun.Data.Migrations
 
                     b.Property<bool>("IsDeleted");
 
+                    b.Property<bool>("IsVegetarian");
+
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
@@ -69,6 +71,8 @@ namespace Bread2Bun.Data.Migrations
                     b.Property<int>("Rating");
 
                     b.Property<string>("Review");
+
+                    b.Property<string>("ReviewImage");
 
                     b.Property<long>("RevieweeId");
 
@@ -217,6 +221,8 @@ namespace Bread2Bun.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CountryCode");
+
                     b.Property<long?>("CreatedById");
 
                     b.Property<DateTimeOffset>("CreatedOn");
@@ -257,15 +263,42 @@ namespace Bread2Bun.Data.Migrations
                     b.ToTable("University");
                 });
 
+            modelBuilder.Entity("Bread2Bun.Domain.UserProfile.UserFood", b =>
+                {
+                    b.Property<long>("Id");
+
+                    b.Property<long>("UserId");
+
+                    b.Property<long>("UserProfileId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("UserProfileId");
+
+                    b.ToTable("UserFood");
+                });
+
             modelBuilder.Entity("Bread2Bun.Domain.UserProfile.UserProfile", b =>
                 {
                     b.Property<long>("Id");
 
                     b.Property<string>("AboutMe");
 
-                    b.Property<string>("Facebook");
+                    b.Property<string>("AvailableDays");
+
+                    b.Property<string>("City");
+
+                    b.Property<string>("Country");
+
+                    b.Property<int>("CoverFoodImageId");
 
                     b.Property<string>("Instagram");
+
+                    b.Property<bool>("IsUpdated");
+
+                    b.Property<string>("Languages");
 
                     b.Property<string>("Twitter");
 
@@ -388,6 +421,24 @@ namespace Bread2Bun.Data.Migrations
                     b.HasOne("Bread2Bun.Domain.Shared.University", "University")
                         .WithMany()
                         .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Bread2Bun.Domain.UserProfile.UserFood", b =>
+                {
+                    b.HasOne("Bread2Bun.Domain.Food.Food", "Food")
+                        .WithMany()
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Bread2Bun.Domain.Security.StoreUser", "StoreUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Bread2Bun.Domain.UserProfile.UserProfile", "UserProfile")
+                        .WithMany("Foods")
+                        .HasForeignKey("UserProfileId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

@@ -1,12 +1,15 @@
 <div class="reviews-page">
   <div class="row">
     <div class="col-md-12">
-      <div class="write-review">
+      <div *ngIf="isMyProfile" class="post my-card">
+        <div class="myheader">My reviews</div>
+      </div>
+      <div *ngIf="!isMyProfile" class="write-review">
         <div class="post my-card">
           <div class="create-post">
             <form [formGroup]="createPostForm">
               <div class="type-post">
-                <div class="foodieheader">Leave a review for <span (click)="goBackToProfile()">@foodie</span></div>
+                <div class="foodieheader">Leave a review</div>
                 <textarea [maxlength]="maxCharacter" placeholder="Write review" (focus)="growHeight()"
                   [style.height.px]="textAreaHeight" formControlName="postContent" (keyup)="measureLength()"></textarea>
                 <span class="character-limit">Characters Remaining: {{characterCount}}/{{maxCharacter}}</span>
@@ -31,36 +34,32 @@
         (scrolledUp)="onReviewUp()">
         <div @slideFromUp class="my-card post-card" *ngFor="let content of reviews">
           <div class="post-img">
-            <div class="image-container">
-              <img [src]="landscapeImg" alt="">
+            <div *ngIf="content.reviewImage !=null && content.reviewImage !=undefined" class="image-container">
+              <img [src]="content.reviewImage" alt="">
             </div>
           </div>
           <div class="post-content">
             <div class="user-details">
               <div class="user-img">
-                <img [src]="profileImgUrl" alt="">
+                <img  [routerLink]="['/app/profile/view', content.reviewer.userName]"  [src]="content.reviewer.profilePictureImagePath" alt="">
               </div>
               <div class="user-basic">
-                <span class="foodie-name">@foodieman</span>
-                <span class="post-date">{{reviewDate | timeAgo}}</span>
+                <span class="foodie-name">{{content.reviewer.userName}}</span>
+                <span class="reviwer-name">{{content.reviewer.firstName}} {{content.reviewer.lastName}}</span>
+                <span class="post-date">{{content.createdOn | timeAgo}}</span>
               </div>
             </div>
-            <div class="caption" [ngClass]="{'show-more': content}">Lorem ipsum dolor sit amet consectetur adipisicing
-              elit. Iure minus commodi maxime
-              deleniti fugiat ex ab maiores magnam recusandae nesciunt cumque minima nihil voluptates nostrum debitis
-              accusantium rem perspiciatis reprehenderit temporibus magni hic voluptate molestias, impedit tempora!
-              Delectus consectetur nisi dolores? Non ab magnam amet, quasi ea natus sequi illo? Lorem ipsum dolor sit
-              amet consectetur adipisicing elit. Ipsam esse inventore similique iste minima, aperiam quidem hic neque
-              asperiores libero! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore at blanditiis minima
-              molestias atque rerum natus facere distinctio delectus? Ad. Lorem, ipsum dolor sit amet consectetur
-              adipisicing elit. Architecto delectus quibusdam, ducimus exercitationem incidunt ab. Error eveniet nam
-              voluptas architecto!</div>
-            <button (click)='content = !content' class='show-more-btn' [ngClass]="{'less': content}">{{content? 'Less': 'More'}}</button>
+            <div class="caption" [ngClass]="{'show-more': content.isShowMore}">{{content.review}}</div>
+            <button (click)='content.isShowMore = !content.isShowMore' class='show-more-btn'
+              [ngClass]="{'less': content.isShowMore}">{{content.isShowMore? 'Less': 'More'}}</button>
           </div>
         </div>
       </div>
-      <div class="loader-wrapper">
+      <div *ngIf="!reviewFinished" class="loader-wrapper">
         <div class="loader" id="loader-3"></div>
+      </div>
+      <div *ngIf="reviewFinished" class="post-finished-text">
+        <p>That's all about.</p>
       </div>
     </div>
   </div>

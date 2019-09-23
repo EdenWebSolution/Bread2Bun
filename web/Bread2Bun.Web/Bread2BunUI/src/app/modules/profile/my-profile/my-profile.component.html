@@ -11,54 +11,49 @@
               <img class="image-responsive" [src]="profileImgUrl" [alt]="">
             </div>
             <div class="contents-wrapper">
-              <div class="username">@Foodie</div>
-              <div class="name">Akmal Nawfer</div>
+              <div class="username">{{profileData.userName}}</div>
+              <div class="name">{{profileData.firstName}} {{profileData.lastName}}</div>
               <div class="country">
-                <span class="country-name">Belgium</span>
-                <span class="country-flag"><img src="https://www.countryflags.io/be/flat/64.png"></span>
+                <span class="country-name">{{profileData.country}}</span>
+                <span class="country-flag"><img
+                    src="https://www.countryflags.io/{{profileData.countryCode}}/flat/64.png"></span>
               </div>
-              <div class="university"><span><i class="fas fa-landmark"></i></span> <span>Rhine-Waal University of
-                  Applied
-                  Sciences, Kamp-lintfort</span></div>
-              <div class="lives"> <span><i class="fas fa-map-marker-alt"></i></span> <span>Kandy, Srilanka</span></div>
+              <div class="university"><span><i class="fas fa-landmark"></i></span>
+                <span>{{profileData.university}}</span></div>
+              <div class="lives"> <span><i class="fas fa-map-marker-alt"></i></span> <span>{{profileData.address.city}},
+                  {{profileData.address.country}}</span></div>
             </div>
             <div class="action-btns">
-              <button class="message">Message <span> <i class="fas fa-comments"></i></span></button>
+              <button class="message">My messages <span> <i class="fas fa-comments"></i></span></button>
               <button class="share" (click)="copyToShare()">Share <span> <i
                     class="fas fa-share-alt"></i></span></button>
-              <button class="message" (click)="editProfile()">Edit <span><i class="fas fa-user-edit"></i></span></button>
+              <button *ngIf="myProfile" class="message" (click)="editProfile()">Edit <span><i
+                    class="fas fa-user-edit"></i></span></button>
             </div>
           </div>
         </div>
         <div class="reviews-btn">
-          <button [routerLink]="['reviews']">See reviews</button>
+          <button [routerLink]="['reviews', profileData.userId]">See my reviews</button>
         </div>
         <div class="about-card my-card">
           <div class="about-wrapper">
             <div class="availability-text">
               <p class="header">Available days</p>
               <div class="days">
-                <span class="day">Monday</span>
-                <span class="day highlight">Tuesday</span>
-                <span class="day">Wednesday</span>
-                <span class="day highlight">Thursday</span>
-                <span class="day highlight">Friday</span>
-                <span class="day">Saturday</span>
-                <span class="day">Sunday</span>
+                <span class="day" *ngFor="let day of days" [class]="day.className">{{day.value}}</span>
               </div>
             </div>
             <div class="about-text">
               <p class="header">About me</p>
-              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque odio suscipit quasi minus cupiditate
-                labore?</p>
+              <p>{{profileData.aboutMe}}</p>
             </div>
             <div class="languages">
               <p class="header">Languages</p>
-              <p>English, Sinhala, Tamil</p>
+              <p>{{languagesString}}</p>
             </div>
             <div class="socialmedia">
-              <span class="twitter"><i class="fab fa-twitter"></i></span>
-              <span class="instagram"><i class="fab fa-instagram"></i></span>
+              <span class="twitter" (click)="openTwitter()"><i class="fab fa-twitter"></i></span>
+              <span class="instagram" (click)="openInstagram()"><i class="fab fa-instagram"></i></span>
             </div>
           </div>
         </div>
@@ -67,62 +62,29 @@
     <div class="col-md-6">
       <div class="center-wrapper">
         <div class="posts">
-          <div @slideFromUp class="my-card post-card">
+          <div class="my-card post-card" *ngFor="let food of userFoods">
             <div class="post-img">
               <div class="image-container">
-                <img [src]="landscapeImg" alt="">
+                <img [src]="food.defaultFoodImagepath" alt="">
               </div>
               <div class="food-details">
-                <div class="food-name">Watalappan curry</div>
+                <div class="food-name">{{food.name}}</div>
                 <div class="country-flag">
-                  <img src="https://www.countryflags.io/be/flat/64.png">
+                  <img src="https://www.countryflags.io/{{food.countryCode}}/flat/64.png">
                 </div>
-                <div class="veg-badge veg"> <span></span> </div>
+                <div class="veg-badge" [ngClass]="food.isVegeterian? 'veg':'non-veg'"> <span></span> </div>
               </div>
             </div>
             <div class="post-content">
               <div class="user-details">
                 <div class="user-img">
-                  <img [src]="profileImgUrl" alt="">
+                  <img [src]="profileImgUrl" alt="{{profileData.userName}}profile picture">
                 </div>
                 <div class="user-basic">
-                  <span class="foodie-name">@foodieman</span>
-                  <span class="fullname">Akmal Nawfer</span>
+                  <span class="foodie-name">{{profileData.userName}}</span>
+                  <span class="fullname">{{profileData.firstName}} {{profileData.lastName}}</span>
                 </div>
               </div>
-              <div class="caption">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure minus commodi maxime
-                deleniti fugiat ex ab maiores magnam recusandae nesciunt cumque minima nihil voluptates nostrum debitis
-                accusantium rem perspiciatis reprehenderit temporibus magni hic voluptate molestias, impedit tempora!
-                Delectus consectetur nisi dolores? Non ab magnam amet, quasi ea natus sequi illo?</div>
-            </div>
-          </div>
-          <div @slideFromUp class="my-card post-card">
-            <div class="post-img">
-              <div class="image-container">
-                <img [src]="landscapeImg" alt="">
-              </div>
-              <div class="food-details">
-                <div class="food-name">Watalappan curry</div>
-                <div class="country-flag">
-                  <img src="https://www.countryflags.io/be/flat/64.png">
-                </div>
-                <div class="veg-badge non-veg"> <span></span> </div>
-              </div>
-            </div>
-            <div class="post-content">
-              <div class="user-details">
-                <div class="user-img">
-                  <img [src]="profileImgUrl" alt="">
-                </div>
-                <div class="user-basic">
-                  <span class="foodie-name">@foodieman</span>
-                  <span class="fullname">Akmal Nawfer</span>
-                </div>
-              </div>
-              <div class="caption">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure minus commodi maxime
-                deleniti fugiat ex ab maiores magnam recusandae nesciunt cumque minima nihil voluptates nostrum debitis
-                accusantium rem perspiciatis reprehenderit temporibus magni hic voluptate molestias, impedit tempora!
-                Delectus consectetur nisi dolores? Non ab magnam amet, quasi ea natus sequi illo?</div>
             </div>
           </div>
         </div>
@@ -130,58 +92,16 @@
     </div>
     <div class="col-md-3 d-none d-md-block">
       <div class="right-wrapper">
-        <div class="my-card reviews">
-          <p class="header">@foodie's reviews</p>
-          <div class="review">
+        <div class="my-card reviews" *ngIf="myReviews.length > 0">
+          <p class="header">{{profileData.userName}}'s reviews</p>
+          <div class="review" *ngFor="let review of myReviews">
             <div class="review-user">
-              <img [src]="profileImgUrl" alt="">
-              <div class="username">@cookie eater <span class="review-time">{{commentDate| timeAgo}}</span></div>
+              <img [src]="review.reviewer.profilePictureImagePath" alt="">
+              <div class="username">{{review.reviewer.userName}} <span
+                  class="review-time">{{review.createdOn| timeAgo}}</span></div>
             </div>
             <div class="review-details">
-              <div class="review-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus optio
-                aliquid commodi natus hic quae?</div>
-              <button class="view" [routerLink]="['reviews']" routerLinkActive="router-link-active"><i
-                  class="fas fa-eye"></i></button>
-            </div>
-          </div>
-          <div class="review">
-            <div class="review-user">
-              <img [src]="profileImgUrl" alt="">
-              <div class="username">@cookie eater <span class="review-time">{{commentDate| timeAgo}}</span></div>
-            </div>
-            <div class="review-details">
-              <div class="review-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus optio
-                aliquid commodi natus hic quae?</div>
-            </div>
-          </div>
-          <div class="review">
-            <div class="review-user">
-              <img [src]="profileImgUrl" alt="">
-              <div class="username">@cookie eater <span class="review-time">{{commentDate| timeAgo}}</span></div>
-            </div>
-            <div class="review-details">
-              <div class="review-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus optio
-                aliquid commodi natus hic quae?</div>
-            </div>
-          </div>
-          <div class="review">
-            <div class="review-user">
-              <img [src]="profileImgUrl" alt="">
-              <div class="username">@cookie eater <span class="review-time">{{commentDate| timeAgo}}</span></div>
-            </div>
-            <div class="review-details">
-              <div class="review-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus optio
-                aliquid commodi natus hic quae?</div>
-            </div>
-          </div>
-          <div class="review">
-            <div class="review-user">
-              <img [src]="profileImgUrl" alt="">
-              <div class="username">@cookie eater <span class="review-time">{{commentDate| timeAgo}}</span></div>
-            </div>
-            <div class="review-details">
-              <div class="review-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus optio
-                aliquid commodi natus hic quae?</div>
+              <div class="review-text">{{review.review | slice:0:75}}</div>
             </div>
           </div>
         </div>

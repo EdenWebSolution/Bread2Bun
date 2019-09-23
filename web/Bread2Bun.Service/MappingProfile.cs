@@ -2,6 +2,7 @@
 using Bread2Bun.Domain.Food;
 using Bread2Bun.Domain.Security;
 using Bread2Bun.Domain.UserProfile;
+using Bread2Bun.Service.Food.Models;
 using Bread2Bun.Service.Profile.Models;
 using Bread2Bun.Service.Profile.Models.Review;
 using Bread2Bun.Service.Profile.Models.UserProfile;
@@ -23,6 +24,8 @@ namespace Bread2Bun.Service
             CreateMap<ReviewUpdateModel, Reviews>();
             CreateMap<UserProfileCreateModel, UserProfile>();
             CreateMap<UserProfile, UserProfileModel>();
+            CreateMap<UserProfile, UserProfileUpdateModel>();
+            CreateMap<Domain.Food.Food, FoodModel>().ReverseMap();
         }
     }
 }
