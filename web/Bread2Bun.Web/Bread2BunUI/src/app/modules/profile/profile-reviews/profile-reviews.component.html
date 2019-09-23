@@ -1,0 +1,66 @@
+<div class="reviews-page">
+  <div class="row">
+    <div class="col-md-12">
+      <div *ngIf="isMyProfile" class="post my-card">
+        <div class="myheader">My reviews</div>
+      </div>
+      <div *ngIf="!isMyProfile" class="write-review">
+        <div class="post my-card">
+          <div class="create-post">
+            <form [formGroup]="createPostForm">
+              <div class="type-post">
+                <div class="foodieheader">Leave a review</div>
+                <textarea [maxlength]="maxCharacter" placeholder="Write review" (focus)="growHeight()"
+                  [style.height.px]="textAreaHeight" formControlName="postContent" (keyup)="measureLength()"></textarea>
+                <span class="character-limit">Characters Remaining: {{characterCount}}/{{maxCharacter}}</span>
+                <div *ngIf="imageUrl.length>0" class="image-preview" [style.backgroundImage]="'url('+ imageUrl +')'">
+                  <button class="remove-img" *ngIf="removeUpload" (click)="removeImage()"><i
+                      class="fas fa-times"></i></button>
+                </div>
+                <input style="display: none" type='file' id="imageUpload" accept=".png, .jpg, .jpeg" #fileInput
+                  (change)="onFileChange($event)" />
+                <div class="bottom-btns">
+                  <button class="image-select" (click)="fileInput.click()"><i class="fas fa-images"></i></button>
+                  <button [disabled]="createPostForm.invalid" (click)="createPost()" class="create-post">Create
+                    post</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="posts" infinite-scroll [infiniteScrollDistance]="scrollDistance"
+        [infiniteScrollUpDistance]="scrollUpDistance" [infiniteScrollThrottle]="throttle" (scrolled)="getReviews()"
+        (scrolledUp)="onReviewUp()">
+        <div @slideFromUp class="my-card post-card" *ngFor="let content of reviews">
+          <div class="post-img">
+            <div *ngIf="content.reviewImage !=null && content.reviewImage !=undefined" class="image-container">
+              <img [src]="content.reviewImage" alt="">
+            </div>
+          </div>
+          <div class="post-content">
+            <div class="user-details">
+              <div class="user-img">
+                <img  [routerLink]="['/app/profile/view', content.reviewer.userName]"  [src]="content.reviewer.profilePictureImagePath" alt="">
+              </div>
+              <div class="user-basic">
+                <span class="foodie-name">{{content.reviewer.userName}}</span>
+                <span class="reviwer-name">{{content.reviewer.firstName}} {{content.reviewer.lastName}}</span>
+                <span class="post-date">{{content.createdOn | timeAgo}}</span>
+              </div>
+            </div>
+            <div class="caption" [ngClass]="{'show-more': content.isShowMore}">{{content.review}}</div>
+            <button (click)='content.isShowMore = !content.isShowMore' class='show-more-btn'
+              [ngClass]="{'less': content.isShowMore}">{{content.isShowMore? 'Less': 'More'}}</button>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!reviewFinished" class="loader-wrapper">
+        <div class="loader" id="loader-3"></div>
+      </div>
+      <div *ngIf="reviewFinished" class="post-finished-text">
+        <p>That's all about.</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HubConnection } from '@aspnet/signalr';
-import * as signalR from '@aspnet/signalr';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-chat',
@@ -9,21 +6,13 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
-  connection: HubConnection;
-  msgs: Array<string>;
 
-  constructor() {
-    this.msgs = new Array<string>();
-  }
+  profileImgUrl: string = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZtt-8JagsbCAhDa02YU8dEhABmIUIUaMEyq__-O6eEBo20DIwvw';
+
+  chatDate = new Date();
+  constructor() { }
 
   ngOnInit() {
-    this.connection = new signalR.HubConnectionBuilder()
-      .withUrl(environment.signalREndPoint)
-      .configureLogging(signalR.LogLevel.Information)
-      .build();
-
-    this.connection
-      .start()
-      .then(connection => this.connection.invoke('SendMessage', 'hello'));
   }
+
 }

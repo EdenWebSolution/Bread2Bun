@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { slideFromUp } from 'src/app/animations';
 import { MenuItem } from '../models/menu-item';
 import { ToastrService } from 'ngx-toastr';
+import { AuthorizeService } from '../../authorize/services/authorize.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -19,7 +21,9 @@ export class NavbarComponent implements OnInit {
   isReadonly: boolean = false;
 
   constructor(
-    private t: ToastrService
+    private t: ToastrService,
+    private authorizeService: AuthorizeService,
+    private router: Router
   ) {
     this.show = false;
     this.showDropdown = false;
@@ -27,29 +31,23 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadMenu()
+    this.loadMenu();
   }
 
-  loadMenu(){
+  loadMenu() {
     this.menuItem = [
       {
         path: '/app/feed',
-        title: 'Feed',
-        icon: '',
-        class: ''
-      },
-      {
-        path: '/app/explore',
         title: 'Explore',
         icon: '',
         class: ''
       },
-      {
-        path: '/app/messages',
-        title: 'Messages',
-        icon: '',
-        class: ''
-      },
+      // {
+      //   path: '/app/messages',
+      //   title: 'Messages',
+      //   icon: '',
+      //   class: ''
+      // },
       {
         path: '/app/profile',
         title: 'Profile',
@@ -60,13 +58,17 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-    // implementation
-    // localStorage.removeItem('bread2bun-TokenId');
-    // sessionStorage.removeItem('bread2bun-TokenId');
+    this.authorizeService.logout().subscribe(result => {
+      localStorage.removeItem('bread2bun-TokenId');
+      sessionStorage.removeItem('bread2bun-TokenId');
+      this.router.navigate(['/authorize']);
+      console.log('Logout done');
+    }, error => {
+      this.t.error('Can\'t logout', 'Error');
+    });
   }
 
-  getRating(){
-    console.log('rayting', this.rate);
+  getRating() {
   }
 
 }

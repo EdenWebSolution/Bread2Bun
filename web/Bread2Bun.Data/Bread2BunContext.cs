@@ -39,6 +39,7 @@ namespace Bread2Bun.Data
         #region Profile
         public DbSet<UserProfile> UserProfile { get; set; }
         public DbSet<Reviews> Reviews { get; set; }
+        public DbSet<UserFood> UserFood { get; set; }
         #endregion
 
         #region Chat

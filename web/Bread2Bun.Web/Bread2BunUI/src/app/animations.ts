@@ -33,3 +33,13 @@ export let slideFromRight = trigger('slideFromRight', [
     animate('0.2s ease-out', style({ opacity: '1', transform: 'translateX(0px)' }))
   ])
 ]);
+
+
+export let bloom = trigger('bloom', [
+  state('void', style({opacity: '0' })),
+  state('*', style({ opacity: '1' })),
+  transition(':enter', [
+    animate('0.3s ease-out', style({ opacity: '1' }))
+  ])
+]);
+

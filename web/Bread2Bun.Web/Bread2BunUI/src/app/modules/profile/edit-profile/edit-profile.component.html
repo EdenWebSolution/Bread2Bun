@@ -1,0 +1,180 @@
+<div class="update-profile-page">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="update-profile-card my-card">
+        <div class="header-area">
+          <div class="profile-header">Update your profile <i class="fas fa-user-cog"></i><span></span></div>
+          <button class="b2b-btn-stay" [routerLink]="['/app/profile']">Profile</button>
+        </div>
+        <form [formGroup]="editProfileForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="group-gap">
+                <!-- Upload image -->
+                <div class="avatar-upload">
+                  <div class="avatar-preview">
+                    <div id="imagePreview" [style.backgroundImage]="'url('+ ProfileImageUrl +')'">
+                    </div>
+                  </div>
+                  <div class="avatar-edit">
+                    <input style="display: none" type='file' id="imageUpload" accept=".png, .jpg, .jpeg" #fileInput
+                      (change)="uploadFile($event)" />
+                    <button class="image-select" (click)="fileInput.click()">Change <span> profile image</span></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="group cover-food-wrapper">
+                <div class="cover-food-img">
+                  <label>Set your cover image</label>
+                  <input type="text" placeholder="Choose cover image" formControlName="coverFoodImage" class="b2b-input"
+                    type="text" autocomplete="off" [typeaheadMinLength]="0" [typeahead]="foodList"
+                    typeaheadOptionField="value" [typeaheadScrollable]="true" [typeaheadOptionsInScrollableView]="5"
+                    (typeaheadOnSelect)="onCoverImageFoodSelect($event)">
+                </div>
+              </div>
+              <div class="image-wrapper">
+                <img [src]="coverPhotoUrl">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="group">
+                <label>First name*</label>
+                <input placeholder="First Name" type="text" formControlName="firstName">
+                <span *ngIf="firstName.errors?.pattern && firstName.touched" class="error">Invalid!</span>
+                <span *ngIf="firstName.errors?.required && firstName.touched" class="error">Required!</span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="group">
+                <label>Last name*</label>
+                <input placeholder="Last Name" type="text" formControlName="lastName">
+                <span *ngIf="lastName.errors?.pattern && lastName.touched" class="error">Invalid!</span>
+                <span *ngIf="lastName.errors?.required && lastName.touched" class="error">Required!</span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="group">
+                <label for="">University*</label>
+                <input placeholder="University" class="b2b-input" formControlName="universityId" type="text"
+                  autocomplete="off" [typeaheadMinLength]="0" [typeahead]="universities" typeaheadOptionField="name"
+                  [typeaheadScrollable]="true" [typeaheadOptionsInScrollableView]="5"
+                  (typeaheadOnSelect)="onUniversitySelect($event)" />
+                <span *ngIf="!initiated" class="form-spinner"></span>
+                <span *ngIf="universityId.errors?.required && universityId.touched" class="error">Required!</span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="group">
+                <label for="">Country*</label>
+                <input placeholder="Country" class="b2b-input" formControlName="countryId" autocomplete="off"
+                  type="text" [typeaheadMinLength]="0" [typeahead]="countries" typeaheadOptionField="name"
+                  [typeaheadScrollable]="true" [typeaheadOptionsInScrollableView]="5"
+                  (typeaheadOnSelect)="onSelect($event)" />
+                <span *ngIf="!initiated" class="form-spinner"></span>
+                <span *ngIf="countryId.errors?.required && countryId.touched" class="error">Required!</span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="group">
+                <label>Available days*</label>
+                <ng-multiselect-dropdown [placeholder]="'Choose days'" [data]="days" [(ngModel)]="selectedDays"
+                  [settings]="dropdownSettings" (onSelect)="onDaySelect($event)" (onSelectAll)="onSelectAllDays($event)"
+                  (onDeSelect)="onDaysDeSelect($event)" formControlName="availableDays">
+                </ng-multiselect-dropdown>
+                <span *ngIf="availableDays.errors?.required && availableDays.touched" class="error">Required!</span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="group">
+                <label>Food offered*</label>
+                <ng-multiselect-dropdown formControlName="foodIds" [placeholder]="'Choose foods'" [data]="foodList"
+                  [(ngModel)]="selectedFood" [settings]="foodDropdownSettings" (onSelect)="onFoodSelect($event)"
+                  (onSelectAll)="onSelectAllFoods($event)" (onDeSelect)="onFoodDeSelect($event)">
+                </ng-multiselect-dropdown>
+                <span *ngIf="foodIds.errors?.required && foodIds.touched" class="error">Required!</span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="group">
+                <label>Languages* Insert and Enter</label>
+                <tag-input [secondaryPlaceholder]="langPlaceholder" theme='minimal' formControlName="languages"
+                  (onRemove)="onLanguageRemoved($event)" (onAdd)="onLanguageAdded($event)" [maxItems]='5'
+                  [(ngModel)]='languagesAdded'></tag-input>
+                <span *ngIf="languages.errors?.required && languages.touched" class="error">Required!</span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="group">
+                    <label>Recident city*</label>
+                    <input type="text" placeholder="Current city" formControlName="residentCity">
+                    <span *ngIf="residentCity.errors?.required && residentCity.touched" class="error">Required!</span>
+
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="group">
+                    <label>Recident country*</label>
+                    <input type="text" placeholder="Current country" formControlName="residentCountry">
+                    <span *ngIf="residentCountry.errors?.required && residentCountry.touched"
+                      class="error">Required!</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="group">
+                <label>About me*</label>
+                <textarea placeholder="Say something interesting..." formControlName="aboutMe"></textarea>
+                <span *ngIf="aboutMe.errors?.required && aboutMe.touched" class="error">Required!</span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="group">
+                <label>Email*</label>
+                <input type="text" placeholder="Email" formControlName="email">
+                <span *ngIf="email.errors?.required && email.touched" class="error">Required!</span>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="group">
+                <label>Twitter</label>
+                <input placeholder="Username" type="text" formControlName="twitterUsername">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="group">
+                <label>Instagram</label>
+                <input placeholder="Username" type="text" formControlName="instagramUsername">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="button-container">
+                <button class="update" class="b2b-btn-fwd rotate" [disabled]="editProfileForm.invalid"
+                  [ngClass]="{rotate: loading}"
+                  (click)="updateProfile()">{{loading? 'Updating' : 'Update profile'}}</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,78 @@
+<div class="explore-feed" @slideFromUp>
+  <div class="row">
+    <div class="col-md-3 d-none d-md-block">
+      <div class="left-wrapper">
+        <div class="profile-card my-card">
+          <div class="profile-basic">
+            <div class="cover-img-wrapper">
+              <img [src]="profileData.coverImage" [alt]="">
+            </div>
+            <div class="profile-image-wrapper">
+              <img class="image-responsive" [src]="profileImageUrl" [alt]="">
+            </div>
+            <div class="contents-wrapper">
+              <div class="username">{{profileData.userName}}</div>
+              <div class="name">{{profileData.firstName}} {{profileData.lastName}}</div>
+              <div class="country">
+                <span class="country-name">{{profileData.country}}</span>
+                <span class="country-flag"><img
+                    src="https://www.countryflags.io/{{profileData.countryCode}}/flat/64.png"></span>
+              </div>
+              <div class="university"><span><i class="fas fa-landmark"></i></span>
+                <span>{{profileData.university}}</span></div>
+              <div class="lives"> <span><i class="fas fa-map-marker-alt"></i></span> <span>{{profileData.address.city}},
+                  {{profileData.address.country}}</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="center-wrapper">
+        <div class="posts" infinite-scroll [infiniteScrollDistance]="scrollDistance"
+          [infiniteScrollUpDistance]="scrollUpDistance" [infiniteScrollThrottle]="throttle" (scrolled)="getPosts()"
+          (scrolledUp)="onPostUp()">
+          <div @slideFromUp class="my-card post-card" *ngFor="let post of posts">
+            <div class="post-img">
+              <div class="image-container">
+                <img [src]="post.foodImage" alt="">
+              </div>
+              <div class="food-details">
+                <div class="food-name">{{post.foodName}}</div>
+                <div class="country-flag">
+                  <img src="https://www.countryflags.io/{{post.countryCode}}/flat/64.png">
+                </div>
+                <div class="veg-badge" [ngClass]="post.isVegeterian? 'veg':'non-veg'"><span></span></div>
+              </div>
+            </div>
+            <div class="post-content">
+              <div class="user-details">
+                <div class="user-img">
+                  <img [routerLink]="['/app/profile/view', post.username]" [src]="post.profileImage" alt="">
+                </div>
+                <div class="user-basic">
+                  <span [routerLink]="['/app/profile/view', post.username]" class="foodie-name">{{post.username}}</span>
+                  <span class="fullname">{{post.firstName}} {{post.lastName}}</span>
+                </div>
+                <div class="user-action-btns">
+                  <button class="message"><span><i class="fas fa-comments"></i></span></button>
+                  <button [routerLink]="['/app/profile/view', post.username]" class="view"><span>Profile</span></button>
+                </div>
+              </div>
+              <!-- <div class="caption">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure minus commodi maxime
+                deleniti fugiat ex ab maiores magnam recusandae nesciunt cumque minima nihil voluptates nostrum debitis
+                accusantium rem perspiciatis reprehenderit temporibus magni hic voluptate molestias, impedit tempora!
+                Delectus consectetur nisi dolores? Non ab magnam amet, quasi ea natus sequi illo?</div>
+            </div> -->
+            </div>
+          </div>
+          <div *ngIf="!postFinished" class="loader-wrapper">
+            <div class="loader" id="loader-3"></div>
+          </div>
+          <div *ngIf="postFinished" class="post-finished-text">
+            <p>That's all for today!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

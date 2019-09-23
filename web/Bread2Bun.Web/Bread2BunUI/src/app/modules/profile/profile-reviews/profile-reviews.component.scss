@@ -1,0 +1,342 @@
+@import "../../../styles/colors";
+@import "../../../styles/fonts";
+
+.reviews-page {
+  padding-top: 1.5rem;
+}
+
+.myheader {
+  padding: 15px;
+  color: $brand-color;
+  font-weight: 600;
+  font-family: $lexend;
+  font-size: 25px;
+  span {
+    cursor: pointer;
+  }
+}
+.create-post {
+  .type-post {
+    padding: 15px;
+    .foodieheader {
+      color: $brand-color;
+      font-weight: 600;
+      font-family: $lexend;
+      font-size: 25px;
+      margin-bottom: 15px;
+      span {
+        cursor: pointer;
+      }
+    }
+    textarea {
+      width: 100%;
+      padding: 5px;
+      resize: none;
+      outline: none;
+      background: #f5f6fa;
+      border: none;
+      // min-height: 150px;
+      transition: 0.3s;
+      &:focus,
+      &:active {
+        box-shadow: 0 0 3px 3px #efefef;
+      }
+    }
+    .character-limit {
+      display: block;
+      text-align: right;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+    .image-preview {
+      position: relative;
+      width: 130px;
+      height: 130px;
+      background-size: cover;
+      box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.3);
+      border-radius: 0.25rem;
+      .remove-img {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        border-radius: 50%;
+        background: #ff5454;
+        color: #fff;
+        border: none;
+        font-size: 15px;
+      }
+    }
+    .bottom-btns {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+      .create-post {
+        background: $brand-color;
+        border: none;
+        color: #fff;
+        transition: 0.3s ease-in-out;
+        border: 1px solid #fff;
+        min-width: 150px;
+        &:disabled {
+          background: lighten($brand-color, 20%);
+        }
+      }
+      .image-select {
+        width: 40px;
+        height: 40px;
+        background: #fff;
+        border: none;
+        color: $brand-color;
+        font-size: 20px;
+        transition: 0.3s ease-in-out;
+        border-radius: 50%;
+        &:hover {
+          background: $brand-color;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+.profile-card {
+  .profile-basic {
+    .cover-img-wrapper {
+      position: relative;
+      img {
+        width: 100%;
+        height: 150px;
+        border-bottom-left-radius: 50% 20%;
+        border-bottom-right-radius: 50% 20%;
+        object-fit: cover;
+      }
+    }
+    .profile-image-wrapper {
+      text-align: center;
+      text-transform: none;
+      img {
+        width: 125px;
+        height: 125px;
+        border-bottom-color: transparent;
+        background-color: transparent;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        border: 5px solid #fff;
+        object-fit: cover;
+      }
+    }
+    .contents-wrapper {
+      padding: 10px;
+      text-align: center;
+      .username {
+        color: #f9690e;
+        font-weight: 600;
+        font-size: 20px;
+      }
+      .name {
+        font-size: 18px;
+        text-transform: capitalize;
+      }
+      .origin {
+      }
+      .university {
+        display: block;
+      }
+      .country {
+        align-items: center;
+        margin: 10px 0;
+        .country-name {
+          text-transform: uppercase;
+          font-weight: 600;
+          margin-right: 10px;
+        }
+      }
+      .university,
+      .lives {
+        display: flex;
+        margin-bottom: 5px;
+        text-align: left;
+        span {
+          &:first-child {
+            min-width: 15px;
+            margin-right: 10px;
+            color: lighten($brand-color, 20%);
+          }
+          &:nth-child(2) {
+            word-break: break-word;
+          }
+        }
+      }
+    }
+  }
+}
+
+.post-card {
+  margin-bottom: 1.5rem;
+  padding-bottom: 20px;
+
+  .post-img {
+    .image-container {
+      text-align: center;
+      background: #fff;
+      img {
+        width: 100%;
+        max-width: 100%;
+        max-height: 500px;
+        object-fit: contain;
+      }
+    }
+    .food-details {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      background: #ffe8da;
+      .food-name {
+        font-weight: 600;
+        color: #000;
+      }
+      .country-flag {
+      }
+      .veg-badge {
+        &.veg {
+          border: 2px solid #007e00;
+          span {
+            background: #007e00;
+          }
+        }
+        &.non-veg {
+          border: 2px solid #923f21;
+          span {
+            background: #923f21;
+          }
+        }
+        width: 40px;
+        height: 40px;
+        padding: 5px;
+        span {
+          width: 25px;
+          height: 25px;
+          border-radius: 50%;
+          display: inline-block;
+        }
+      }
+    }
+  }
+  .post-content {
+    position: relative;
+    padding: 20px;
+    .options {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      .option-btn {
+        background: none;
+        border: none;
+        color: rgb(138, 138, 138);
+        font-size: 20px;
+      }
+    }
+    .caption {
+      font-size: 0.9rem;
+      overflow: hidden;
+      line-height: 1.3;
+      height: 54px;
+      overflow: hidden;
+      margin-bottom: 15px;
+      &.show-more {
+        overflow: visible;
+        height: auto;
+      }
+    }
+    .show-more-btn {
+      background: #f9690e;
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      min-width: 100px;
+      padding: 10px;
+      border: 2px solid #fff;
+      border-radius: 30px;
+      &.less{
+        background: #fff;
+        color: $brand-color;
+        border-color: $brand-color;
+      }
+    }
+    .user-details {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      .user-img {
+        margin-right: 10px;
+        img {
+          width: 70px;
+          height: 70px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      }
+    }
+    .comments {
+      display: flex;
+      margin-top: 10px;
+      align-items: center;
+      .commenting-user {
+        margin-right: 10px;
+        img {
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          border: 3px solid #ffcbaa;
+        }
+      }
+      .comment-area {
+        width: 100%;
+        margin-right: 10px;
+        textarea {
+          width: 100%;
+          border-radius: 3px;
+          border: 1px solid #d4d4d4;
+          padding: 8px;
+          outline: none;
+          transition: 0.3s;
+          height: 60px;
+          resize: none;
+          &::-webkit-scrollbar {
+            width: 5px;
+          }
+
+          &::-webkit-scrollbar-track {
+            background: none;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            color: #ccc;
+            background: #ccc;
+            border-radius: 30px;
+          }
+          &:focus {
+            border-color: rgba(249, 105, 14, 0.3);
+            box-shadow: 0 0 3px 0 rgba(249, 105, 14, 0.65);
+          }
+        }
+      }
+    }
+  }
+}
+
+.user-basic {
+  .post-date {
+    display: block;
+    font-size: 0.9rem;
+  }
+  .foodie-name {
+    font-size: 25px;
+    color: $brand-color;
+  }
+  .reviwer-name{
+    display: block;
+  }
+}

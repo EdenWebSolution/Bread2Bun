@@ -11,10 +11,8 @@ namespace Bread2Bun.Common
         //public static string PresentationBaseUrl = "http://localhost:4200";
 
         // production
-        public static string APIBaseUrl = "https://bread2bun.azurewebsites.net";
-        public static string PresentationBaseUrl = "https://bread2bun.azurewebsites.net";
-
-
+        public static string APIBaseUrl = "https://www.bread2bun.com";
+        public static string PresentationBaseUrl = "https://www.bread2bun.com";
 
     }
 }
