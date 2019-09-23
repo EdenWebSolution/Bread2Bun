@@ -9,13 +9,9 @@ namespace Bread2Bun.Web.AppHubs
 {
     public class ChatHub : Hub
     {
-        public ChatHub()
-        {
-        }
-
         public async Task SendMessage(MessageModel message)
         {
-            await Clients.All.SendAsync("reviewMessage", message);
+            await Clients.All.SendAsync("SendMessage", message);
         }
 
         public async Task SendPrivateMessage()

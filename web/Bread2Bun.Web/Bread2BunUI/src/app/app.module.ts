@@ -10,6 +10,7 @@ import { AuthorizeModule } from './modules/authorize/authorize.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { LayoutModule } from './modules/layout/layout.module';
+import { MessagesModule } from './modules/messages/messages.module';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { LayoutModule } from './modules/layout/layout.module';
     AuthorizeModule,
     SharedModule,
     RouterModule,
-    LayoutModule
+    LayoutModule,
+    MessagesModule
   ],
   providers: [
     {

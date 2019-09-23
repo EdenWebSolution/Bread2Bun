@@ -4,6 +4,7 @@ import { LayoutComponent } from './modules/layout/layout/layout.component';
 import { AuthorizeComponent } from './modules/authorize/authorize/authorize.component';
 import { AuthGuard } from './modules/authorize/auth-guard';
 import { MyTimelineComponent } from './modules/timeline/my-timeline/my-timeline.component';
+import { ChatComponent } from './modules/messages/chat/chat.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: ':isReset/:token/:email',
     component: AuthorizeComponent
+  },
+  {
+    path: 'chat',
+    component: ChatComponent
   },
   {
     path: 'app',
@@ -56,4 +61,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
