@@ -10,8 +10,6 @@ import { AuthorizeModule } from './modules/authorize/authorize.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { LayoutModule } from './modules/layout/layout.module';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 
 
@@ -28,8 +26,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
     AuthorizeModule,
     SharedModule,
     RouterModule,
-    LayoutModule,
-    InfiniteScrollModule
+    LayoutModule
   ],
   providers: [
     {
