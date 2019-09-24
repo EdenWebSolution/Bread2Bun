@@ -20,9 +20,9 @@ namespace Bread2Bun.Common.Mailer
 
             smtpClient = new SmtpClient()
             {
-                Host = "smtp.office365.com",
-                Port = 587,
-                EnableSsl = true,
+                Host = "mail.bread2bun.com",
+                Port = 25,
+                //EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
                 Credentials = new System.Net.NetworkCredential(From, configuration["Email:credentials:password"]),
                 Timeout = 10000,

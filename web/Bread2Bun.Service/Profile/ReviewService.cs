@@ -58,7 +58,7 @@ namespace Bread2Bun.Service.Profile
 
             foreach (var res in resultData)
             {
-                res.ReviewImage = res.ReviewImage == null ? null : FolderPath.ImagePath + FolderPath.Review + res.ReviewImage;
+                res.ReviewImage = res.ReviewImage ?? FolderPath.ImagePath + FolderPath.Review + res.ReviewImage;
                 res.Reviewer.ProfilePictureImagePath = res.Reviewer.ProfilePictureImagePath == null ? null : FolderPath.ImagePath + FolderPath.ProfileImages + res.Reviewer.ProfilePictureImagePath;
             }
             var resultSet = new PageList<ReviewModel>()
