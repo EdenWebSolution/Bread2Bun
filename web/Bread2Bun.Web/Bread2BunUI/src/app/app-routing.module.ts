@@ -17,12 +17,8 @@ const routes: Routes = [
     component: AuthorizeComponent
   },
   {
-    path: 'reset/:isReset/:token/:email',
+    path: 'reset/:isReset',
     component: AuthorizeComponent
-  },
-  {
-    path: 'chat',
-    component: ChatComponent
   },
   {
     path: 'app',

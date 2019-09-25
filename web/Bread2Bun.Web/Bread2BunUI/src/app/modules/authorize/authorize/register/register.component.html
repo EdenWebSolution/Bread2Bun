@@ -58,6 +58,10 @@
             class="error"
             >Required!</span
           >
+          <span
+            class="hint"
+            >&#9873; Cookie</span
+          >
         </div>
         <div class="formgroup col-xs-12 col-sm-12 col-md-6">
           <input
@@ -69,12 +73,16 @@
           <span
             *ngIf="password.errors?.pattern && password.touched"
             class="error"
-            >Weak password!</span
+            >Please use symbols, mixed case & numerics</span
           >
           <span
             *ngIf="password.errors?.required && password.touched"
             class="error"
             >Required!</span
+          >
+          <span
+            class="hint"
+            >&#9873; P@$W0rd!</span
           >
         </div>
       </div>

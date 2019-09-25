@@ -181,6 +181,15 @@ body {
     font-size: 0.7rem;
     font-weight: 600;
     color: #fb0000;
+    float: left;
+  }
+  .hint{
+    margin: 2px 10px 2px 17px;
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #fff;
+    float: right;
   }
   .b2b-checkbox {
     input[type='checkbox'] {
