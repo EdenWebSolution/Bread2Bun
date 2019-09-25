@@ -14,7 +14,7 @@ namespace Bread2Bun.Common
         //public static string APIBaseUrl = "https://www.bread2bun.com";
         //public static string PresentationBaseUrl = "https://www.bread2bun.com";
 
-        // test
+        //// test
         public static string APIBaseUrl = "http://test.bread2bun.com";
         public static string PresentationBaseUrl = "http://test.bread2bun.com";
     }

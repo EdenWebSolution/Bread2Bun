@@ -135,7 +135,7 @@ namespace Bread2Bun.Service.Security
             if (user != null)
             {
                 var token = await userManager.GeneratePasswordResetTokenAsync(user);
-                var passwordReseLink = string.Concat(GlobalConfig.PresentationBaseUrl, $"/reset/resetpassword/{Base64UrlEncoder.Encode(token)}/{user.Email}");
+                var passwordReseLink = string.Concat(GlobalConfig.PresentationBaseUrl, $"/reset/resetpassword?token={Base64UrlEncoder.Encode(token)}&email{user.Email}");
 
                 var messageBuilder = new EmailBuilder(configuration)
                 {
