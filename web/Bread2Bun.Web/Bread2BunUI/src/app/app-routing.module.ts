@@ -21,10 +21,6 @@ const routes: Routes = [
     component: AuthorizeComponent
   },
   {
-    path: 'chat',
-    component: ChatComponent
-  },
-  {
     path: 'app',
     component: LayoutComponent,
     children: [
