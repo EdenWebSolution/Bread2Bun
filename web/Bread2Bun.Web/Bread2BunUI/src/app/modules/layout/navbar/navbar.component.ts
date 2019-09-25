@@ -53,6 +53,12 @@ export class NavbarComponent implements OnInit {
         title: 'Profile',
         icon: '',
         class: ''
+      },
+      {
+        path: '/app/coupons',
+        title: 'Coupons',
+        icon: '',
+        class: ''
       }
     ];
   }
