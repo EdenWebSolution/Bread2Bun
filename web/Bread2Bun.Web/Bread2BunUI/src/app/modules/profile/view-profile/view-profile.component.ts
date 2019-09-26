@@ -25,6 +25,7 @@ export class ViewProfileComponent implements OnInit {
   userId: number = +localStorage.getItem('user-sub');
   myReviews: Array<ReviewList> = new Array<ReviewList>();
   profileDetails: ViewProfileModel = new ViewProfileModel();
+  isBlocked = false;
 
 
   days: Array<any> = [
@@ -81,6 +82,7 @@ export class ViewProfileComponent implements OnInit {
 
 
   getProfileData(username) {
+    this.isBlocked = true;
     forkJoin(
       this.profileService.getProfileViewByUserName(username),
 
@@ -88,6 +90,7 @@ export class ViewProfileComponent implements OnInit {
       this.profileData = result[0];
       this.setProfileData(this.profileData);
     }, error => {
+      this.isBlocked = false;
       this.toastr.error('Couldn\'t load profile details', 'Error');
     });
 
@@ -111,7 +114,9 @@ export class ViewProfileComponent implements OnInit {
     });
     this.profileService.getPagedReview(profileData.profile.userId, this.skip, this.take).subscribe(result => {
       this.myReviews = result.items;
+      this.isBlocked = false;
     }, error => {
+      this.isBlocked = false;
       this.toastr.error('Couldn\'t load profile details', 'Error');
     });
   }

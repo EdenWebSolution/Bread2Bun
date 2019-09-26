@@ -1,4 +1,7 @@
-<div class="my-profile">
+<div class="ui-blocker" *ngIf="isBlocked">
+  <img src="../../../../assets/images/bread.svg" alt="">
+</div>
+<div class="my-profile" *ngIf="!isBlocked">
   <div class="row">
     <div class="col-md-3">
       <div class="left-wrapper">
@@ -51,9 +54,11 @@
               <p class="header">Languages</p>
               <p>{{languagesString}}</p>
             </div>
-            <div class="socialmedia">
-              <span class="twitter" (click)="openTwitter()"><i class="fab fa-twitter"></i></span>
-              <span class="instagram" (click)="openInstagram()"><i class="fab fa-instagram"></i></span>
+            <div class="socialmedia" *ngIf="(profileData.instagram !== null || profileData.twitter !== null)">
+              <span *ngIf="profileData.twitter !== null" class="twitter" (click)="openTwitter()"><i
+                  class="fab fa-twitter"></i></span>
+              <span *ngIf="profileData.instagram !== null" class="instagram" (click)="openInstagram()"><i
+                  class="fab fa-instagram"></i></span>
             </div>
           </div>
         </div>

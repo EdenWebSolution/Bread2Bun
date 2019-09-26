@@ -1,4 +1,7 @@
-<div class="update-profile-page">
+<div class="ui-blocker" *ngIf="isBlocked">
+  <img src="../../../../assets/images/bread.svg" alt="">
+</div>
+<div class="update-profile-page" *ngIf="!isBlocked">
   <div class="row">
     <div class="col-md-12">
       <div class="update-profile-card my-card">

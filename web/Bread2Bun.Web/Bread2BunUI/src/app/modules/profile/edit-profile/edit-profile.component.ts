@@ -25,6 +25,7 @@ export class EditProfileComponent implements OnInit {
   namePattern = '^[A-Za-z\s]+$';
   foodList: Array<FoodsModel> = new Array<FoodsModel>();
   imageUrl: any;
+  isBlocked = false;
 
   @ViewChild('fileInput') el: ElementRef;
   ProfileImageUrl: any = 'https://cdn2.iconfinder.com/data/icons/user-management/512/add-512.png';
@@ -134,6 +135,7 @@ export class EditProfileComponent implements OnInit {
 
   initiateForm() {
     this.initiated = false;
+    this.isBlocked = true;
     forkJoin(
       this.sharedService.getCountries(),
       this.sharedService.getUniversities(),
@@ -142,8 +144,10 @@ export class EditProfileComponent implements OnInit {
       this.countries = result[0],
         this.universities = result[1],
         this.getUserProfileToUpdate(result[2]);
+
     }, error => {
       this.initiated = true;
+      this.isBlocked = false;
       this.toastr.error(error.message, 'Error');
     });
   }
@@ -345,8 +349,7 @@ export class EditProfileComponent implements OnInit {
     this.languagesArr = value.languages;
     this.ProfileImageUrl = value.profileImage;
     this.getSelectedDays(value.availableDays);
-    this.getFoods(value.countryId, value.foodIds);
-    this.setCoverImageFood(value.coverFoodImageId);
+    this.getFoods(value.countryId, value.foodIds, value.coverFoodImageId);
   }
 
   getSelectedDays(days: Array<number>) {
@@ -367,14 +370,16 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
-  getFoods(countryId: number, foodsIds: Array<number>) {
+  getFoods(countryId: number, foodsIds: Array<number>, coverImageId: number) {
     this.foodService.getFoodListByCountry(countryId).subscribe(result => {
       this.foodList = result;
       this.getSelectedFoods(foodsIds);
       this.initiated = true;
+      this.setCoverImageFood(coverImageId);
     }, error => {
       this.toastr.error('Something went wrong', 'Error');
       this.initiated = true;
+      this.isBlocked = false;
     });
   }
 
@@ -383,7 +388,9 @@ export class EditProfileComponent implements OnInit {
       this.foodService.getFoodImageByFoodId(countryId).subscribe(result => {
         this.coverPhotoUrl = result.defaultFoodImagepath;
         this.coverPhotoId = result.id;
+        this.isBlocked = false;
       }, error => {
+        this.isBlocked = false;
         this.toastr.error('No image found for this food', 'Error');
       });
     }
