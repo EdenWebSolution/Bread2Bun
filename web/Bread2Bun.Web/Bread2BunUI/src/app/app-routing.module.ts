@@ -48,6 +48,11 @@ const routes: Routes = [
         path: 'messages',
         loadChildren: './modules/messages/messages.module#MessagesModule',
         canActivate: [AuthGuard]
+      },
+      {
+        path: 'coupons',
+        loadChildren: './modules/coupons/coupons.module#CouponsModule',
+        canActivate: [AuthGuard]
       }
     ]
   }

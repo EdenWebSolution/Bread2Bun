@@ -17,7 +17,7 @@
                     </div>
                   </div>
                   <div class="avatar-edit">
-                    <input style="display: none" type='file' id="imageUpload" accept=".png, .jpg, .jpeg" #fileInput
+                    <input style="display: none" type='file' id="imageUpload" accept="image/x-png,image/gif,image/jpeg" #fileInput
                       (change)="uploadFile($event)" />
                     <button class="image-select" (click)="fileInput.click()">Change <span> profile image</span></button>
                   </div>
