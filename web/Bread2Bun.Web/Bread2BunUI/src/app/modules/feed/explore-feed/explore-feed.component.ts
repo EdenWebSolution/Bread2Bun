@@ -21,6 +21,8 @@ export class ExploreFeedComponent implements OnInit {
   skip = 0;
   take = 10;
   postFinished: boolean = false;
+  DefaultProfileImage: string = 'https://t3.ftcdn.net/jpg/00/64/67/80/240_F_64678017_zUpiZFjj04cnLri7oADnyMH0XBYyQghG.jpg';
+
   profileImageUrl: string = 'https://t3.ftcdn.net/jpg/00/64/67/80/240_F_64678017_zUpiZFjj04cnLri7oADnyMH0XBYyQghG.jpg';
 
   posts: Array<ExploreFeedFood> = new Array<ExploreFeedFood>();

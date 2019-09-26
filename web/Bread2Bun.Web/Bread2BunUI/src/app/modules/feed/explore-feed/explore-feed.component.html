@@ -48,7 +48,8 @@
             <div class="post-content">
               <div class="user-details">
                 <div class="user-img">
-                  <img [routerLink]="['/app/profile/view', post.username]" [src]="post.profileImage" alt="">
+                  <img *ngIf="post.profileImage === null" [src]="DefaultProfileImage" alt="default image">
+                  <img *ngIf="post.profileImage !== null" [routerLink]="['/app/profile/view', post.username]" [src]="post.profileImage" alt="">
                 </div>
                 <div class="user-basic">
                   <span [routerLink]="['/app/profile/view', post.username]" class="foodie-name">{{post.username}}</span>
