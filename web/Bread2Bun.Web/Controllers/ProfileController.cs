@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -8,9 +9,14 @@ using Bread2Bun.Service.Profile.Interface;
 using Bread2Bun.Service.Profile.Models;
 using Bread2Bun.Service.Profile.Models.UserProfile;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting.Internal;
 using Newtonsoft.Json;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Bread2Bun.Web.Controllers
 {
@@ -60,7 +66,7 @@ namespace Bread2Bun.Web.Controllers
         {
             try
             {
-                var result = await SaveImage(FolderPath.ProfileImages);
+                var result = SaveImage(FolderPath.ProfileImages);
                 if (result.FileIsThere)
                 {
                     await profileService.UpdateUserProfileImage(UserId, result.FileNames[0]);
@@ -148,11 +154,11 @@ namespace Bread2Bun.Web.Controllers
         }
 
         [HttpGet("userprofile/feeds")]
-        public async Task<IActionResult> GetFeeds(int skip,int take)
+        public async Task<IActionResult> GetFeeds(int skip, int take)
         {
             try
             {
-                var result = await profileService.GetFeeds(UserId,skip,take);
+                var result = await profileService.GetFeeds(UserId, skip, take);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -162,7 +168,7 @@ namespace Bread2Bun.Web.Controllers
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]
-        public async Task<FileSaveResult> SaveImage(string folderName)
+        private FileSaveResult SaveImage(string folderName)
         {
             try
             {
@@ -175,18 +181,22 @@ namespace Bread2Bun.Web.Controllers
                 {
                     if (Image != null && Image.Length > 0)
                     {
-                        var file = Image;
+                        var imageStream = Image.OpenReadStream();
 
                         var uploads = Path.Combine(this.hostingEnvironment.WebRootPath, folderName);
-                        if (file.Length > 0)
+                        if (Image.Length > 0)
                         {
-                            var fileName = Guid.NewGuid().ToString().Replace("-", "") + Path.GetExtension(file.FileName);
-                            using (var fileStream = new FileStream(Path.Combine(uploads, fileName), FileMode.Create))
+                            var fileName = Guid.NewGuid().ToString().Replace("-", "") + Path.GetExtension(Image.FileName);
+                            using (SixLabors.ImageSharp.Image image = SixLabors.ImageSharp.Image.Load(imageStream))
                             {
-                                await file.CopyToAsync(fileStream);
-                                filenames.Add(fileName);
-                                fileSaveResult.FileIsThere = true;
+                                var height = (int)Math.Round(0.5 * image.Height);
+                                var width = (int)Math.Round(0.5 * image.Width);
+
+                                image.Mutate(x => x.Resize(width, height));
+                                image.Save($"{uploads}/{fileName}"); // Automatic encoder selected based on extension.
                             }
+                            filenames.Add(fileName);
+                            fileSaveResult.FileIsThere = true;
                         }
                     }
                 }
