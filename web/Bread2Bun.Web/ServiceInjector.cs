@@ -1,4 +1,6 @@
 ﻿using Bread2Bun.Common;
+using Bread2Bun.Service.Chat.Interface;
+using Bread2Bun.Service.Chat.Service;
 using Bread2Bun.Service.Country;
 using Bread2Bun.Service.Country.Interface;
 using Bread2Bun.Service.Food;
@@ -24,6 +26,7 @@ namespace Bread2Bun.Web
             services.AddScoped<IProfileService, ProfileService>();
             services.AddScoped<IReviewService, ReviewService>();
             services.AddScoped<IFoodService, FoodService>();
+            services.AddScoped<IChatService, ChatService>();
         }
     }
 }

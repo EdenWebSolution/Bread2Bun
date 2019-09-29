@@ -42,12 +42,12 @@ export class NavbarComponent implements OnInit {
         icon: '',
         class: ''
       },
-      // {
-      //   path: '/app/messages',
-      //   title: 'Messages',
-      //   icon: '',
-      //   class: ''
-      // },
+      {
+        path: '/app/messages',
+        title: 'Messages',
+        icon: '',
+        class: ''
+      },
       {
         path: '/app/profile',
         title: 'Profile',

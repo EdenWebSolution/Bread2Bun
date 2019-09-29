@@ -4,11 +4,13 @@ using Bread2Bun.Domain.Security;
 using Bread2Bun.Domain.Security.TokenProviders;
 using Bread2Bun.Service;
 using Bread2Bun.Web.AppHubs;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -20,6 +22,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Bread2Bun.Web
 {
@@ -78,6 +81,24 @@ namespace Bread2Bun.Web
                       ValidAudience = configuration["Tokens:Audience"],
                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Tokens:Key"]))
                   };
+
+                  cfg.Events = new JwtBearerEvents
+                  {
+                      OnMessageReceived = context =>
+                      {
+                          var accessToken = context.Request.Query["access_token"];
+
+                          // If the request is for our hub...
+                          var path = context.HttpContext.Request.Path;
+                          if (!string.IsNullOrEmpty(accessToken) &&
+                              (path.StartsWithSegments("/chat")))
+                          {
+                              // Read the token out of the query string
+                              context.Token = accessToken;
+                          }
+                          return Task.CompletedTask;
+                      }
+                  };
               });
 
 
@@ -96,6 +117,8 @@ namespace Bread2Bun.Web
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddJsonOptions(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+            services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
 
             services.AddSwaggerGen(c =>
             {
@@ -127,18 +150,18 @@ namespace Bread2Bun.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
             //app.UseCors(builder => builder.WithOrigins("https://www.bread2bun.com/", "http://bread2bun.azurewebsites.net", "http://www.bread2bun.com", "https://bread2bun.azurewebsites.net", "http://localhost:4200", "http://localhost:54969").AllowAnyHeader().AllowAnyMethod());
-            app.UseCors(builder => builder.WithOrigins("*").AllowAnyHeader().AllowAnyMethod());
+            app.UseCors(builder => builder.WithOrigins("*", "http://localhost:4200", "http://localhost:54969").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
 
-            app.UseAuthentication();
+            // app.UseAuthentication();
 
             app.UseSignalR(routes =>
             {
-                routes.MapHub<ChatHub>("/api/chat/message");
+                routes.MapHub<ChatHub>("/chat");
             });
 
             app.UseMvc(routes =>
