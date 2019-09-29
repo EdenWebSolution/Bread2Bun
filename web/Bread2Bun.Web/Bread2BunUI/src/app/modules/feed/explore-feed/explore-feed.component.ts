@@ -27,6 +27,7 @@ export class ExploreFeedComponent implements OnInit {
 
   posts: Array<ExploreFeedFood> = new Array<ExploreFeedFood>();
   profileData: ViewProfileModel = new ViewProfileModel();
+  isBlocked = false;
 
   constructor(
     private profileService: ProfileService,
@@ -45,16 +46,19 @@ export class ExploreFeedComponent implements OnInit {
   }
 
   getFeedData() {
+    this.isBlocked = true;
     forkJoin(
       this.profileService.getProfileView(),
       this.profileService.getExploreFeed(this.skip, this.take)
     ).subscribe(result => {
+      this.isBlocked = false;
       this.profileData = result[0];
       this.posts = result[1].items;
       if (this.profileData.profileImage !== null) {
         this.profileImageUrl = this.profileData.profileImage;
       }
     }, error => {
+      this.isBlocked = false;
       this.tstr.error('Something went wrong', 'Error');
     });
   }

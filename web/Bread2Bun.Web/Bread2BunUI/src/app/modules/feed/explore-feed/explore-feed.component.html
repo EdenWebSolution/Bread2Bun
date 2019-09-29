@@ -3,7 +3,10 @@
     <div class="col-md-3 d-none d-md-block">
       <div class="left-wrapper">
         <div class="profile-card my-card">
-          <div class="profile-basic">
+          <div class="ui-blocker divs" *ngIf="isBlocked">
+            <img src="../../../../assets/images/bread.svg" alt="">
+          </div>
+          <div class="profile-basic" *ngIf="!isBlocked">
             <div class="cover-img-wrapper">
               <img [src]="profileData.coverImage" [alt]="">
             </div>
