@@ -48,27 +48,27 @@ namespace Bread2Bun.Service.Profile
 
         public async Task<UserProfile> UpdateUserProfile(UserProfileUpdateModel model)
         {
-            using (var transaction = context.Database.BeginTransaction())
+            //using (var transaction = context.Database.BeginTransaction())
+            //{
+            try
             {
-                try
-                {
-                    var user = await context.Users.FirstOrDefaultAsync(f => f.Id == userResolverService.UserId);
-                    user.Update(model.FirstName, model.LastName, model.Email, model.CountryId, model.UniversityId);
-                    await context.SaveChangesAsync();
+                var user = await context.Users.FirstOrDefaultAsync(f => f.Id == userResolverService.UserId);
+                user.Update(model.FirstName, model.LastName, model.Email, model.CountryId, model.UniversityId);
+                // await context.SaveChangesAsync();
 
-                    var entity = await context.UserProfile.Include(p => p.Foods).FirstOrDefaultAsync(f => f.Id == userResolverService.UserId);
-                    entity.Update(model.CoverFoodImageId, model.AvailableDays, model.AboutMe, model.Languages, model.Instagram, model.Twitter, model.Address.Country, model.Address.City).UpdateFoods(model.FoodIds);
-                    await context.SaveChangesAsync();
+                var entity = await context.UserProfile.Include(p => p.Foods).FirstOrDefaultAsync(f => f.Id == userResolverService.UserId);
+                entity.Update(model.CoverFoodImageId, model.AvailableDays, model.AboutMe, model.Languages, model.Instagram, model.Twitter, model.Address.Country, model.Address.City).UpdateFoods(model.FoodIds);
+                await context.SaveChangesAsync();
 
-                    transaction.Commit();
-                    return mapper.Map<UserProfile>(entity);
-                }
-                catch (System.Exception e)
-                {
-                    transaction.Rollback();
-                    throw new System.Exception(e.Message);
-                }
+                //transaction.Commit();
+                return mapper.Map<UserProfile>(entity);
             }
+            catch (System.Exception e)
+            {
+                //transaction.Rollback();
+                throw new System.Exception(e.Message);
+            }
+            //}
         }
 
         public async Task<UserProfileUpdateModel> GetUserProfileInfo(int userId)
