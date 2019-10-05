@@ -347,6 +347,7 @@ export class EditProfileComponent implements OnInit {
     });
     // this.languagesAdded = value.languages;
     this.languagesArr = value.languages;
+    this.languagesAdded = this.languagesArr;
     this.ProfileImageUrl = value.profileImage;
     this.getSelectedDays(value.availableDays);
     this.getFoods(value.countryId, value.foodIds, value.coverFoodImageId);
@@ -376,6 +377,7 @@ export class EditProfileComponent implements OnInit {
       this.getSelectedFoods(foodsIds);
       this.initiated = true;
       this.setCoverImageFood(coverImageId);
+      this.isBlocked = false;
     }, error => {
       this.toastr.error('Something went wrong', 'Error');
       this.initiated = true;
@@ -388,9 +390,7 @@ export class EditProfileComponent implements OnInit {
       this.foodService.getFoodImageByFoodId(countryId).subscribe(result => {
         this.coverPhotoUrl = result.defaultFoodImagepath;
         this.coverPhotoId = result.id;
-        this.isBlocked = false;
       }, error => {
-        this.isBlocked = false;
         this.toastr.error('No image found for this food', 'Error');
       });
     }
