@@ -25,15 +25,31 @@ namespace Bread2Bun.Web.AppHubs
             return Clients.All.SendAsync("ReceiveMessage", msg);
         }
 
-        public async override Task OnConnectedAsync()
+        public override async Task OnConnectedAsync()
         {
-            await Clients.AllExcept(Context.ConnectionId).SendAsync("UserConnected", Context.ConnectionId, Context.User.Identity.Name);
+            await Clients.AllExcept(Context.ConnectionId).SendAsync("UserConnected", UserConnection.GetUserConnection(Context.ConnectionId, Context.User.Identity.Name));
             await base.OnConnectedAsync();
+        }
+
+        public override async Task OnDisconnectedAsync(Exception exception)
+        {
+            await Clients.AllExcept(Context.ConnectionId).SendAsync("UserDisconntected", UserConnection.GetUserConnection(Context.ConnectionId, Context.User.Identity.Name));
+            await base.OnDisconnectedAsync(exception);
         }
 
         public string GetConnectionId()
         {
             return Context.ConnectionId;
+        }
+    }
+
+    internal class UserConnection
+    {
+        public string ConnectionId { get; set; }
+        public string UserName { get; set; }
+        protected internal static UserConnection GetUserConnection(string connectionId, string userName)
+        {
+            return new UserConnection { ConnectionId = connectionId, UserName = userName };
         }
     }
 }

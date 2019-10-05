@@ -90,8 +90,7 @@ namespace Bread2Bun.Web
 
                           // If the request is for our hub...
                           var path = context.HttpContext.Request.Path;
-                          if (!string.IsNullOrEmpty(accessToken) &&
-                              (path.StartsWithSegments("/chat")))
+                          if (!string.IsNullOrEmpty(accessToken) && (path.StartsWithSegments("/chat")))
                           {
                               // Read the token out of the query string
                               context.Token = accessToken;
@@ -100,8 +99,6 @@ namespace Bread2Bun.Web
                       }
                   };
               });
-
-
 
             //services.Configure<IdentityOptions>(options =>
             //{
