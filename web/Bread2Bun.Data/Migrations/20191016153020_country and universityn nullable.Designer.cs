@@ -4,14 +4,16 @@ using Bread2Bun.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bread2Bun.Data.Migrations
 {
     [DbContext(typeof(Bread2BunContext))]
-    partial class Bread2BunContextModelSnapshot : ModelSnapshot
+    [Migration("20191016153020_country and universityn nullable")]
+    partial class countryanduniversitynnullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -169,13 +171,15 @@ namespace Bread2Bun.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<string>("FullName");
+                    b.Property<string>("FirstName");
 
-                    b.Property<int?>("Gender");
+                    b.Property<int>("Gender");
 
                     b.Property<bool>("IsAdmin");
 
                     b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 

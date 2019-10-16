@@ -58,7 +58,7 @@ namespace Bread2Bun.Service.Security
                     To = new[] { storeUser.Email },
                     Subject = "Welcome To Bread2Bun",
                     IsBodyHtml = true,
-                    Body = $"Hi {storeUser.FirstName} {storeUser.LastName}, please click on the link below so that we can confirm your email address. <br/><br/>" +
+                    Body = $"Hi {storeUser.FullName} , please click on the link below so that we can confirm your email address. <br/><br/>" +
                     $"{confirmPasswordLink} <br/><br/>" +
                     $"Happy eating!!!"
 
@@ -142,7 +142,7 @@ namespace Bread2Bun.Service.Security
                     To = new[] { user.Email },
                     Subject = "Reset Password",
                     IsBodyHtml = true,
-                    Body = $"Hi {user.FirstName} {user.LastName}, please click on the link below reset your password. <br/><br/>" +
+                    Body = $"Hi {user.FullName} , please click on the link below reset your password. <br/><br/>" +
                     $"{passwordReseLink} <br/><br/>" +
                     $"Happy eating!!!"
                 };

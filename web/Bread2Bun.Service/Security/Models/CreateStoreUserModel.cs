@@ -10,18 +10,11 @@ namespace Bread2Bun.Service.Security.Models
     public class CreateStoreUserModel : BaseModel
     {
         [Required]
-        public string FirstName { get; set; }
-        [Required]
-        public string LastName { get; set; }
+        public string FullName { get; set; }
         [Required]
         public string UserName { get; set; }
         [Required]
         public string Password { get; set; }
-        [Required]
-        public int CountryId { get; set; }
-        [Required]
-        public int UniversityId { get; set; }
-        public Gender Gender { get; set; }
         [Required]
         public string Email { get; set; }
     }

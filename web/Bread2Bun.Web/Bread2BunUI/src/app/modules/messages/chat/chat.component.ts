@@ -2,6 +2,7 @@ import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
 import { ChatService } from '../service/chat.service';
 import { MessageModel } from '../Models/MessageModel';
 import { Subscription } from 'rxjs/Rx';
+import { UserConnectionModel } from '../Models/UserConnectionModel';
 
 @Component({
   selector: 'app-chat',
@@ -46,6 +47,14 @@ export class ChatComponent implements OnInit, OnDestroy {
       (message: MessageModel) => {
         this.ngZone.run(() => {
           console.log(message);
+        });
+      }
+    );
+
+    this.subscription = this.chatService.userConnected.subscribe(
+      (userConnection: UserConnectionModel) => {
+        this.ngZone.run(() => {
+          console.log(userConnection);
         });
       }
     );
