@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bread2Bun.Common;
+using Bread2Bun.Service.Chat.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,13 +12,19 @@ namespace Bread2Bun.Web.Controllers
 {
     [Route("api/chat")]
     [ApiController]
-    [AllowAnonymous]
     public class ChatController : BaseAPIController
     {
-        [HttpPost("message")]
-        public async Task<IActionResult> Chat()
+        private readonly IChatService chatService;
+
+        public ChatController(IChatService chatService)
         {
-            return Ok();
+            this.chatService = chatService;
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetAllChatById([FromQuery]PaginationBase paginationBase, [FromQuery]long to)
+        {
+            var result = await chatService.GetAllChatById(paginationBase, to);
+            return Ok(result);
         }
     }
 }

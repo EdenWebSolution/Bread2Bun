@@ -26,10 +26,13 @@ export class ChatService extends BaseService {
   }
 
   private createConnection() {
+    const authToken =
+      localStorage.getItem('bread2bun-TokenId') === null
+        ? sessionStorage.getItem('bread2bun-TokenId')
+        : localStorage.getItem('bread2bun-TokenId');
     this.hubConnection = new HubConnectionBuilder()
       .withUrl(`${this.baseEndPoint}/chat`, {
-        accessTokenFactory: () =>
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwianRpIjoiMDAxZTMyY2MtM2Q2ZC00NzI4LWE2NjAtNGZiYmQ0YjE0YTMxIiwidW5pcXVlX25hbWUiOiJiaXJpenphIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiRmFsc2UiLCJyZW1lbWJlck1lIjoiRmFsc2UiLCJleHAiOjE2MDEzOTYwMTEsImlzcyI6IkJyZWFkMkJ1biIsImF1ZCI6InVzZXJzIn0.Vm20LGHRnEOHcPtgmE4gw63PdVNnjM8N9AsAQcE5L7w'
+        accessTokenFactory: () => authToken
       })
       .build();
   }
