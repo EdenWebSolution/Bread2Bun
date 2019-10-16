@@ -57,5 +57,31 @@ namespace Bread2Bun.Service.Chat.Service
 
             return resultData;
         }
+
+        public async Task<PaginationModel<ChatSummaryModel>> GetAllChatSummary()
+        {
+            var summaryList = new List<ChatSummaryModel>();
+
+            var query = await bread2BunContext.Message.Include(i => i.To).Where(w => w.FromId == userResolverService.UserId)
+                        .OrderByDescending(o => o.CreatedOn).GroupBy(g => g.ToId).ToListAsync();
+
+            foreach (var item in query)
+            {
+                summaryList.Add(new ChatSummaryModel
+                {
+                    UserId = item.Key,
+                    LastMessage = item.FirstOrDefault().Text,
+                    Name = item.FirstOrDefault().To.FullName,
+                    UserName = item.FirstOrDefault().To.UserName
+                });
+            }
+
+            var result = new PaginationModel<ChatSummaryModel>
+            {
+                Details = summaryList
+            };
+
+            return result;
+        }
     }
 }

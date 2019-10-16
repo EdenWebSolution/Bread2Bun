@@ -48,27 +48,21 @@ namespace Bread2Bun.Service.Profile
 
         public async Task<UserProfile> UpdateUserProfile(UserProfileUpdateModel model)
         {
-            //using (var transaction = context.Database.BeginTransaction())
-            //{
             try
             {
                 var user = await context.Users.FirstOrDefaultAsync(f => f.Id == userResolverService.UserId);
-                user.Update(model.FirstName, model.LastName, model.Email, model.CountryId, model.UniversityId);
-                // await context.SaveChangesAsync();
+                user.Update(model.FullName, model.Email, model.CountryId, model.UniversityId);
 
                 var entity = await context.UserProfile.Include(p => p.Foods).FirstOrDefaultAsync(f => f.Id == userResolverService.UserId);
                 entity.Update(model.CoverFoodImageId, model.AvailableDays, model.AboutMe, model.Languages, model.Instagram, model.Twitter, model.Address.Country, model.Address.City).UpdateFoods(model.FoodIds);
                 await context.SaveChangesAsync();
 
-                //transaction.Commit();
                 return mapper.Map<UserProfile>(entity);
             }
             catch (System.Exception e)
             {
-                //transaction.Rollback();
                 throw new System.Exception(e.Message);
             }
-            //}
         }
 
         public async Task<UserProfileUpdateModel> GetUserProfileInfo(int userId)
@@ -80,8 +74,7 @@ namespace Bread2Bun.Service.Profile
 
             return new UserProfileUpdateModel()
             {
-                FirstName = userProfile.User.FirstName,
-                LastName = userProfile.User.LastName,
+                FullName = userProfile.User.FullName,
                 Email = userProfile.User.Email,
                 ProfileImage = userProfile.User.ProfilePictureImagePath == null ? null : FolderPath.ImagePath + FolderPath.ProfileImages + userProfile.User.ProfilePictureImagePath,
                 UniversityId = userProfile.User.UniversityId,
@@ -122,8 +115,7 @@ namespace Bread2Bun.Service.Profile
             {
                 UserId = userProfile.User.Id,
                 UserName = userProfile.User.UserName,
-                FirstName = userProfile.User.FirstName,
-                LastName = userProfile.User.LastName,
+                FullName = userProfile.User.FullName,
                 Email = userProfile.User.Email,
                 ProfileImage = userProfile.User.ProfilePictureImagePath == null ? null : FolderPath.ImagePath + FolderPath.ProfileImages + userProfile.User.ProfilePictureImagePath,
                 CoverImage = coverImage.DefaultFoodImagepath == null ? null : FolderPath.ImagePath + FolderPath.FoodImages + coverImage.DefaultFoodImagepath,
@@ -149,8 +141,7 @@ namespace Bread2Bun.Service.Profile
                             where userfood.UserProfileId != userId
                             select new Feed
                             {
-                                FirstName = user.FirstName,
-                                LastName = user.LastName,
+                                FullName = user.FullName,
                                 UserId = user.Id,
                                 Username = user.UserName,
                                 ProfileImage = user.ProfilePictureImagePath == null ? null : FolderPath.ImagePath + FolderPath.ProfileImages + user.ProfilePictureImagePath,
@@ -199,8 +190,7 @@ namespace Bread2Bun.Service.Profile
             {
                 UserId = userProfile.User.Id,
                 UserName = userProfile.User.UserName,
-                FirstName = userProfile.User.FirstName,
-                LastName = userProfile.User.LastName,
+                FullName = userProfile.User.FullName,
                 Email = userProfile.User.Email,
                 ProfileImage = userProfile.User.ProfilePictureImagePath == null ? null : FolderPath.ImagePath + FolderPath.ProfileImages + userProfile.User.ProfilePictureImagePath,
                 CoverImage = coverImage.DefaultFoodImagepath == null ? null : FolderPath.ImagePath + FolderPath.FoodImages + coverImage.DefaultFoodImagepath,
@@ -222,8 +212,7 @@ namespace Bread2Bun.Service.Profile
                                                      select new FoodViewResult
                                                      {
                                                          Id = foods.Id,
-                                                         FirstName = res.FirstName,
-                                                         LastName = res.LastName,
+                                                         FullName = res.FullName,
                                                          Name = foods.Name,
                                                          DefaultFoodImagepath = foods.DefaultFoodImagepath == null ? null : FolderPath.ImagePath + FolderPath.FoodImages + foods.DefaultFoodImagepath,
                                                          Country = country.Name,

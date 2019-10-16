@@ -10,8 +10,7 @@
         public string Country { get; set; }
         public string CountryCode { get; set; }
         public string FoodDescription { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string FullName { get; set; }
         public bool IsVegeterian { get; set; }
     }
 }
