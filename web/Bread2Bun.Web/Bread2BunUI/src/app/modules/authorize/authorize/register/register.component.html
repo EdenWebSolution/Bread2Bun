@@ -25,10 +25,8 @@
         </div>
         <div class="formgroup col-xs-12 col-sm-12 col-md-6">
           <input type="password" class="b2b-input" placeholder="Password" formControlName="password" />
-          <span *ngIf="password.errors?.pattern && password.touched" class="error">Please use symbols, mixed case &
-            numerics</span>
+          <span *ngIf="password.errors?.minlength && password.touched" class="error">Short!</span>
           <span *ngIf="password.errors?.required && password.touched" class="error">Required!</span>
-          <span class="hint">&#9873; P@$W0rd!</span>
         </div>
       </div>
 
