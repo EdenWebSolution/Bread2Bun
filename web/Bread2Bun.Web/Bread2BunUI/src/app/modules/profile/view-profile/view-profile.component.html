@@ -15,15 +15,15 @@
             </div>
             <div class="contents-wrapper">
               <div class="username">{{profileDetails.userName}}</div>
-              <div class="name">{{profileDetails.firstName}} {{profileDetails.lastName}}</div>
-              <div class="country">
+              <div class="name">{{profileDetails.fullName}}</div>
+              <div *ngIf="profileDetails.country !== null" class="country">
                 <span class="country-name">{{profileDetails.country}}</span>
                 <span class="country-flag"><img
                     src="https://www.countryflags.io/{{profileDetails.countryCode}}/flat/64.png"></span>
               </div>
-              <div class="university"><span><i class="fas fa-landmark"></i></span>
+              <div *ngIf="profileDetails.university !==null" class="university"><span><i class="fas fa-landmark"></i></span>
                 <span>{{profileDetails.university}}</span></div>
-              <div class="lives"> <span><i class="fas fa-map-marker-alt"></i></span>
+              <div *ngIf="profileDetails.address.city !== null || profileDetails.address.country !== null" class="lives"> <span><i class="fas fa-map-marker-alt"></i></span>
                 <span>{{profileDetails.address.city}}, {{profileDetails.address.country}}</span></div>
             </div>
             <div class="action-btns">
@@ -79,11 +79,11 @@
             <div class="post-content">
               <div class="user-details">
                 <div class="user-img">
-                  <img [src]="profileDetails.profileImage" alt="profile picture">
+                  <img [src]="profileImgUrl" alt="profile picture">
                 </div>
                 <div class="user-basic">
                   <span class="foodie-name">{{profileDetails.userName}}</span>
-                  <span class="fullname">{{profileDetails.firstName}} {{profileDetails.lastName}}</span>
+                  <span class="fullname">{{profileDetails.fullName}}</span>
                 </div>
               </div>
             </div>

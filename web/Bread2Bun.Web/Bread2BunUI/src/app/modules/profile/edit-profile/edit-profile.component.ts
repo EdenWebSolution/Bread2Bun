@@ -299,11 +299,16 @@ export class EditProfileComponent implements OnInit {
   }
 
   getUserProfileToUpdate(value: UpdateProfileModel) {
-
-    const country = this.countries.find(c => c.id === value.countryId).name;
-    const university = this.universities.find(u => u.id === value.universityId).name;
-    this.selectedCountryId = this.countries.find(c => c.id === value.countryId).id;
-    this.selectedUniversityId = this.universities.find(u => u.id === value.universityId).id;
+    let country = '';
+    let university = '';
+    if (value.countryId !== null) {
+      country = this.countries.find(c => c.id === value.countryId).name;
+      this.selectedCountryId = this.countries.find(c => c.id === value.countryId).id;
+    }
+    if (value.universityId !== null) {
+      university = this.universities.find(u => u.id === value.universityId).name;
+      this.selectedUniversityId = this.universities.find(u => u.id === value.universityId).id;
+    }
 
     this.editProfileForm.patchValue({
       fullName: value.fullName,
@@ -345,17 +350,22 @@ export class EditProfileComponent implements OnInit {
   }
 
   getFoods(countryId: number, foodsIds: Array<number>, coverImageId: number) {
-    this.foodService.getFoodListByCountry(countryId).subscribe(result => {
-      this.foodList = result;
-      this.getSelectedFoods(foodsIds);
+    if (countryId !== null) {
+      this.foodService.getFoodListByCountry(countryId).subscribe(result => {
+        this.foodList = result;
+        this.getSelectedFoods(foodsIds);
+        this.initiated = true;
+        this.setCoverImageFood(coverImageId);
+        this.isBlocked = false;
+      }, error => {
+        this.toastr.error('Something went wrong', 'Error');
+        this.initiated = true;
+        this.isBlocked = false;
+      });
+    } else {
       this.initiated = true;
-      this.setCoverImageFood(coverImageId);
       this.isBlocked = false;
-    }, error => {
-      this.toastr.error('Something went wrong', 'Error');
-      this.initiated = true;
-      this.isBlocked = false;
-    });
+    }
   }
 
   setCoverImageFood(countryId: number): void {

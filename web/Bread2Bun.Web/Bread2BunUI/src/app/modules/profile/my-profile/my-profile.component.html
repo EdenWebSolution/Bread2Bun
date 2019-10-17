@@ -16,14 +16,14 @@
             <div class="contents-wrapper">
               <div class="username">{{profileData.userName}}</div>
               <div class="name">{{profileData.fullName}}</div>
-              <div class="country">
+              <div *ngIf="profileData.country !== null" class="country">
                 <span class="country-name">{{profileData.country}}</span>
                 <span class="country-flag"><img
                     src="https://www.countryflags.io/{{profileData.countryCode}}/flat/64.png"></span>
               </div>
-              <div class="university"><span><i class="fas fa-landmark"></i></span>
+              <div *ngIf="profileData.university !== null" class="university"><span><i class="fas fa-landmark"></i></span>
                 <span>{{profileData.university}}</span></div>
-              <div class="lives"> <span><i class="fas fa-map-marker-alt"></i></span> <span>{{profileData.address.city}},
+              <div *ngIf="profileData.address.country !== null || profileData.address.city !== null" class="lives"> <span><i class="fas fa-map-marker-alt"></i></span> <span>{{profileData.address.city}},
                   {{profileData.address.country}}</span></div>
             </div>
             <div class="action-btns">
