@@ -45,18 +45,10 @@
           <div class="row">
             <div class="col-md-6">
               <div class="group">
-                <label>First name*</label>
-                <input placeholder="First Name" type="text" formControlName="firstName">
-                <span *ngIf="firstName.errors?.pattern && firstName.touched" class="error">Invalid!</span>
-                <span *ngIf="firstName.errors?.required && firstName.touched" class="error">Required!</span>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="group">
-                <label>Last name*</label>
-                <input placeholder="Last Name" type="text" formControlName="lastName">
-                <span *ngIf="lastName.errors?.pattern && lastName.touched" class="error">Invalid!</span>
-                <span *ngIf="lastName.errors?.required && lastName.touched" class="error">Required!</span>
+                <label>Full name*</label>
+                <input placeholder="Full Name" type="text" formControlName="fullName">
+                <span *ngIf="fullName.errors?.pattern && fullName.touched" class="error">Invalid!</span>
+                <span *ngIf="fullName.errors?.required && fullName.touched" class="error">Required!</span>
               </div>
             </div>
           </div>
@@ -89,8 +81,7 @@
               <div class="group">
                 <label>Available days*</label>
                 <ng-multiselect-dropdown [placeholder]="'Choose days'" [data]="days" [(ngModel)]="selectedDays"
-                  [settings]="dropdownSettings" (onSelect)="onDaySelect($event)" (onSelectAll)="onSelectAllDays($event)"
-                  (onDeSelect)="onDaysDeSelect($event)" formControlName="availableDays">
+                  [settings]="dropdownSettings" formControlName="availableDays">
                 </ng-multiselect-dropdown>
                 <span *ngIf="availableDays.errors?.required && availableDays.touched" class="error">Required!</span>
               </div>
@@ -99,8 +90,7 @@
               <div class="group">
                 <label>Food offered*</label>
                 <ng-multiselect-dropdown formControlName="foodIds" [placeholder]="'Choose foods'" [data]="foodList"
-                  [(ngModel)]="selectedFood" [settings]="foodDropdownSettings" (onSelect)="onFoodSelect($event)"
-                  (onSelectAll)="onSelectAllFoods($event)" (onDeSelect)="onFoodDeSelect($event)">
+                  [(ngModel)]="selectedFood" [settings]="foodDropdownSettings">
                 </ng-multiselect-dropdown>
                 <span *ngIf="foodIds.errors?.required && foodIds.touched" class="error">Required!</span>
               </div>

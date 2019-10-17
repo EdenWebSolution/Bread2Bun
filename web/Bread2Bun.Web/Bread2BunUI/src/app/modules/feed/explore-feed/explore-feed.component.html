@@ -15,7 +15,7 @@
             </div>
             <div class="contents-wrapper">
               <div class="username">{{profileData.userName}}</div>
-              <div class="name">{{profileData.firstName}} {{profileData.lastName}}</div>
+              <div class="name">{{profileData.fullName}}</div>
               <div class="country">
                 <span class="country-name">{{profileData.country}}</span>
                 <span class="country-flag"><img
@@ -56,7 +56,7 @@
                 </div>
                 <div class="user-basic">
                   <span [routerLink]="['/app/profile/view', post.username]" class="foodie-name">{{post.username}}</span>
-                  <span class="fullname">{{post.firstName}} {{post.lastName}}</span>
+                  <span class="fullname">{{post.fullName}}</span>
                 </div>
                 <div class="user-action-btns">
                   <button class="message"><span><i class="fas fa-comments"></i></span></button>

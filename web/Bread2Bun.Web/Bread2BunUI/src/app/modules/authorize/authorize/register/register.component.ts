@@ -23,22 +23,14 @@ export class RegisterComponent implements OnInit {
   passwordPattern = '^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[#?!@$%^&*()\\-_]).{8,}$'; // Strong password
   registerUserModel: RegisterUserModel;
   loading = false;
-  initiated = false;
-  universities: UniversititesModel[];
-  countries: CountriesModel[];
   registered: boolean;
-  selectedCountryId: number;
-  selectedUniversityId: number;
   showContent = false;
   constructor(
     private fb: FormBuilder,
-    private sharedService: SharedService,
     private authorizeService: AuthorizeService,
     private toastr: ToastrService
   ) {
     this.registerUserModel = new RegisterUserModel();
-    this.countries = new Array<CountriesModel>();
-    this.universities = new Array<UniversititesModel>();
     this.registered = false;
   }
 
@@ -47,35 +39,16 @@ export class RegisterComponent implements OnInit {
   }
 
   initiateForm() {
-    forkJoin(
-      this.sharedService.getCountries(),
-      this.sharedService.getUniversities()
-    ).subscribe(result => {
-      this.initiated = true;
-      this.countries = result[0],
-        this.universities = result[1];
-    }, error => {
-      this.initiated = true;
-      this.toastr.error(error.message, 'Error');
-    });
     this.registerUserForm = this.fb.group({
-      firstName: ['', [Validators.required, Validators.pattern(this.namePattern)]],
-      lastName: ['', [Validators.required, Validators.pattern(this.namePattern)]],
+      fullName: ['', [Validators.required]],
       userName: ['', [Validators.required, Validators.minLength(5)]],
       password: ['', [Validators.required, Validators.pattern(this.passwordPattern)]],
-      email: ['', [Validators.required, Validators.email]],
-      universityId: ['', [Validators.required]],
-      gender: ['', [Validators.required]],
-      countryId: ['', [Validators.required]]
+      email: ['', [Validators.required, Validators.email]]
     });
   }
 
-  get firstName() {
-    return this.registerUserForm.get('firstName');
-  }
-
-  get lastName() {
-    return this.registerUserForm.get('lastName');
+  get fullName() {
+    return this.registerUserForm.get('fullName');
   }
 
   get password() {
@@ -90,23 +63,10 @@ export class RegisterComponent implements OnInit {
     return this.registerUserForm.get('email');
   }
 
-  get universityId() {
-    return this.registerUserForm.get('universityId');
-  }
-
-  get gender() {
-    return this.registerUserForm.get('gender');
-  }
-
-  get countryId() {
-    return this.registerUserForm.get('countryId');
-  }
 
   registerUser() {
     this.loading = true;
     this.registerUserModel = Object.assign({}, this.registerUserModel, this.registerUserForm.value);
-    this.registerUserModel.countryId = this.selectedCountryId;
-    this.registerUserModel.universityId = this.selectedUniversityId;
     this.authorizeService.registerUser(this.registerUserModel).subscribe(result => {
       this.loading = false;
       this.registered = true;
@@ -114,14 +74,6 @@ export class RegisterComponent implements OnInit {
       this.toastr.error(error.message, 'Error');
       this.loading = false;
     });
-  }
-
-  onSelect(event: TypeaheadMatch): void {
-    this.selectedCountryId = event.item.id;
-  }
-
-  onUniversitySelect(event: TypeaheadMatch): void {
-    this.selectedUniversityId = event.item.id;
   }
 
   loadContent() {

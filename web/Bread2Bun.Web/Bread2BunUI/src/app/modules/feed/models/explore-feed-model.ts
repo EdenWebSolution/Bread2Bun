@@ -17,8 +17,7 @@ export class ExploreFeedFood {
   profileImage: string;
   userId: number;
   username: string;
-  firstName: string;
-  lastName: string;
+  fullName: string;
   isVegeterian: boolean;
   constructor() {
 

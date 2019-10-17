@@ -1,6 +1,5 @@
 export class UpdateProfileModel {
-  firstName: string;
-  lastName: string;
+  fullName: string;
   universityId: number;
   countryId: number;
   profileImage: string;
