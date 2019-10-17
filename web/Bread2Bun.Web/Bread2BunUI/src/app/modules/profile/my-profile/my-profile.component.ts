@@ -33,7 +33,6 @@ export class MyProfileComponent implements OnInit {
   languagesString: string;
   skip = 0;
   take = 50;
-  // userId: number = +localStorage.getItem('user-sub');
   myReviews: Array<ReviewList> = new Array<ReviewList>();
 
 

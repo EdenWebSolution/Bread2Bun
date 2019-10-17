@@ -3,8 +3,7 @@ import { Address } from '../../profile/models/update-profile-model';
 export class ViewProfileModel {
   userId: number;
   userName: string;
-  firstName: string;
-  lastName: string;
+  fullName: string;
   email: string;
   profileImage: string;
   coverImage: string;

@@ -96,8 +96,7 @@ export class EditProfileComponent implements OnInit {
 
   ngOnInit() {
     this.editProfileForm = this.fb.group({
-      firstName: ['', [Validators.required, Validators.pattern(this.namePattern)]],
-      lastName: ['', [Validators.required, Validators.pattern(this.namePattern)]],
+      fullName: ['', [Validators.required]],
       universityId: ['', [Validators.required]],
       countryId: ['', [Validators.required]],
       profileImg: [null, []],
@@ -152,12 +151,8 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
-  get firstName() {
-    return this.editProfileForm.get('firstName');
-  }
-
-  get lastName() {
-    return this.editProfileForm.get('lastName');
+  get fullName() {
+    return this.editProfileForm.get('fullName');
   }
 
   get email() {
@@ -231,26 +226,6 @@ export class EditProfileComponent implements OnInit {
     }
   }
 
-
-
-  onDaySelect(item: any) {
-  }
-
-  onSelectAllDays(items: any) {
-  }
-
-  onDaysDeSelect(items: any) {
-  }
-
-  onFoodSelect(item: any) {
-  }
-
-  onSelectAllFoods(items: any) {
-  }
-
-  onFoodDeSelect(items: any) {
-  }
-
   onLanguageRemoved(language: any) {
     this.languagesArr = this.languagesArr.filter(lang => lang !== language);
 
@@ -299,8 +274,7 @@ export class EditProfileComponent implements OnInit {
     this.profileUpdateModel.universityId = this.selectedUniversityId;
     this.profileUpdateModel.coverFoodImageId = this.coverPhotoId;
     this.profileUpdateModel.languages = this.languagesArr;
-    this.profileUpdateModel.firstName = this.editProfileForm.value.firstName;
-    this.profileUpdateModel.lastName = this.editProfileForm.value.lastName;
+    this.profileUpdateModel.fullName = this.editProfileForm.value.fullName;
     this.profileUpdateModel.aboutMe = this.editProfileForm.value.aboutMe;
     this.profileUpdateModel.email = this.editProfileForm.value.email;
     this.profileUpdateModel.twitter = this.editProfileForm.value.twitterUsername;
@@ -332,8 +306,7 @@ export class EditProfileComponent implements OnInit {
     this.selectedUniversityId = this.universities.find(u => u.id === value.universityId).id;
 
     this.editProfileForm.patchValue({
-      firstName: value.firstName,
-      lastName: value.lastName,
+      fullName: value.fullName,
       universityId: university,
       countryId: country,
       languages: value.languages,
