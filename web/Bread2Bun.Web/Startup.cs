@@ -53,8 +53,12 @@ namespace Bread2Bun.Web
                 cfg.Tokens.EmailConfirmationTokenProvider = "emailconf";
 
                 // user the below options to make the password policy
-                //cfg.Password.RequireDigit = true;
-                //cfg.Password...
+                cfg.Password.RequireDigit = false;
+                cfg.Password.RequiredLength = 6;
+                cfg.Password.RequireLowercase = false;
+                cfg.Password.RequireUppercase = false;
+                cfg.Password.RequiredUniqueChars = 0;
+                cfg.Password.RequireNonAlphanumeric = false;
             }).AddEntityFrameworkStores<Bread2BunContext>()
             .AddDefaultTokenProviders()
             .AddTokenProvider<EmailConfirmationTokenProvider<StoreUser>>("emailconf");
