@@ -28,6 +28,15 @@
             </div>
           </div>
         </div>
+        <div *ngIf="isCompletedProfile" class="complete-profile prompt my-card">
+          <div class="prompt-wrapper">
+            <p class="header">Update profile</p>
+            <p class="text">"it's a piece of cake".<br> Get the full experience of <span>Bread2Bun</span> by completing your profile.</p>
+            <div class="action-btn">
+              <button (click)="editProfile()">Update</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="col-md-6">

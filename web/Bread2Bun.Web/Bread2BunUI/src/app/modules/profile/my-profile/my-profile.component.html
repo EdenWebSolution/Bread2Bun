@@ -38,7 +38,7 @@
         <div class="reviews-btn">
           <button [routerLink]="['reviews', profileData.userId]">See my reviews</button>
         </div>
-        <div class="about-card my-card">
+        <div class="about-card my-card" *ngIf="isCompletedProfile">
           <div class="about-wrapper">
             <div class="availability-text">
               <p class="header">Available days</p>
@@ -59,6 +59,15 @@
                   class="fab fa-twitter"></i></span>
               <span *ngIf="profileData.instagram !== null" class="instagram" (click)="openInstagram()"><i
                   class="fab fa-instagram"></i></span>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!isCompletedProfile" class="complete-profile prompt my-card">
+          <div class="prompt-wrapper">
+            <p class="header">Update profile</p>
+            <p class="text">"it's a piece of cake".<br> Get the full experience of <span>Bread2Bun</span> by completing your profile.</p>
+            <div class="action-btn">
+              <button (click)="editProfile()">Update</button>
             </div>
           </div>
         </div>

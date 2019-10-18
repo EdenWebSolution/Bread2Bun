@@ -28,6 +28,7 @@ export class ExploreFeedComponent implements OnInit {
   posts: Array<ExploreFeedFood> = new Array<ExploreFeedFood>();
   profileData: ViewProfileModel = new ViewProfileModel();
   isBlocked = false;
+  isCompletedProfile: boolean;
 
   constructor(
     private profileService: ProfileService,
@@ -43,11 +44,13 @@ export class ExploreFeedComponent implements OnInit {
     this.isBlocked = true;
     forkJoin(
       this.profileService.getProfileView(),
-      this.profileService.getExploreFeed(this.skip, this.take)
+      this.profileService.getExploreFeed(this.skip, this.take),
+      this.profileService.getStatus()
     ).subscribe(result => {
       this.isBlocked = false;
       this.profileData = result[0];
       this.posts = result[1].items;
+      this.isCompletedProfile = result[2];
       if (this.profileData.profileImage !== null) {
         this.profileImageUrl = this.profileData.profileImage;
       }
@@ -72,5 +75,9 @@ export class ExploreFeedComponent implements OnInit {
     }
   }
   onPostUp() {
+  }
+
+  editProfile() {
+    this.router.navigate(['/app/profile/editProfile']);
   }
 }

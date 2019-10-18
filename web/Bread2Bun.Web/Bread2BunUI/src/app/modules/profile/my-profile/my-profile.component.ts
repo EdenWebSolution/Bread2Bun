@@ -34,7 +34,7 @@ export class MyProfileComponent implements OnInit {
   skip = 0;
   take = 50;
   myReviews: Array<ReviewList> = new Array<ReviewList>();
-
+  isCompletedProfile: boolean;
 
   days: Array<any> = [
     {
@@ -103,10 +103,13 @@ export class MyProfileComponent implements OnInit {
     this.isBlocked = true;
     forkJoin(
       this.profileService.getProfileView(),
-      this.foodService.getUserFoodList()
+      this.foodService.getUserFoodList(),
+      this.profileService.getStatus()
+
     ).subscribe(result => {
       this.profileData = result[0];
       this.userFoods = result[1],
+      this.isCompletedProfile = result[2];
       this.setProfileDate(this.profileData);
     }, error => {
       this.isBlocked = false;

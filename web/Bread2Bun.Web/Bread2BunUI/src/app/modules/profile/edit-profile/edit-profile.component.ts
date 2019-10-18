@@ -290,6 +290,7 @@ export class EditProfileComponent implements OnInit {
       },
         error => {
           this.toastr.error('Something went wrong', 'Error');
+          this.loading = false;
         });
     },
       error => {
@@ -358,7 +359,7 @@ export class EditProfileComponent implements OnInit {
         this.setCoverImageFood(coverImageId);
         this.isBlocked = false;
       }, error => {
-        this.toastr.error('Something went wrong', 'Error');
+        this.toastr.error('Couldn\'t update profile', 'Error');
         this.initiated = true;
         this.isBlocked = false;
       });
