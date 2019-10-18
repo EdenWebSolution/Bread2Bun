@@ -43,12 +43,15 @@ namespace Bread2Bun.Data
         #endregion
 
         #region Chat
-        public DbSet<Message> Message{ get; set; }
+        public DbSet<Message> Message { get; set; }
         #endregion
 
         #region Overrides
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<UserFood>()
+            .HasKey(o => new { o.Id, o.UserId, o.UserProfileId });
+
             ApplyFilters(builder);
             base.OnModelCreating(builder);
             builder.SeedDB();
