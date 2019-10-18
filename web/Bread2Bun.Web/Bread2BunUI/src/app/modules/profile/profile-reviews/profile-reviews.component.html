@@ -41,11 +41,17 @@
           <div class="post-content">
             <div class="user-details">
               <div class="user-img">
-                <img  [routerLink]="['/app/profile/view', content.reviewer.userName]"  [src]="content.reviewer.profilePictureImagePath" alt="">
+                <img *ngIf="content.reviewer.profilePictureImagePath === null || content.reviewer.profilePictureImagePath === undefined"
+                  [routerLink]="['/app/profile/view', content.reviewer.userName]"
+                  [src]="profileImgUrl" alt="">
+
+                <img *ngIf="content.reviewer.profilePictureImagePath !== null && content.reviewer.profilePictureImagePath !== undefined"
+                  [routerLink]="['/app/profile/view', content.reviewer.userName]"
+                  [src]="content.reviewer.profilePictureImagePath" alt="">
               </div>
               <div class="user-basic">
                 <span class="foodie-name">{{content.reviewer.userName}}</span>
-                <span class="reviwer-name">{{content.reviewer.firstName}} {{content.reviewer.lastName}}</span>
+                <span class="reviwer-name">{{content.reviewer.fullName}}</span>
                 <span class="post-date">{{content.createdOn | timeAgo}}</span>
               </div>
             </div>
