@@ -82,12 +82,12 @@ namespace Bread2Bun.Data
             return base.SaveChangesAsync(cancellationToken);
         }
         #endregion
+
+        #region filters
         public void ApplyFilters(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Reviews>().HasQueryFilter(c => !c.IsDeleted);
         }
-        #region filters
-
         #endregion
     }
 }
