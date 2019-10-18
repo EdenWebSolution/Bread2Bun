@@ -97,7 +97,13 @@
           <p class="header">{{profileDetails.userName}}'s reviews</p>
           <div class="review" *ngFor="let review of myReviews">
             <div class="review-user">
-              <img [src]="review.reviewer.profilePictureImagePath" alt="">
+                <img *ngIf="review.reviewer.profilePictureImagePath === null || review.reviewer.profilePictureImagePath === undefined"
+                [routerLink]="['/app/profile/view', review.reviewer.userName]"
+                [src]="noImage" alt="">
+
+              <img *ngIf="review.reviewer.profilePictureImagePath !== null && review.reviewer.profilePictureImagePath !== undefined"
+                [routerLink]="['/app/profile/view', review.reviewer.userName]"
+                [src]="review.reviewer.profilePictureImagePath" alt="">
               <div class="username">{{review.reviewer.userName}} <span
                   class="review-time">{{review.createdOn| timeAgo}}</span></div>
             </div>

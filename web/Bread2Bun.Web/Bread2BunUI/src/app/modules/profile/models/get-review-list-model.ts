@@ -17,8 +17,7 @@ export class ReviewList {
 }
 
 export class ReviewerModel {
-  firstName: string;
-  lastName: string;
+  fullName: string;
   userName: string;
   profilePictureImagePath: string;
   constructor() {

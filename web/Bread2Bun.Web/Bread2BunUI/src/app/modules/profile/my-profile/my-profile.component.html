@@ -21,9 +21,11 @@
                 <span class="country-flag"><img
                     src="https://www.countryflags.io/{{profileData.countryCode}}/flat/64.png"></span>
               </div>
-              <div *ngIf="profileData.university !== null" class="university"><span><i class="fas fa-landmark"></i></span>
+              <div *ngIf="profileData.university !== null" class="university"><span><i
+                    class="fas fa-landmark"></i></span>
                 <span>{{profileData.university}}</span></div>
-              <div *ngIf="profileData.address.country !== null || profileData.address.city !== null" class="lives"> <span><i class="fas fa-map-marker-alt"></i></span> <span>{{profileData.address.city}},
+              <div *ngIf="profileData.address.country !== null || profileData.address.city !== null" class="lives">
+                <span><i class="fas fa-map-marker-alt"></i></span> <span>{{profileData.address.city}},
                   {{profileData.address.country}}</span></div>
             </div>
             <div class="action-btns">
@@ -65,7 +67,8 @@
         <div *ngIf="!isCompletedProfile" class="complete-profile prompt my-card">
           <div class="prompt-wrapper">
             <p class="header">Update profile</p>
-            <p class="text">"it's a piece of cake".<br> Get the full experience of <span>Bread2Bun</span> by completing your profile.</p>
+            <p class="text">"it's a piece of cake".<br> Get the full experience of <span>Bread2Bun</span> by completing
+              your profile.</p>
             <div class="action-btn">
               <button (click)="editProfile()">Update</button>
             </div>
@@ -109,8 +112,13 @@
         <div class="my-card reviews" *ngIf="myReviews.length > 0">
           <p class="header">{{profileData.userName}}'s reviews</p>
           <div class="review" *ngFor="let review of myReviews">
-            <div class="review-user">
-              <img [src]="review.reviewer.profilePictureImagePath" alt="">
+            <div class="review-user" [routerLink]="['/app/profile/view', review.reviewer.userName]" routerLinkActive="router-link-active" >
+              <img
+                *ngIf="review.reviewer.profilePictureImagePath === null || review.reviewer.profilePictureImagePath === undefined"
+                [src]="noImage" alt="">
+              <img
+                *ngIf="review.reviewer.profilePictureImagePath !== null && review.reviewer.profilePictureImagePath !== undefined"
+                [src]="review.reviewer.profilePictureImagePath" alt="">
               <div class="username">{{review.reviewer.userName}} <span
                   class="review-time">{{review.createdOn| timeAgo}}</span></div>
             </div>
