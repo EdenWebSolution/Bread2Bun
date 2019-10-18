@@ -7,8 +7,7 @@ namespace Bread2Bun.Common.Model
     {
         public long Id { get; set; }
         public string UserName { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string FullName { get; set; }
         public DateTimeOffset CreatedOn { get; set; }
         public long? CreatedById { get; set; }
         public DateTimeOffset? EditedOn { get; set; }
