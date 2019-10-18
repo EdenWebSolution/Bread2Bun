@@ -156,7 +156,7 @@ namespace Bread2Bun.Web
             app.UseSpaStaticFiles();
 
             //app.UseCors(builder => builder.WithOrigins("https://www.bread2bun.com/", "http://bread2bun.azurewebsites.net", "http://www.bread2bun.com", "https://bread2bun.azurewebsites.net", "http://localhost:4200", "http://localhost:54969").AllowAnyHeader().AllowAnyMethod());
-            app.UseCors(builder => builder.WithOrigins("*", "http://localhost:4200", "http://localhost:54969", "http://test.bread2bun.com", "https://www.bread2bun.com").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+            app.UseCors(builder => builder.WithOrigins("*", "http://localhost:4200", "http://localhost:54969", "http://test.bread2bun.com", "https://www.bread2bun.com", "https://bread2bun.com").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
 
             // app.UseAuthentication();
 
