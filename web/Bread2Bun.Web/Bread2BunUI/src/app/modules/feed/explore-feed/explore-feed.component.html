@@ -21,21 +21,33 @@
                 <span class="country-flag"><img
                     src="https://www.countryflags.io/{{profileData.countryCode}}/flat/64.png"></span>
               </div>
-              <div *ngIf="profileData.university !== null" class="university"><span><i class="fas fa-landmark"></i></span>
+              <div *ngIf="profileData.university !== null" class="university"><span><i
+                    class="fas fa-landmark"></i></span>
                 <span>{{profileData.university}}</span></div>
-              <div *ngIf="profileData.address.country || profileData.address.city" class="lives"> <span><i class="fas fa-map-marker-alt"></i></span> <span>{{profileData.address.city}},
+              <div *ngIf="profileData.address.country || profileData.address.city" class="lives"> <span><i
+                    class="fas fa-map-marker-alt"></i></span> <span>{{profileData.address.city}},
                   {{profileData.address.country}}</span></div>
             </div>
           </div>
         </div>
-        <div *ngIf="isCompletedProfile" class="complete-profile prompt my-card">
+        <div *ngIf="isCompletedProfile" class="complete-profile my-card">
           <div class="prompt-wrapper">
             <p class="header">Update profile</p>
-            <p class="text">"it's a piece of cake".<br> Get the full experience of <span>Bread2Bun</span> by completing your profile.</p>
+            <p class="text">"it's a piece of cake".<br> Get the full experience of <span>Bread2Bun</span> by completing
+              your profile.</p>
             <div class="action-btn">
               <button (click)="editProfile()">Update</button>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 d-block d-sm-block d-md-none" *ngIf="!isCompletedProfile">
+      <div class="prompt">
+        <p class="text">"it's a piece of cake".<br> Get the full experience of <span>Bread2Bun</span> by completing your
+          profile.</p>
+        <div class="action-btn">
+          <button (click)="editProfile()">Update</button>
         </div>
       </div>
     </div>
@@ -61,7 +73,8 @@
               <div class="user-details">
                 <div class="user-img">
                   <img *ngIf="post.profileImage === null" [src]="DefaultProfileImage" alt="default image">
-                  <img *ngIf="post.profileImage !== null" [routerLink]="['/app/profile/view', post.username]" [src]="post.profileImage" alt="">
+                  <img *ngIf="post.profileImage !== null" [routerLink]="['/app/profile/view', post.username]"
+                    [src]="post.profileImage" alt="">
                 </div>
                 <div class="user-basic">
                   <span [routerLink]="['/app/profile/view', post.username]" class="foodie-name">{{post.username}}</span>

@@ -290,3 +290,27 @@
     }
   }
 }
+
+.prompt {
+  background: #ffffff;
+  text-align: center;
+  padding: 10px;
+  margin: 10px 0;
+  color: #f9690e;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 10px;
+  box-shadow: 0 0 9px 2px #f9690e47;
+  .action-btn {
+    button {
+      width: 100%;
+      border: none;
+      box-shadow: 0 0 0 0 rgba(249, 105, 14, 0.7);
+      background-color: #f9690e;
+      color: #fff;
+      font-weight: 600;
+      padding: 5px 0;
+      cursor: pointer;
+    }
+  }
+}
