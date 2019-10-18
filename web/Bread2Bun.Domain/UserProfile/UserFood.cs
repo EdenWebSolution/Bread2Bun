@@ -1,4 +1,5 @@
 ﻿using Bread2Bun.Domain.Security;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bread2Bun.Domain.UserProfile

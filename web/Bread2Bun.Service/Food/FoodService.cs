@@ -79,8 +79,7 @@ namespace Bread2Bun.Service.Food
                           select new FoodViewResult
                           {
                               Id = foods.Id,
-                              FirstName = res.FirstName,
-                              LastName = res.LastName,
+                              FullName = res.FullName,
                               Name = foods.Name,
                               DefaultFoodImagepath = foods.DefaultFoodImagepath == null ? null : FolderPath.ImagePath + FolderPath.FoodImages + foods.DefaultFoodImagepath,
                               Country = country.Name,

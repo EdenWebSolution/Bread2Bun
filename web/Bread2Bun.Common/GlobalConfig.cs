@@ -6,9 +6,9 @@ namespace Bread2Bun.Common
 {
     public static class GlobalConfig
     {
-        // development
-        //public static string APIBaseUrl = "http://localhost:54969";
-        //public static string PresentationBaseUrl = "http://localhost:4200";
+        //// development
+        public static string APIBaseUrl = "http://localhost:54969";
+        public static string PresentationBaseUrl = "http://localhost:4200";
 
         // production
         public static string APIBaseUrl = "https://www.bread2bun.com";

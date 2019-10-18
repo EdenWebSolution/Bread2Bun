@@ -1,106 +1,112 @@
-<div class="my-profile">
-    <div class="row">
-      <div class="col-md-3">
-        <div class="left-wrapper">
-          <div class="profile-card my-card">
-            <div class="profile-basic">
-              <div class="cover-img-wrapper">
-                <img [src]="coverImgUrl" [alt]="">
+<div class="ui-blocker" *ngIf="isBlocked">
+  <img src="../../../../assets/images/bread.svg" alt="">
+</div>
+<div class="my-profile" *ngIf="!isBlocked">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="left-wrapper">
+        <div class="profile-card my-card">
+          <div class="profile-basic">
+            <div class="cover-img-wrapper">
+              <img [src]="coverImgUrl" [alt]="">
+            </div>
+            <div class="profile-image-wrapper">
+              <img class="image-responsive" [src]="profileImgUrl" [alt]="">
+            </div>
+            <div class="contents-wrapper">
+              <div class="username">{{profileDetails.userName}}</div>
+              <div class="name">{{profileDetails.fullName}}</div>
+              <div *ngIf="profileDetails.country !== null" class="country">
+                <span class="country-name">{{profileDetails.country}}</span>
+                <span class="country-flag"><img
+                    src="https://www.countryflags.io/{{profileDetails.countryCode}}/flat/64.png"></span>
               </div>
-              <div class="profile-image-wrapper">
-                <img class="image-responsive" [src]="profileImgUrl" [alt]="">
-              </div>
-              <div class="contents-wrapper">
-                <div class="username">{{profileDetails.userName}}</div>
-                <div class="name">{{profileDetails.firstName}} {{profileDetails.lastName}}</div>
-                <div class="country">
-                  <span class="country-name">{{profileDetails.country}}</span>
-                  <span class="country-flag"><img src="https://www.countryflags.io/{{profileDetails.countryCode}}/flat/64.png"></span>
-                </div>
-                <div class="university"><span><i class="fas fa-landmark"></i></span> <span>{{profileDetails.university}}</span></div>
-                <div class="lives"> <span><i class="fas fa-map-marker-alt"></i></span> <span>{{profileDetails.address.city}}, {{profileDetails.address.country}}</span></div>
-              </div>
-              <div class="action-btns">
-                <button class="message">Message <span> <i class="fas fa-comments"></i></span></button>
-                <button class="share" (click)="copyToShare()">Share <span> <i
-                      class="fas fa-share-alt"></i></span></button>
-              </div>
+              <div *ngIf="profileDetails.university !==null" class="university"><span><i class="fas fa-landmark"></i></span>
+                <span>{{profileDetails.university}}</span></div>
+              <div *ngIf="profileDetails.address.city !== null || profileDetails.address.country !== null" class="lives"> <span><i class="fas fa-map-marker-alt"></i></span>
+                <span>{{profileDetails.address.city}}, {{profileDetails.address.country}}</span></div>
+            </div>
+            <div class="action-btns">
+              <button class="message">Message <span> <i class="fas fa-comments"></i></span></button>
+              <button class="share" (click)="copyToShare()">Share <span> <i
+                    class="fas fa-share-alt"></i></span></button>
             </div>
           </div>
-          <div class="reviews-btn">
-            <button [routerLink]="['/app/profile/reviews', profileDetails.userId]">See reviews</button>
-          </div>
-          <div class="about-card my-card">
-            <div class="about-wrapper">
-              <div class="availability-text">
-                <p class="header">Available days</p>
-                <div class="days">
-                  <span class="day" *ngFor="let day of days" [class]="day.className">{{day.value}}</span>
-                </div>
+        </div>
+        <div class="reviews-btn">
+          <button [routerLink]="['/app/profile/reviews', profileDetails.userId]">See reviews</button>
+        </div>
+        <div class="about-card my-card">
+          <div class="about-wrapper">
+            <div class="availability-text">
+              <p class="header">Available days</p>
+              <div class="days">
+                <span class="day" *ngFor="let day of days" [class]="day.className">{{day.value}}</span>
               </div>
-              <div class="about-text">
-                <p class="header">About me</p>
-                <p>{{profileDetails.aboutMe}}</p>
-              </div>
-              <div class="languages">
-                <p class="header">Languages</p>
-                <p>{{languagesString}}</p>
-              </div>
-              <div class="socialmedia">
-                <span class="twitter" (click)="openTwitter()"><i class="fab fa-twitter"></i></span>
-                <span class="instagram" (click)="openInstagram()"><i class="fab fa-instagram"></i></span>
-              </div>
+            </div>
+            <div class="about-text">
+              <p class="header">About me</p>
+              <p>{{profileDetails.aboutMe}}</p>
+            </div>
+            <div class="languages">
+              <p class="header">Languages</p>
+              <p>{{languagesString}}</p>
+            </div>
+            <div class="socialmedia" *ngIf="(profileData.profile.twitter!==null || profileData.profile.instagram !== null)">
+              <span *ngIf="profileData.profile.twitter!==null" class="twitter" (click)="openTwitter()"><i class="fab fa-twitter"></i></span>
+              <span *ngIf="profileData.profile.instagram!==null" class="instagram" (click)="openInstagram()"><i class="fab fa-instagram"></i></span>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="center-wrapper">
-          <div class="posts">
-            <div class="my-card post-card" *ngFor="let food of profileData.foods">
-              <div class="post-img">
-                <div class="image-container">
-                  <img [src]="food.defaultFoodImagepath" alt="">
-                </div>
-                <div class="food-details">
-                  <div class="food-name">{{food.name}}</div>
-                  <div class="country-flag">
-                    <img src="https://www.countryflags.io/{{food.countryCode}}/flat/64.png">
-                  </div>
-                  <div class="veg-badge" [ngClass]="food.isVegeterian? 'veg':'non-veg'"> <span></span> </div>
-                </div>
+    </div>
+    <div class="col-md-6">
+      <div class="center-wrapper">
+        <div class="posts">
+          <div class="my-card post-card" *ngFor="let food of profileData.foods">
+            <div class="post-img">
+              <div class="image-container">
+                <img [src]="food.defaultFoodImagepath" alt="">
               </div>
-              <div class="post-content">
-                <div class="user-details">
-                  <div class="user-img">
-                    <img [src]="profileDetails.profileImage" alt="{{profileDetails.userName}}profile picture">
-                  </div>
-                  <div class="user-basic">
-                    <span class="foodie-name">{{profileDetails.userName}}</span>
-                    <span class="fullname">{{profileDetails.firstName}} {{profileDetails.lastName}}</span>
-                  </div>
+              <div class="food-details">
+                <div class="food-name">{{food.name}}</div>
+                <div class="country-flag">
+                  <img src="https://www.countryflags.io/{{food.countryCode}}/flat/64.png">
                 </div>
+                <div class="veg-badge" [ngClass]="food.isVegeterian? 'veg':'non-veg'"> <span></span> </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 d-none d-md-block">
-        <div class="right-wrapper">
-          <div class="my-card reviews" *ngIf="myReviews.length > 0">
-            <p class="header">{{profileDetails.userName}}'s reviews</p>
-            <div class="review" *ngFor="let review of myReviews">
-              <div class="review-user">
-                <img [src]="review.reviewer.profilePictureImagePath" alt="">
-                <div class="username">{{review.reviewer.userName}} <span class="review-time">{{review.createdOn| timeAgo}}</span></div>
-              </div>
-              <div class="review-details">
-                <div class="review-text">{{review.review | slice:0:75}}</div>
+            <div class="post-content">
+              <div class="user-details">
+                <div class="user-img">
+                  <img [src]="profileImgUrl" alt="profile picture">
+                </div>
+                <div class="user-basic">
+                  <span class="foodie-name">{{profileDetails.userName}}</span>
+                  <span class="fullname">{{profileDetails.fullName}}</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <div class="col-md-3 d-none d-md-block">
+      <div class="right-wrapper">
+        <div class="my-card reviews" *ngIf="myReviews.length > 0">
+          <p class="header">{{profileDetails.userName}}'s reviews</p>
+          <div class="review" *ngFor="let review of myReviews">
+            <div class="review-user">
+              <img [src]="review.reviewer.profilePictureImagePath" alt="">
+              <div class="username">{{review.reviewer.userName}} <span
+                  class="review-time">{{review.createdOn| timeAgo}}</span></div>
+            </div>
+            <div class="review-details">
+              <div class="review-text">{{review.review | slice:0:75}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-
+</div>

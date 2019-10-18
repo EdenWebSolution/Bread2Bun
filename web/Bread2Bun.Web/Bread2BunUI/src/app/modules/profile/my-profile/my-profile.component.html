@@ -1,4 +1,7 @@
-<div class="my-profile">
+<div class="ui-blocker" *ngIf="isBlocked">
+  <img src="../../../../assets/images/bread.svg" alt="">
+</div>
+<div class="my-profile" *ngIf="!isBlocked">
   <div class="row">
     <div class="col-md-3">
       <div class="left-wrapper">
@@ -12,15 +15,15 @@
             </div>
             <div class="contents-wrapper">
               <div class="username">{{profileData.userName}}</div>
-              <div class="name">{{profileData.firstName}} {{profileData.lastName}}</div>
-              <div class="country">
+              <div class="name">{{profileData.fullName}}</div>
+              <div *ngIf="profileData.country !== null" class="country">
                 <span class="country-name">{{profileData.country}}</span>
                 <span class="country-flag"><img
                     src="https://www.countryflags.io/{{profileData.countryCode}}/flat/64.png"></span>
               </div>
-              <div class="university"><span><i class="fas fa-landmark"></i></span>
+              <div *ngIf="profileData.university !== null" class="university"><span><i class="fas fa-landmark"></i></span>
                 <span>{{profileData.university}}</span></div>
-              <div class="lives"> <span><i class="fas fa-map-marker-alt"></i></span> <span>{{profileData.address.city}},
+              <div *ngIf="profileData.address.country !== null || profileData.address.city !== null" class="lives"> <span><i class="fas fa-map-marker-alt"></i></span> <span>{{profileData.address.city}},
                   {{profileData.address.country}}</span></div>
             </div>
             <div class="action-btns">
@@ -35,7 +38,7 @@
         <div class="reviews-btn">
           <button [routerLink]="['reviews', profileData.userId]">See my reviews</button>
         </div>
-        <div class="about-card my-card">
+        <div class="about-card my-card" *ngIf="isCompletedProfile">
           <div class="about-wrapper">
             <div class="availability-text">
               <p class="header">Available days</p>
@@ -51,9 +54,20 @@
               <p class="header">Languages</p>
               <p>{{languagesString}}</p>
             </div>
-            <div class="socialmedia">
-              <span class="twitter" (click)="openTwitter()"><i class="fab fa-twitter"></i></span>
-              <span class="instagram" (click)="openInstagram()"><i class="fab fa-instagram"></i></span>
+            <div class="socialmedia" *ngIf="(profileData.instagram !== null || profileData.twitter !== null)">
+              <span *ngIf="profileData.twitter !== null" class="twitter" (click)="openTwitter()"><i
+                  class="fab fa-twitter"></i></span>
+              <span *ngIf="profileData.instagram !== null" class="instagram" (click)="openInstagram()"><i
+                  class="fab fa-instagram"></i></span>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!isCompletedProfile" class="complete-profile prompt my-card">
+          <div class="prompt-wrapper">
+            <p class="header">Update profile</p>
+            <p class="text">"it's a piece of cake".<br> Get the full experience of <span>Bread2Bun</span> by completing your profile.</p>
+            <div class="action-btn">
+              <button (click)="editProfile()">Update</button>
             </div>
           </div>
         </div>
@@ -82,7 +96,7 @@
                 </div>
                 <div class="user-basic">
                   <span class="foodie-name">{{profileData.userName}}</span>
-                  <span class="fullname">{{profileData.firstName}} {{profileData.lastName}}</span>
+                  <span class="fullname">{{profileData.fullName}}</span>
                 </div>
               </div>
             </div>

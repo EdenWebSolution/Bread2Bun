@@ -37,6 +37,8 @@ namespace Bread2Bun.Data.Migrations
 
                     b.Property<bool>("IsDeleted");
 
+                    b.Property<bool>("IsRead");
+
                     b.Property<string>("Text");
 
                     b.Property<long>("ToId");
@@ -152,7 +154,7 @@ namespace Bread2Bun.Data.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
-                    b.Property<int>("CountryId");
+                    b.Property<int?>("CountryId");
 
                     b.Property<long?>("CreatedById");
 
@@ -167,15 +169,13 @@ namespace Bread2Bun.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<string>("FirstName");
+                    b.Property<string>("FullName");
 
-                    b.Property<int>("Gender");
+                    b.Property<int?>("Gender");
 
                     b.Property<bool>("IsAdmin");
 
                     b.Property<bool>("IsDeleted");
-
-                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -199,7 +199,7 @@ namespace Bread2Bun.Data.Migrations
 
                     b.Property<bool>("TwoFactorEnabled");
 
-                    b.Property<int>("UniversityId");
+                    b.Property<int?>("UniversityId");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
@@ -302,7 +302,7 @@ namespace Bread2Bun.Data.Migrations
 
                     b.Property<long>("UserProfileId");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id", "UserId", "UserProfileId");
 
                     b.HasIndex("UserId");
 
@@ -459,13 +459,11 @@ namespace Bread2Bun.Data.Migrations
                 {
                     b.HasOne("Bread2Bun.Domain.Shared.Country", "Country")
                         .WithMany()
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CountryId");
 
                     b.HasOne("Bread2Bun.Domain.Shared.University", "University")
                         .WithMany()
-                        .HasForeignKey("UniversityId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UniversityId");
                 });
 
             modelBuilder.Entity("Bread2Bun.Domain.UserProfile.UserFood", b =>

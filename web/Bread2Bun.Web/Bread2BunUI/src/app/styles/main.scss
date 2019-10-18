@@ -365,3 +365,20 @@ body {
     font-size: 20px;
   }
 }
+
+.ui-blocker{
+  height: calc(100vh - 65px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &.divs{
+    width: 100% !important;
+    img{
+      width: 100px;
+    }
+  }
+  img{
+    background: #ffffff;
+    border-radius: 50%;
+  }
+}

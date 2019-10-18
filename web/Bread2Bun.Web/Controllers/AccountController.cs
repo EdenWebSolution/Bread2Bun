@@ -46,6 +46,7 @@ namespace Bread2Bun.Web.Controllers
             try
             {
                 await securityService.ConfirmEmailAsync(confirmEmailModel);
+
                 return Redirect(GlobalConfig.PresentationBaseUrl);
             }
             catch (Exception ex)

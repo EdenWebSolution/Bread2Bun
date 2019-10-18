@@ -350,10 +350,10 @@
         </div>
         <div class="chat-sender">
           <div class="typer">
-            <input type="text" placeholder="Type message" name="" id="">
+            <input type="text" placeholder="Type message" name="" id="" [(ngModel)]="txtMessage">
           </div>
           <div class="send-btn">
-            <button>Send</button>
+            <button (click)="sendMessage()">Send</button>
           </div>
         </div>
       </div>

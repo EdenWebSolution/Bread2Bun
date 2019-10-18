@@ -25,6 +25,7 @@ export class EditProfileComponent implements OnInit {
   namePattern = '^[A-Za-z\s]+$';
   foodList: Array<FoodsModel> = new Array<FoodsModel>();
   imageUrl: any;
+  isBlocked = false;
 
   @ViewChild('fileInput') el: ElementRef;
   ProfileImageUrl: any = 'https://cdn2.iconfinder.com/data/icons/user-management/512/add-512.png';
@@ -95,8 +96,7 @@ export class EditProfileComponent implements OnInit {
 
   ngOnInit() {
     this.editProfileForm = this.fb.group({
-      firstName: ['', [Validators.required, Validators.pattern(this.namePattern)]],
-      lastName: ['', [Validators.required, Validators.pattern(this.namePattern)]],
+      fullName: ['', [Validators.required]],
       universityId: ['', [Validators.required]],
       countryId: ['', [Validators.required]],
       profileImg: [null, []],
@@ -134,6 +134,7 @@ export class EditProfileComponent implements OnInit {
 
   initiateForm() {
     this.initiated = false;
+    this.isBlocked = true;
     forkJoin(
       this.sharedService.getCountries(),
       this.sharedService.getUniversities(),
@@ -142,18 +143,16 @@ export class EditProfileComponent implements OnInit {
       this.countries = result[0],
         this.universities = result[1],
         this.getUserProfileToUpdate(result[2]);
+
     }, error => {
       this.initiated = true;
+      this.isBlocked = false;
       this.toastr.error(error.message, 'Error');
     });
   }
 
-  get firstName() {
-    return this.editProfileForm.get('firstName');
-  }
-
-  get lastName() {
-    return this.editProfileForm.get('lastName');
+  get fullName() {
+    return this.editProfileForm.get('fullName');
   }
 
   get email() {
@@ -227,26 +226,6 @@ export class EditProfileComponent implements OnInit {
     }
   }
 
-
-
-  onDaySelect(item: any) {
-  }
-
-  onSelectAllDays(items: any) {
-  }
-
-  onDaysDeSelect(items: any) {
-  }
-
-  onFoodSelect(item: any) {
-  }
-
-  onSelectAllFoods(items: any) {
-  }
-
-  onFoodDeSelect(items: any) {
-  }
-
   onLanguageRemoved(language: any) {
     this.languagesArr = this.languagesArr.filter(lang => lang !== language);
 
@@ -295,8 +274,7 @@ export class EditProfileComponent implements OnInit {
     this.profileUpdateModel.universityId = this.selectedUniversityId;
     this.profileUpdateModel.coverFoodImageId = this.coverPhotoId;
     this.profileUpdateModel.languages = this.languagesArr;
-    this.profileUpdateModel.firstName = this.editProfileForm.value.firstName;
-    this.profileUpdateModel.lastName = this.editProfileForm.value.lastName;
+    this.profileUpdateModel.fullName = this.editProfileForm.value.fullName;
     this.profileUpdateModel.aboutMe = this.editProfileForm.value.aboutMe;
     this.profileUpdateModel.email = this.editProfileForm.value.email;
     this.profileUpdateModel.twitter = this.editProfileForm.value.twitterUsername;
@@ -312,6 +290,7 @@ export class EditProfileComponent implements OnInit {
       },
         error => {
           this.toastr.error('Something went wrong', 'Error');
+          this.loading = false;
         });
     },
       error => {
@@ -321,15 +300,19 @@ export class EditProfileComponent implements OnInit {
   }
 
   getUserProfileToUpdate(value: UpdateProfileModel) {
-
-    const country = this.countries.find(c => c.id === value.countryId).name;
-    const university = this.universities.find(u => u.id === value.universityId).name;
-    this.selectedCountryId = this.countries.find(c => c.id === value.countryId).id;
-    this.selectedUniversityId = this.universities.find(u => u.id === value.universityId).id;
+    let country = '';
+    let university = '';
+    if (value.countryId !== null) {
+      country = this.countries.find(c => c.id === value.countryId).name;
+      this.selectedCountryId = this.countries.find(c => c.id === value.countryId).id;
+    }
+    if (value.universityId !== null) {
+      university = this.universities.find(u => u.id === value.universityId).name;
+      this.selectedUniversityId = this.universities.find(u => u.id === value.universityId).id;
+    }
 
     this.editProfileForm.patchValue({
-      firstName: value.firstName,
-      lastName: value.lastName,
+      fullName: value.fullName,
       universityId: university,
       countryId: country,
       languages: value.languages,
@@ -343,10 +326,10 @@ export class EditProfileComponent implements OnInit {
     });
     // this.languagesAdded = value.languages;
     this.languagesArr = value.languages;
+    this.languagesAdded = this.languagesArr;
     this.ProfileImageUrl = value.profileImage;
     this.getSelectedDays(value.availableDays);
-    this.getFoods(value.countryId, value.foodIds);
-    this.setCoverImageFood(value.coverFoodImageId);
+    this.getFoods(value.countryId, value.foodIds, value.coverFoodImageId);
   }
 
   getSelectedDays(days: Array<number>) {
@@ -367,15 +350,23 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
-  getFoods(countryId: number, foodsIds: Array<number>) {
-    this.foodService.getFoodListByCountry(countryId).subscribe(result => {
-      this.foodList = result;
-      this.getSelectedFoods(foodsIds);
+  getFoods(countryId: number, foodsIds: Array<number>, coverImageId: number) {
+    if (countryId !== null) {
+      this.foodService.getFoodListByCountry(countryId).subscribe(result => {
+        this.foodList = result;
+        this.getSelectedFoods(foodsIds);
+        this.initiated = true;
+        this.setCoverImageFood(coverImageId);
+        this.isBlocked = false;
+      }, error => {
+        this.toastr.error('Couldn\'t update profile', 'Error');
+        this.initiated = true;
+        this.isBlocked = false;
+      });
+    } else {
       this.initiated = true;
-    }, error => {
-      this.toastr.error('Something went wrong', 'Error');
-      this.initiated = true;
-    });
+      this.isBlocked = false;
+    }
   }
 
   setCoverImageFood(countryId: number): void {

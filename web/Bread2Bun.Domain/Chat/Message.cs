@@ -16,6 +16,7 @@ namespace Bread2Bun.Domain.Chat
         [ForeignKey(nameof(ToId))]
         public StoreUser To { get; set; }
         public string Text { get; set; }
+        public bool IsRead { get; set; }
 
     }
 }

@@ -3,27 +3,51 @@
     <div class="col-md-3 d-none d-md-block">
       <div class="left-wrapper">
         <div class="profile-card my-card">
-          <div class="profile-basic">
+          <div class="ui-blocker divs" *ngIf="isBlocked">
+            <img src="../../../../assets/images/bread.svg" alt="">
+          </div>
+          <div class="profile-basic" *ngIf="!isBlocked">
             <div class="cover-img-wrapper">
-              <img [src]="profileData.coverImage" [alt]="">
+              <img [src]="coverImgUrl" [alt]="">
             </div>
             <div class="profile-image-wrapper">
               <img class="image-responsive" [src]="profileImageUrl" [alt]="">
             </div>
             <div class="contents-wrapper">
               <div class="username">{{profileData.userName}}</div>
-              <div class="name">{{profileData.firstName}} {{profileData.lastName}}</div>
-              <div class="country">
+              <div class="name">{{profileData.fullName}}</div>
+              <div *ngIf="profileData.country !== null" class="country">
                 <span class="country-name">{{profileData.country}}</span>
                 <span class="country-flag"><img
                     src="https://www.countryflags.io/{{profileData.countryCode}}/flat/64.png"></span>
               </div>
-              <div class="university"><span><i class="fas fa-landmark"></i></span>
+              <div *ngIf="profileData.university !== null" class="university"><span><i
+                    class="fas fa-landmark"></i></span>
                 <span>{{profileData.university}}</span></div>
-              <div class="lives"> <span><i class="fas fa-map-marker-alt"></i></span> <span>{{profileData.address.city}},
+              <div *ngIf="profileData.address.country || profileData.address.city" class="lives"> <span><i
+                    class="fas fa-map-marker-alt"></i></span> <span>{{profileData.address.city}},
                   {{profileData.address.country}}</span></div>
             </div>
           </div>
+        </div>
+        <div *ngIf="!isCompletedProfile" class="complete-profile my-card">
+          <div class="prompt-wrapper">
+            <p class="header">Update profile</p>
+            <p class="text">"it's a piece of cake".<br> Get the full experience of <span>Bread2Bun</span> by completing
+              your profile.</p>
+            <div class="action-btn">
+              <button (click)="editProfile()">Update</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 d-block d-sm-block d-md-none" *ngIf="!isCompletedProfile">
+      <div class="prompt">
+        <p class="text">"it's a piece of cake".<br> Get the full experience of <span>Bread2Bun</span> by completing your
+          profile.</p>
+        <div class="action-btn">
+          <button (click)="editProfile()">Update</button>
         </div>
       </div>
     </div>
@@ -48,11 +72,13 @@
             <div class="post-content">
               <div class="user-details">
                 <div class="user-img">
-                  <img [routerLink]="['/app/profile/view', post.username]" [src]="post.profileImage" alt="">
+                  <img *ngIf="post.profileImage === null" [src]="DefaultProfileImage" alt="default image">
+                  <img *ngIf="post.profileImage !== null" [routerLink]="['/app/profile/view', post.username]"
+                    [src]="post.profileImage" alt="">
                 </div>
                 <div class="user-basic">
                   <span [routerLink]="['/app/profile/view', post.username]" class="foodie-name">{{post.username}}</span>
-                  <span class="fullname">{{post.firstName}} {{post.lastName}}</span>
+                  <span class="fullname">{{post.fullName}}</span>
                 </div>
                 <div class="user-action-btns">
                   <button class="message"><span><i class="fas fa-comments"></i></span></button>
