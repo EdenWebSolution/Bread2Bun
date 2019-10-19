@@ -115,6 +115,7 @@ export class ProfileReviewsComponent implements OnInit {
     this.profileService.createFormData(this.reviewImage, this.createReviewModel).subscribe(result => {
       this.toastr.success('Review posted succesfully', 'Success');
       this.removeImage();
+      this.createPostForm.reset();
       this.skip = 0;
       this.profileService.getPagedReview(this.userId, this.skip, this.take).subscribe(result => {
         this.reviews = result.items;
