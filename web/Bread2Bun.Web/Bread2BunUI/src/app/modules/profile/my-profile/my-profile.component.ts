@@ -35,7 +35,7 @@ export class MyProfileComponent implements OnInit {
   skip = 0;
   take = 50;
   myReviews: Array<ReviewList> = new Array<ReviewList>();
-  isCompletedProfile: boolean;
+  isCompletedProfile: boolean = false;
 
   days: Array<any> = [
     {
