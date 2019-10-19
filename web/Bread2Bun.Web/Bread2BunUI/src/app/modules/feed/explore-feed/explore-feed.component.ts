@@ -28,7 +28,7 @@ export class ExploreFeedComponent implements OnInit {
   posts: Array<ExploreFeedFood> = new Array<ExploreFeedFood>();
   profileData: ViewProfileModel = new ViewProfileModel();
   isBlocked = false;
-  isCompletedProfile: boolean;
+  isCompletedProfile: boolean = false;
 
   constructor(
     private profileService: ProfileService,
