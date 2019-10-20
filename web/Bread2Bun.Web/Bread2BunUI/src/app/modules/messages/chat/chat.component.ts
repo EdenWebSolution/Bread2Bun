@@ -3,11 +3,14 @@ import { ChatService } from '../service/chat.service';
 import { MessageModel } from '../Models/MessageModel';
 import { Subscription } from 'rxjs/Rx';
 import { UserConnectionModel } from '../Models/UserConnectionModel';
+import { slideFromLeft } from 'src/app/animations';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.scss']
+  styleUrls: ['./chat.component.scss'],
+  animations: [slideFromLeft]
+
 })
 export class ChatComponent implements OnInit, OnDestroy {
   subscription: Subscription;
@@ -18,6 +21,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZtt-8JagsbCAhDa02YU8dEhABmIUIUaMEyq__-O6eEBo20DIwvw';
 
   chatDate = new Date();
+  showThread = false;
   constructor(private chatService: ChatService, private ngZone: NgZone) {
     this.message = new MessageModel();
     this.subscribeToEvents();
@@ -58,5 +62,9 @@ export class ChatComponent implements OnInit, OnDestroy {
         });
       }
     );
+  }
+
+  showThisThread(){
+    this.showThread = true;
   }
 }
