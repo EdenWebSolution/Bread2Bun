@@ -77,6 +77,14 @@
           }
           .message-preview {
             margin-left: 10px;
+            font-weight: 600;
+            color: $brand-color;
+            span{
+              display: block;
+              font-size: 0.9rem;
+              font-weight: 400;
+              color: rgb(177, 177, 177);
+            }
             @media only screen and (max-width: 767px) {
               font-size: 0.9rem;
             }

@@ -67,4 +67,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   showThisThread(){
     this.showThread = true;
   }
+
+  showList(){
+    this.showThread = false;
+  }
 }

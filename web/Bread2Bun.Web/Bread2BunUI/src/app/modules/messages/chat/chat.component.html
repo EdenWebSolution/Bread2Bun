@@ -1,78 +1,79 @@
-<div class="chat-wrapper">
-  <div class="chat-list" @slideFromLeft *ngIf="!showThread">
+<div class="chat-wrapper" *ngIf="!showThread">
+  <div class="chat-list" @slideFromLeft>
     <ul>
       <li>
         <div class="person-wrapper" (click)="showThisThread()">
           <div class="profile-pic">
             <img class="online" [src]="profileImgUrl">
           </div>
-          <p class="message-preview">I wanna try the food bro</p>
+          <p class="message-preview">Fudgie<span>I wanna try the food bro</span></p>
           <p class="details">{{chatDate | timeAgo}} <br><span class="count">100</span></p>
         </div>
         <div class="person-wrapper" (click)="showThisThread()">
           <div class="profile-pic">
             <img [src]="profileImgUrl">
           </div>
-          <p class="message-preview">I wanna try the food bro</p>
+          <p class="message-preview">Fudgie<span>I wanna try the food bro</span></p>
           <p class="details">{{chatDate | timeAgo}} <br><span class="count">100</span></p>
         </div>
         <div class="person-wrapper" (click)="showThisThread()">
           <div class="profile-pic">
             <img class="online" [src]="profileImgUrl">
           </div>
-          <p class="message-preview">I wanna try the food bro</p>
+          <p class="message-preview">Fudgie<span>I wanna try the food bro</span></p>
           <p class="details">{{chatDate | timeAgo}} <br><span class="count">100</span></p>
         </div>
         <div class="person-wrapper" (click)="showThisThread()">
           <div class="profile-pic">
             <img class="online" [src]="profileImgUrl">
           </div>
-          <p class="message-preview">I wanna try the food bro</p>
+          <p class="message-preview">Fudgie<span>I wanna try the food bro</span></p>
           <p class="details">{{chatDate | timeAgo}} <br><span class="count">100</span></p>
         </div>
         <div class="person-wrapper" (click)="showThisThread()">
           <div class="profile-pic">
             <img class="online" [src]="profileImgUrl">
           </div>
-          <p class="message-preview">I wanna try the food bro</p>
+          <p class="message-preview">Fudgie<span>I wanna try the food bro</span></p>
           <p class="details">{{chatDate | timeAgo}} <br><span class="count">100</span></p>
         </div>
         <div class="person-wrapper" (click)="showThisThread()">
           <div class="profile-pic">
             <img [src]="profileImgUrl">
           </div>
-          <p class="message-preview">I wanna try the food bro</p>
+          <p class="message-preview">Fudgie<span>I wanna try the food bro</span></p>
           <p class="details">{{chatDate | timeAgo}} <br><span class="count">100</span></p>
         </div>
         <div class="person-wrapper" (click)="showThisThread()">
           <div class="profile-pic">
             <img [src]="profileImgUrl">
           </div>
-          <p class="message-preview">I wanna try the food bro</p>
+          <p class="message-preview">Fudgie<span>I wanna try the food bro</span></p>
           <p class="details">{{chatDate | timeAgo}} <br><span class="count">100</span></p>
         </div>
         <div class="person-wrapper" (click)="showThisThread()">
           <div class="profile-pic">
             <img [src]="profileImgUrl">
           </div>
-          <p class="message-preview">I wanna try the food bro</p>
+          <p class="message-preview">Fudgie<span>I wanna try the food bro</span></p>
           <p class="details">{{chatDate | timeAgo}} <br><span class="count">100</span></p>
         </div>
         <div class="person-wrapper" (click)="showThisThread()">
           <div class="profile-pic">
             <img [src]="profileImgUrl">
           </div>
-          <p class="message-preview">I wanna try the food bro</p>
+          <p class="message-preview">Fudgie<span>I wanna try the food bro</span></p>
           <p class="details">{{chatDate | timeAgo}} <br><span class="count">100</span></p>
         </div>
         <div class="person-wrapper" (click)="showThisThread()">
           <div class="profile-pic">
             <img [src]="profileImgUrl">
           </div>
-          <p class="message-preview">I wanna try the food bro</p>
+          <p class="message-preview">Fudgie<span>I wanna try the food bro</span></p>
           <p class="details">{{chatDate | timeAgo}} <br><span class="count">100</span></p>
         </div>
       </li>
     </ul>
   </div>
 </div>
+<app-chat-thread (showList)="showList()" *ngIf="showThread"></app-chat-thread>
