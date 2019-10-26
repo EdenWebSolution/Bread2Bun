@@ -2,6 +2,7 @@
 @import "../../../styles/fonts";
 
 .chat-wrapper {
+  position: relative;
   width: 50%;
   margin: 100px auto 0;
   min-height: calc(100vh - 150px);
@@ -11,9 +12,10 @@
   padding: 15px 0;
   @media only screen and (max-width: 767px) {
     width: 100%;
+    margin-top: 50px;
   }
   &::-webkit-scrollbar {
-    width: 5px;
+    width: 0;
   }
 
   &::-webkit-scrollbar-track {
@@ -96,5 +98,35 @@
         }
       }
     }
+  }
+}
+.new-message{
+  width: 100%;
+  position: absolute;
+  top: 0;
+  display: flex;
+  height: 60px;
+  background: $brand-color;
+  padding: 15px 10px;
+  justify-content: flex-end;
+  align-items: center;
+  input{
+    width: 100%;
+    padding: 5px 0 5px 15px;
+    background: rgba(255,255,255,1);
+    color: #1f1f1f;
+    border-radius: 30px;
+    box-shadow: none;
+    border: none;
+    outline: 0;
+    font-weight: 600;
+    transition: .3s ease-in-out;
+    margin-right: 15px;
+  }
+  button{
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 22px;
   }
 }
