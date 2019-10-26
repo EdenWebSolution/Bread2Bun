@@ -1,13 +1,13 @@
 <div class="chat-wrapper" *ngIf="!showThread">
   <div class="chat-list" @slideFromLeft>
     <ul>
-      <li>
-        <div class="person-wrapper" (click)="showThisThread(10)">
+      <li *ngFor="let chat of chats">
+        <div class="person-wrapper" (click)="showThisThread(chat.toUserId)">
           <div class="profile-pic">
             <img class="online" [src]="profileImgUrl">
           </div>
-          <p class="message-preview">Fudgie<span>I wanna try the food bro</span></p>
-          <p class="details">{{chatDate | timeAgo}} <br><span class="count">100</span></p>
+          <p class="message-preview">{{chat.userName}}<span>{{chat.lastMessage}}</span></p>
+          <p class="details">{{chat.dateTimeOffset | timeAgo}} <br><span class="count">100</span></p>
         </div>
       </li>
     </ul>

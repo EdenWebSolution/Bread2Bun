@@ -11,6 +11,7 @@ import { slideFromLeft } from 'src/app/animations';
 import { MessageModel } from '../../Models/MessageModel';
 import { LayoutService } from 'src/app/modules/layout/layout.service';
 import { Subscription } from 'rxjs';
+import { ChatThreadModel } from '../../Models/chat-thread-model';
 
 @Component({
   selector: 'app-chat-thread',
@@ -21,6 +22,7 @@ import { Subscription } from 'rxjs';
 export class ChatThreadComponent implements OnInit, OnDestroy {
   @Output() showList = new EventEmitter();
   @Input() toId: number;
+  chatThread: Array<MessageModel>;
 
   subscription: Subscription;
   message: string;
@@ -28,9 +30,11 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
   constructor(private chatService: LayoutService, private ngZone: NgZone) {
     this.isSending = false;
     this.subscribeToEvents();
+    this.chatThread = new Array<MessageModel>();
+    this.message = null;
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ngOnDestroy() {
     if (this.chatService.messageReceived) {
@@ -43,9 +47,11 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
     this.isSending = true;
 
     const messageModel = new MessageModel();
-    messageModel.text = this.message;
-    messageModel.toId = this.toId;
-    this.chatService.sendMessage(messageModel);
+    if (this.message !== null) {
+      messageModel.text = this.message;
+      messageModel.toId = this.toId;
+      this.chatService.sendMessage(messageModel);
+    }
   }
 
   private subscribeToEvents(): void {
@@ -55,6 +61,7 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
         this.ngZone.run(() => {
           this.message = null;
           console.log(message);
+          this.chatThread.push(message);
         });
       }
     );
