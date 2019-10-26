@@ -1,7 +1,7 @@
 <div class="chat-wrapper" *ngIf="!showThread">
   <div class="new-message">
     <input *ngIf="isNewMessage" placeholder="Search users" [(ngModel)]="userSelected" [typeaheadMinLength]="0"
-      (keyup)="userSearch.next($event.target.value)" [typeahead]="users" (typeaheadOnSelect)="onUserSelect($event)">
+      (keyup)="userSearch.next($event.target.value)" typeaheadOptionField="userName" [typeahead]="users" (typeaheadOnSelect)="onUserSelect($event)">
     <button (click)="toggleNewMessage()" *ngIf="!isNewMessage" class="user-button"><i class="fas fa-edit"></i></button>
     <button (click)="toggleNewMessage()" *ngIf="isNewMessage" class="user-button"><i
         class="fas fa-times-circle"></i></button>

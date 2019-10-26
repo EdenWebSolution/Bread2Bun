@@ -11,7 +11,6 @@ import { slideFromLeft } from 'src/app/animations';
 import { MessageModel } from '../../Models/MessageModel';
 import { LayoutService } from 'src/app/modules/layout/layout.service';
 import { Subscription } from 'rxjs';
-import { ChatThreadModel } from '../../Models/chat-thread-model';
 
 @Component({
   selector: 'app-chat-thread',

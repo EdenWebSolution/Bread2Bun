@@ -5,6 +5,9 @@ import { slideFromLeft } from 'src/app/animations';
 import { ChatListModel } from '../Models/chat-list-model';
 import { ChatService } from '../service/chat.service';
 import { TypeaheadMatch } from 'ngx-bootstrap';
+import { SharedService } from '../../shared/services/shared.service';
+import { Users } from '../../shared/models/users';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-chat',
@@ -24,20 +27,22 @@ export class ChatComponent implements OnInit {
   showThread = false;
   userId: number;
   chats: Array<ChatListModel>;
-  users: string[] = [];
+  users: Array<Users>;
   userSearchTerm = '';
   userSearch = new Subject<string>();
   userSelected: string;
   isNewMessage = false;
 
   constructor(
-    private chatService: ChatService
+    private chatService: ChatService,
+    private userService: UserService
   ) {
     this.message = new MessageModel();
     this.chats = new Array<ChatListModel>();
+    this.users = new Array<Users>();
     this.userSearch.debounceTime(300)
       .distinctUntilChanged().subscribe(data => {
-        if (data !== '' && data.length > 2) {
+        if (data !== '') {
           this.userSearchTerm = data;
           this.getUsers();
         } else {
@@ -66,7 +71,10 @@ export class ChatComponent implements OnInit {
   }
 
   getUsers() {
-    this.users = ['akmal', 'thanzeel', 'haajiyaar', 'buriyaani']
+    this.userService.getUsers(this.userSearchTerm).subscribe(result=>{
+      console.log(result);
+      this.users = result;
+    });
   }
 
   onUserSelect(event: TypeaheadMatch) {
