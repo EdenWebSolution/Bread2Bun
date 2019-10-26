@@ -29,10 +29,13 @@ namespace Bread2Bun.Service.Security
         private readonly UserManager<StoreUser> userManager;
         private readonly SignInManager<StoreUser> signInManager;
         private readonly IConfiguration configuration;
+        private readonly UserResolverService userResolverService;
+
 
         public SecurityService(Bread2BunContext bread2BunContext,
             IMapper mapper, UserManager<StoreUser> userManager,
-            SignInManager<StoreUser> signInManager, IConfiguration configuration
+            SignInManager<StoreUser> signInManager, IConfiguration configuration,
+            UserResolverService userResolverService
             )
         {
             this.bread2BunContext = bread2BunContext;
@@ -40,6 +43,7 @@ namespace Bread2Bun.Service.Security
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.configuration = configuration;
+            this.userResolverService = userResolverService;
         }
 
         public async Task<StoreUserModel> CreateUserAsync(CreateStoreUserModel createStoreUserModel)
@@ -190,7 +194,9 @@ namespace Bread2Bun.Service.Security
         {
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                var allUSers = userManager.Users.Where(w => w.IsDeleted == false && EF.Functions.Like(w.UserName, searchTerm + "%"))
+                var allUSers = userManager.Users.Where(w => w.IsDeleted == false &&
+                                                       w.Id != userResolverService.UserId &&
+                                                       EF.Functions.Like(w.UserName, searchTerm + "%"))
                     .Select(s => new UsersSummaryModel
                     {
                         Id = s.Id,
