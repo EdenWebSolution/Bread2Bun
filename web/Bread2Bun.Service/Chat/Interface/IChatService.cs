@@ -11,5 +11,6 @@ namespace Bread2Bun.Service.Chat.Interface
     {
         Task SendMessage(MessageModel messageModel);
         Task<PaginationModel<ChatModel>> GetAllChatById(PaginationBase paginationBase, long to);
+        Task<PaginationModel<ChatSummaryModel>> GetAllChatSummary();
     }
 }
