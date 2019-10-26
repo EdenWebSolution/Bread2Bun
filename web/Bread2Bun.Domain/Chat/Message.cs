@@ -18,6 +18,10 @@ namespace Bread2Bun.Domain.Chat
         public string Text { get; protected set; }
         public bool IsRead { get; protected set; }
 
+        public Guid ThreadId { get; set; }
+        [ForeignKey(nameof(ThreadId))]
+        public MessageThreaad MessageThreaad { get; set; }
+
         public Message Create(long fromId, long toId, string text)
         {
             FromId = fromId;

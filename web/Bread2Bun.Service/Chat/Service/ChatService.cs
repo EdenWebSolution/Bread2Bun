@@ -26,6 +26,12 @@ namespace Bread2Bun.Service.Chat.Service
         }
         public async Task SendMessage(MessageModel messageModel)
         {
+            var users = new[] { userResolverService.UserId, messageModel.ToId };
+
+            Array.Sort(users);
+
+            var chatGroup = string.Join(",", users);
+            var messaeThread = bread2BunContext.MessageThreaad.FirstOrDefault(f => f.ChatGroup == chatGroup);
             var message = new Message().Create(userResolverService.UserId, messageModel.ToId, messageModel.Text);
             await bread2BunContext.Message.AddAsync(message);
             await bread2BunContext.SaveChangesAsync();
@@ -65,14 +71,15 @@ namespace Bread2Bun.Service.Chat.Service
         {
             var summaryList = new List<ChatSummaryModel>();
 
-            var query = bread2BunContext.Message.Include(i => i.To).Where(w => w.FromId == userResolverService.UserId || w.ToId == userResolverService.UserId)
-                                                .GroupBy(g => g.ToId).Select(s => s.OrderByDescending(o => o.CreatedOn).First())
-                                                .AsNoTracking();
+            var query = bread2BunContext.Message.Include(i => i.To).Where(w => w.FromId == userResolverService.UserId || w.ToId == userResolverService.UserId);
+
 
             var unread = await query.Where(w => !w.IsRead && w.ToId == userResolverService.UserId)
                                                .GroupBy(g => g.FromId).Select(s => new { s.Key, count = s.Count() })
                                                .AsNoTracking()
                                                .ToListAsync();
+
+            query = query.GroupBy(g => g.ToId).Select(s => s.OrderByDescending(o => o.CreatedOn).First()).AsNoTracking();
 
             foreach (var item in await query.AsNoTracking().ToListAsync())
             {
@@ -84,8 +91,8 @@ namespace Bread2Bun.Service.Chat.Service
                     Name = item.To.FullName,
                     UserName = item.To.UserName,
                     Date = item.CreatedOn,
-                    UnReadCount = unread.FirstOrDefault(s => s.Key == item.FromId)?.count ?? 0
-                }); ;
+                    UnReadCount = unread.FirstOrDefault(s => s.Key == item.ToId)?.count ?? 0
+                });
             }
 
             var result = new PaginationModel<ChatSummaryModel>
