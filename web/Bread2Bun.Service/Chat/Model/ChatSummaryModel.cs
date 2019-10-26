@@ -12,5 +12,6 @@ namespace Bread2Bun.Service.Chat.Model
         public long FromUserId { get; set; }
         public string LastMessage { get; set; }
         public DateTimeOffset Date { get; set; }
+        public int UnReadCount { get; set; }
     }
 }

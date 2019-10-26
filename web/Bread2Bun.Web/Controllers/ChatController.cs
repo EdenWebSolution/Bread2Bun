@@ -27,7 +27,7 @@ namespace Bread2Bun.Web.Controllers
             return Ok(result);
         }
 
-        [HttpGet("list"), AllowAnonymous]
+        [HttpGet("list")]
         public async Task<IActionResult> GetChatSummary()
         {
             var result = await chatService.GetAllChatSummary();

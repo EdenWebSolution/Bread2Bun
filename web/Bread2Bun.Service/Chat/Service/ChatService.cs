@@ -78,8 +78,9 @@ namespace Bread2Bun.Service.Chat.Service
                     LastMessage = item.Text,
                     Name = item.To.FullName,
                     UserName = item.To.UserName,
-                    Date = item.CreatedOn
-                });
+                    Date = item.CreatedOn,
+                    UnReadCount = (item.ToId == userResolverService.UserId && !item.IsRead) ? 1 : 0
+                }); ;
             }
 
             var result = new PaginationModel<ChatSummaryModel>
