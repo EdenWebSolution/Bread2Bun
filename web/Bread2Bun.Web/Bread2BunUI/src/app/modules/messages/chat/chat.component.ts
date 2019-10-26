@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageModel } from '../Models/MessageModel';
-import { Subscription } from 'rxjs/Rx';
+import { Subscription, Subject } from 'rxjs/Rx';
 import { slideFromLeft } from 'src/app/animations';
 import { ChatListModel } from '../Models/chat-list-model';
 import { ChatService } from '../service/chat.service';
+import { TypeaheadMatch } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-chat',
@@ -23,12 +24,26 @@ export class ChatComponent implements OnInit {
   showThread = false;
   userId: number;
   chats: Array<ChatListModel>;
+  users: string[] = [];
+  userSearchTerm = '';
+  userSearch = new Subject<string>();
+  userSelected: string;
+  isNewMessage = false;
 
   constructor(
     private chatService: ChatService
   ) {
     this.message = new MessageModel();
     this.chats = new Array<ChatListModel>();
+    this.userSearch.debounceTime(300)
+      .distinctUntilChanged().subscribe(data => {
+        if (data !== '' && data.length > 2) {
+          this.userSearchTerm = data;
+          this.getUsers();
+        } else {
+          this.users = [];
+        }
+      });
   }
 
   ngOnInit() {
@@ -48,5 +63,17 @@ export class ChatComponent implements OnInit {
     this.chatService.getMyChats().subscribe(result => {
       this.chats = result.details;
     });
+  }
+
+  getUsers() {
+    this.users = ['akmal', 'thanzeel', 'haajiyaar', 'buriyaani']
+  }
+
+  onUserSelect(event: TypeaheadMatch) {
+    console.log(event);
+  }
+
+  toggleNewMessage() {
+    this.isNewMessage = !this.isNewMessage;
   }
 }
