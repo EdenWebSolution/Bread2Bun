@@ -1,9 +1,9 @@
-import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MessageModel } from '../Models/MessageModel';
 import { Subscription } from 'rxjs/Rx';
-import { UserConnectionModel } from '../Models/UserConnectionModel';
 import { slideFromLeft } from 'src/app/animations';
-import { LayoutService } from '../../layout/layout.service';
+import { ChatListModel } from '../Models/chat-list-model';
+import { ChatService } from '../service/chat.service';
 
 @Component({
   selector: 'app-chat',
@@ -22,48 +22,18 @@ export class ChatComponent implements OnInit {
   chatDate = new Date();
   showThread = false;
   userId: number;
-  constructor() // private chatService: LayoutService, private ngZone: NgZone
-  {
+  chats: Array<ChatListModel>;
+
+  constructor(
+    private chatService: ChatService
+  ) {
     this.message = new MessageModel();
-    // this.subscribeToEvents();
+    this.chats = new Array<ChatListModel>();
   }
 
-  ngOnInit() {}
-
-  // ngOnDestroy() {
-  //   if (this.chatService.messageReceived) {
-  //     this.subscription.unsubscribe();
-  //     // this.chatService.stopConnection();
-  //   }
-  // }
-
-  // sendMessage(): void {
-  //   if (this.txtMessage) {
-  //     this.message = new MessageModel();
-  //     this.message.clientUniqueId = this.uniqueID;
-  //     this.message.text = this.txtMessage;
-
-  //     this.chatService.sendMessage(this.message);
-  //   }
-  // }
-
-  // private subscribeToEvents(): void {
-  //   this.subscription = this.chatService.messageReceived.subscribe(
-  //     (message: MessageModel) => {
-  //       this.ngZone.run(() => {
-  //         console.log(message);
-  //       });
-  //     }
-  //   );
-
-  //   this.subscription = this.chatService.userConnected.subscribe(
-  //     (userConnection: UserConnectionModel) => {
-  //       this.ngZone.run(() => {
-  //         console.log(userConnection);
-  //       });
-  //     }
-  //   );
-  // }
+  ngOnInit() {
+    this.getMyChats();
+  }
 
   showThisThread(id: number) {
     this.userId = id;
@@ -72,5 +42,11 @@ export class ChatComponent implements OnInit {
 
   showList() {
     this.showThread = false;
+  }
+
+  getMyChats() {
+    this.chatService.getMyChats().subscribe(result => {
+      this.chats = result.details;
+    });
   }
 }

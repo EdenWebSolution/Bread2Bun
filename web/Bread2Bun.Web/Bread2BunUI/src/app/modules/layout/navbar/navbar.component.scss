@@ -38,12 +38,54 @@
         }
       }
     }
-    .navbar-toggler{
+    .navbar-toggler {
       background: lighten($brand-color, 20%);
       min-width: 50px;
       outline: none;
-      span{
+      span {
         color: #fff;
+      }
+    }
+  }
+}
+
+.mobile-menu {
+  .menu-wrapper {
+    .menu-items {
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      background-color: rgba(200, 200, 200, 0.2);
+      .items {
+        text-align: center;
+        padding: 12px;
+        font-size: 12px;
+        -webkit-font-smoothing: subpixel-antialiased;
+        width: 20%;
+        transition: all cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s;
+        &.logout{
+          a{
+            color: $logo-red;
+          }
+        }
+
+        cursor: pointer;
+        font-weight: 500;
+        a {
+          color: $brand-color;
+          font-size: 20px;
+        }
+        &.active {
+          background-color: $brand-color;
+          border-radius: 4px;
+          box-shadow: 0 16px 26px -10px rgba(244, 67, 54, 0.56),
+            0 4px 25px 0px rgba(0, 0, 0, 0.12),
+            0 8px 10px -5px rgba(244, 67, 54, 0.2);
+            transform: scale(1.2);
+          a {
+            color: #ffffff;
+          }
+        }
       }
     }
   }
