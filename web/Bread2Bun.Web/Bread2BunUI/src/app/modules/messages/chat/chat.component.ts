@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { MessageModel } from '../Models/MessageModel';
 import { Subscription, Subject } from 'rxjs/Rx';
 import { slideFromLeft } from 'src/app/animations';
@@ -35,7 +35,8 @@ export class ChatComponent implements OnInit {
 
   constructor(
     private chatService: ChatService,
-    private userService: UserService
+    private userService: UserService,
+    private eleRef: ElementRef
   ) {
     this.message = new MessageModel();
     this.chats = new Array<ChatListModel>();
@@ -72,14 +73,15 @@ export class ChatComponent implements OnInit {
   }
 
   getUsers() {
-    this.userService.getUsers(this.userSearchTerm).subscribe(result=>{
-      console.log(result);
+    this.userService.getUsers(this.userSearchTerm).subscribe(result => {
       this.users = result;
+      const input = this.eleRef.nativeElement.querySelector('#searchUsers');
+      input.dispatchEvent(new Event('click'));
     });
   }
 
   onUserSelect(event: TypeaheadMatch) {
-    console.log(event);
+    this.showThisThread(event.item.id);
   }
 
   toggleNewMessage() {
