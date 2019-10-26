@@ -26,22 +26,32 @@ namespace Bread2Bun.Service.Chat.Service
         }
         public async Task SendMessage(MessageModel messageModel)
         {
-            var users = new[] { userResolverService.UserId, messageModel.ToId };
-
-            Array.Sort(users);
-
-            var chatGroup = string.Join(",", users);
-            var messaeThread = bread2BunContext.MessageThreaad.FirstOrDefault(f => f.ChatGroup == chatGroup);
-
-            if (messaeThread is null)
+            try
             {
-                messaeThread.Create(chatGroup);
-                await bread2BunContext.AddAsync(messaeThread);
+                var users = new[] { userResolverService.UserId, messageModel.ToId };
+
+                Array.Sort(users);
+
+                var chatGroup = string.Join(",", users);
+                var messageThread = bread2BunContext.MessageThreaad.FirstOrDefault(f => f.ChatGroup == chatGroup);
+
+                if (messageThread is null)
+                {
+                    messageThread = new MessageThreaad();
+                    messageThread.Create(chatGroup);
+                    await bread2BunContext.AddAsync(messageThread);
+                }
+
+                var message = new Message().Create(userResolverService.UserId, messageModel.ToId, messageModel.Text, messageThread.Id);
+                await bread2BunContext.AddAsync(message);
+                await bread2BunContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
             }
 
-            var message = new Message().Create(userResolverService.UserId, messageModel.ToId, messageModel.Text, messaeThread.Id);
-            await bread2BunContext.AddAsync(message);
-            await bread2BunContext.SaveChangesAsync();
         }
 
         public async Task<PaginationModel<ChatModel>> GetAllChatById(PaginationBase paginationBase, long to)
@@ -78,7 +88,7 @@ namespace Bread2Bun.Service.Chat.Service
         {
             var summaryList = new List<ChatSummaryModel>();
 
-            var query = bread2BunContext.Message.Include(i => i.To).Where(w => w.FromId == userResolverService.UserId || w.ToId == userResolverService.UserId);
+            var query = bread2BunContext.Message.Include(i => i.To).Include(i => i.From).Where(w => w.FromId == userResolverService.UserId || w.ToId == userResolverService.UserId);
 
 
             var unread = await query.Where(w => !w.IsRead && w.ToId == userResolverService.UserId)
@@ -92,11 +102,11 @@ namespace Bread2Bun.Service.Chat.Service
             {
                 summaryList.Add(new ChatSummaryModel
                 {
-                    ToUserId = item.ToId,
-                    FromUserId = item.FromId,
+                    ToUserId = item.ToId == userResolverService.UserId ? item.FromId : item.ToId,
+                    FromUserId = item.FromId == userResolverService.UserId ? item.ToId : item.FromId,
                     LastMessage = item.Text,
                     Name = item.To.FullName,
-                    UserName = item.To.UserName,
+                    UserName = item.ToId == userResolverService.UserId ? item.From.UserName : item.To.UserName,
                     Date = item.CreatedOn,
                     UnReadCount = unread.FirstOrDefault(s => s.Key == item.ToId)?.count ?? 0
                 });
@@ -104,7 +114,7 @@ namespace Bread2Bun.Service.Chat.Service
 
             var result = new PaginationModel<ChatSummaryModel>
             {
-                Details = summaryList
+                Details = summaryList.OrderByDescending(o => o.Date)
             };
 
             return result;
