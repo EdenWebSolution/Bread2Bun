@@ -18,13 +18,13 @@
   </div>
   <div class="chat-history">
     <ul>
-      <li *ngFor="let chat of chatThread">
+      <li *ngFor="let chat of chatMessages">
         <div class="message-data text-right">
           <span class="message-data-time">10:14 AM, Today</span> &nbsp; &nbsp;
           <span class="message-data-name">Me</span>
 
         </div>
-        <div class="message other-message float-right">{{chat.text}}</div>
+        <div class="message other-message float-right">{{chat.message}}</div>
       </li>
       <!-- <li>
         <div class="message-data">

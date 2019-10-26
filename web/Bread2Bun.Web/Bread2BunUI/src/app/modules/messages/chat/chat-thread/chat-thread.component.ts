@@ -11,6 +11,8 @@ import { slideFromLeft } from 'src/app/animations';
 import { MessageModel } from '../../Models/MessageModel';
 import { LayoutService } from 'src/app/modules/layout/layout.service';
 import { Subscription } from 'rxjs';
+import { ChatService } from '../../service/chat.service';
+import { ChatThread } from '../../Models/chat-thread';
 
 @Component({
   selector: 'app-chat-thread',
@@ -26,17 +28,25 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   message: string;
   isSending: boolean;
-  constructor(private chatService: LayoutService, private ngZone: NgZone) {
+  chatMessages: Array<ChatThread>;
+  constructor(
+    private layoutService: LayoutService,
+    private ngZone: NgZone,
+    private chatService: ChatService
+  ) {
     this.isSending = false;
     this.subscribeToEvents();
     this.chatThread = new Array<MessageModel>();
+    this.chatMessages = Array<ChatThread>();
     this.message = null;
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.getThread(this.toId);
+  }
 
   ngOnDestroy() {
-    if (this.chatService.messageReceived) {
+    if (this.layoutService.messageReceived) {
       this.subscription.unsubscribe();
     }
   }
@@ -48,19 +58,25 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
     if (this.message !== null) {
       messageModel.text = this.message;
       messageModel.toId = this.toId;
-      this.chatService.sendMessage(messageModel);
+      this.layoutService.sendMessage(messageModel);
     }
   }
 
   private subscribeToEvents(): void {
     this.isSending = false;
-    this.subscription = this.chatService.messageReceived.subscribe(
+    this.subscription = this.layoutService.messageReceived.subscribe(
       (message: MessageModel) => {
         this.ngZone.run(() => {
           this.message = null;
-          this.chatThread.push(message);
+          // this.chatMessages.push(message);
         });
       }
     );
+  }
+
+  getThread(id: number) {
+    this.chatService.getMyThread(id).subscribe(result => {
+      this.chatMessages = result.details;
+    });
   }
 }
