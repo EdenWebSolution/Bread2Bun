@@ -29,6 +29,7 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
   message: string;
   isSending: boolean;
   chatMessages: Array<ChatThread>;
+  myUserId: number;
   constructor(
     private layoutService: LayoutService,
     private ngZone: NgZone,
@@ -43,6 +44,7 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getThread(this.toId);
+    this.myUserId = +localStorage.getItem('user-sub');
   }
 
   ngOnDestroy() {
