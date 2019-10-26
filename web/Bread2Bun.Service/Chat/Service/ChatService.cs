@@ -65,17 +65,20 @@ namespace Bread2Bun.Service.Chat.Service
         {
             var summaryList = new List<ChatSummaryModel>();
 
-            var query = await bread2BunContext.Message.Include(i => i.To).Where(w => w.FromId == userResolverService.UserId)
-                        .OrderByDescending(o => o.CreatedOn).GroupBy(g => g.ToId).ToListAsync();
+            var query = bread2BunContext.Message.Include(i => i.To).Where(w => w.FromId == userResolverService.UserId || w.ToId == userResolverService.UserId)
+                      .GroupBy(g => g.ToId).Select(s => s.OrderByDescending(o => o.CreatedOn).First()).AsNoTracking();
 
-            foreach (var item in query)
+
+            foreach (var item in await query.ToListAsync())
             {
                 summaryList.Add(new ChatSummaryModel
                 {
-                    UserId = item.Key,
-                    LastMessage = item.FirstOrDefault().Text,
-                    Name = item.FirstOrDefault().To.FullName,
-                    UserName = item.FirstOrDefault().To.UserName
+                    ToUserId = item.ToId,
+                    FromUserId = item.FromId,
+                    LastMessage = item.Text,
+                    Name = item.To.FullName,
+                    UserName = item.To.UserName,
+                    Date = item.CreatedOn
                 });
             }
 
