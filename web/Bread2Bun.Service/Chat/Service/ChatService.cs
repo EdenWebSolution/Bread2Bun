@@ -56,7 +56,14 @@ namespace Bread2Bun.Service.Chat.Service
 
         public async Task<PaginationModel<ChatModel>> GetAllChatById(PaginationBase paginationBase, long to)
         {
+            var users = new[] { userResolverService.UserId, to };
+
+            Array.Sort(users);
+
+            var chatGroup = string.Join(",", users);
+
             var query = bread2BunContext.Message.Where(w => w.FromId == userResolverService.UserId && w.ToId == to);
+            //var query = bread2BunContext.Message.Where(w => w.MessageThreaad.ChatGroup == chatGroup);
 
             var totalRecords = await query.AsNoTracking().CountAsync();
 
