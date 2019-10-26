@@ -8,9 +8,11 @@ using Bread2Bun.Domain.Security;
 using Bread2Bun.Service.Security.Interface;
 using Bread2Bun.Service.Security.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Authentication;
@@ -181,6 +183,28 @@ namespace Bread2Bun.Service.Security
         public async Task Logout()
         {
             await signInManager.SignOutAsync();
+        }
+
+
+        public async Task<IEnumerable<UsersSummaryModel>> GetAllUsers(string searchTerm)
+        {
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                var allUSers = userManager.Users.Where(w => w.IsDeleted == false && EF.Functions.Like(w.UserName, searchTerm + "%"))
+                    .Select(s => new UsersSummaryModel
+                    {
+                        Id = s.Id,
+                        UserName = s.UserName,
+                        ProfileImagePath = s.ProfilePictureImagePath == null ? null : FolderPath.ImagePath + FolderPath.ProfileImages + s.ProfilePictureImagePath
+                    }).AsNoTracking().AsQueryable();
+
+                return await allUSers.ToListAsync();
+            }
+            else
+            {
+                return new List<UsersSummaryModel>();
+            }
+
         }
     }
 }

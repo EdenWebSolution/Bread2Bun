@@ -22,11 +22,12 @@ namespace Bread2Bun.Domain.Chat
         [ForeignKey(nameof(ThreadId))]
         public MessageThreaad MessageThreaad { get; set; }
 
-        public Message Create(long fromId, long toId, string text)
+        public Message Create(long fromId, long toId, string text, Guid messageThreadId)
         {
             FromId = fromId;
             ToId = toId;
             Text = text;
+            ThreadId = messageThreadId;
             return this;
         }
 

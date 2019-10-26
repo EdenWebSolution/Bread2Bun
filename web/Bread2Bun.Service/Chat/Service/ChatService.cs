@@ -32,8 +32,15 @@ namespace Bread2Bun.Service.Chat.Service
 
             var chatGroup = string.Join(",", users);
             var messaeThread = bread2BunContext.MessageThreaad.FirstOrDefault(f => f.ChatGroup == chatGroup);
-            var message = new Message().Create(userResolverService.UserId, messageModel.ToId, messageModel.Text);
-            await bread2BunContext.Message.AddAsync(message);
+
+            if (messaeThread is null)
+            {
+                messaeThread.Create(chatGroup);
+                await bread2BunContext.AddAsync(messaeThread);
+            }
+
+            var message = new Message().Create(userResolverService.UserId, messageModel.ToId, messageModel.Text, messaeThread.Id);
+            await bread2BunContext.AddAsync(message);
             await bread2BunContext.SaveChangesAsync();
         }
 
@@ -79,7 +86,7 @@ namespace Bread2Bun.Service.Chat.Service
                                                .AsNoTracking()
                                                .ToListAsync();
 
-            query = query.GroupBy(g => g.ToId).Select(s => s.OrderByDescending(o => o.CreatedOn).First()).AsNoTracking();
+            query = query.GroupBy(g => g.ThreadId).Select(s => s.OrderByDescending(o => o.CreatedOn).First()).AsNoTracking();
 
             foreach (var item in await query.AsNoTracking().ToListAsync())
             {
