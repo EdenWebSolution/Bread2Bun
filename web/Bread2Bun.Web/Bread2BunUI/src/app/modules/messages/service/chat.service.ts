@@ -27,7 +27,7 @@ export class ChatService extends BaseService {
   getMyThread(toId: number) {
     return this.http
       .get<PaginationModel<ChatThread>>(
-        `${this.baseEndPoint}/api/chat?to=${toId}`,
+        `${this.baseEndPoint}/api/chat?to=${toId}&take=100`,
         this.httpOptions
       )
       .catch(this.server4xxError);

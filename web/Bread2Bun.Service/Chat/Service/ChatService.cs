@@ -62,8 +62,7 @@ namespace Bread2Bun.Service.Chat.Service
 
             var chatGroup = string.Join(",", users);
 
-            var query = bread2BunContext.Message.Where(w => w.FromId == userResolverService.UserId && w.ToId == to);
-            //var query = bread2BunContext.Message.Where(w => w.MessageThreaad.ChatGroup == chatGroup);
+            var query = bread2BunContext.Message.Where(w => w.MessageThreaad.ChatGroup == chatGroup);
 
             var totalRecords = await query.AsNoTracking().CountAsync();
 
