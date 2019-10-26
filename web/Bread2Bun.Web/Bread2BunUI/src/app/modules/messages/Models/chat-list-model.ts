@@ -5,4 +5,5 @@ export class ChatListModel {
   fromUserId: number;
   lastMessage: string;
   dateTimeOffset: Date;
+  unReadCount: number;
 }

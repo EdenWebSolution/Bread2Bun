@@ -1,5 +1,8 @@
 <div class="chat-wrapper" *ngIf="!showThread">
   <div class="chat-list" @slideFromLeft>
+    <div class="new-message">
+      <button class="user-button"><i class="fas fa-edit"></i></button>
+    </div>
     <ul>
       <li *ngFor="let chat of chats">
         <div class="person-wrapper" (click)="showThisThread(chat.toUserId)">
@@ -7,7 +10,7 @@
             <img class="online" [src]="profileImgUrl">
           </div>
           <p class="message-preview">{{chat.userName}}<span>{{chat.lastMessage}}</span></p>
-          <p class="details">{{chat.dateTimeOffset | timeAgo}} <br><span class="count">100</span></p>
+          <p class="details">{{chat.dateTimeOffset | timeAgo}} <br><span *ngIf="chat.unReadCount > 0" class="count">{{chat.unReadCount}}</span></p>
         </div>
       </li>
     </ul>
