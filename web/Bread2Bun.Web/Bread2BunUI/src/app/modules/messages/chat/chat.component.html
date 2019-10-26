@@ -7,7 +7,7 @@
             <img class="online" [src]="profileImgUrl">
           </div>
           <p class="message-preview">{{chat.userName}}<span>{{chat.lastMessage}}</span></p>
-          <p class="details">{{chat.dateTimeOffset | timeAgo}} <br><span class="count">100</span></p>
+          <p class="details">{{chat.date | timeAgo}} <br><span class="count">100</span></p>
         </div>
       </li>
     </ul>

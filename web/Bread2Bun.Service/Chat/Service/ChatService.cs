@@ -66,10 +66,15 @@ namespace Bread2Bun.Service.Chat.Service
             var summaryList = new List<ChatSummaryModel>();
 
             var query = bread2BunContext.Message.Include(i => i.To).Where(w => w.FromId == userResolverService.UserId || w.ToId == userResolverService.UserId)
-                      .GroupBy(g => g.ToId).Select(s => s.OrderByDescending(o => o.CreatedOn).First()).AsNoTracking();
+                                                .GroupBy(g => g.ToId).Select(s => s.OrderByDescending(o => o.CreatedOn).First())
+                                                .AsNoTracking();
 
+            var unread = await query.Where(w => !w.IsRead && w.ToId == userResolverService.UserId)
+                                               .GroupBy(g => g.FromId).Select(s => new { s.Key, count = s.Count() })
+                                               .AsNoTracking()
+                                               .ToListAsync();
 
-            foreach (var item in await query.ToListAsync())
+            foreach (var item in await query.AsNoTracking().ToListAsync())
             {
                 summaryList.Add(new ChatSummaryModel
                 {
@@ -79,7 +84,7 @@ namespace Bread2Bun.Service.Chat.Service
                     Name = item.To.FullName,
                     UserName = item.To.UserName,
                     Date = item.CreatedOn,
-                    UnReadCount = (item.ToId == userResolverService.UserId && !item.IsRead) ? 1 : 0
+                    UnReadCount = unread.FirstOrDefault(s => s.Key == item.FromId)?.count ?? 0
                 }); ;
             }
 

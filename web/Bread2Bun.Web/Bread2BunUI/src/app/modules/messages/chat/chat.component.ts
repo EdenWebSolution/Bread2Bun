@@ -41,6 +41,7 @@ export class ChatComponent implements OnInit {
   }
 
   showList() {
+    this.getMyChats();
     this.showThread = false;
   }
 
