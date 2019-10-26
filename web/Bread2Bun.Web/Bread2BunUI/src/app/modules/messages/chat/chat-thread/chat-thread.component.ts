@@ -38,7 +38,6 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.chatService.messageReceived) {
       this.subscription.unsubscribe();
-      // this.chatService.stopConnection();
     }
   }
 
@@ -59,18 +58,9 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
       (message: MessageModel) => {
         this.ngZone.run(() => {
           this.message = null;
-          console.log(message);
           this.chatThread.push(message);
         });
       }
     );
-
-    // this.subscription = this.chatService.userConnected.subscribe(
-    //   (userConnection: UserConnectionModel) => {
-    //     this.ngZone.run(() => {
-    //       console.log(userConnection);
-    //     });
-    //   }
-    // );
   }
 }

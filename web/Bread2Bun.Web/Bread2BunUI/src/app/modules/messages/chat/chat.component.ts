@@ -82,6 +82,7 @@ export class ChatComponent implements OnInit {
 
   onUserSelect(event: TypeaheadMatch) {
     this.showThisThread(event.item.id);
+    this.userSelected = '';
   }
 
   toggleNewMessage() {
