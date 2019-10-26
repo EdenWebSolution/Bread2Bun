@@ -19,10 +19,10 @@ namespace Bread2Bun.Web.AppHubs
         {
             this.chatService = chatService;
         }
-        public Task SendMessage(MessageModel msg)
+        public async Task SendMessage(MessageModel msg)
         {
-            chatService.SendMessage(msg);
-            return Clients.All.SendAsync("ReceiveMessage", msg);
+            await chatService.SendMessage(msg);
+            await Clients.All.SendAsync("ReceiveMessage", msg);
         }
 
         public override async Task OnConnectedAsync()

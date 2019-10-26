@@ -1,5 +1,6 @@
 ﻿using Bread2Bun.Common;
 using Bread2Bun.Data;
+using Bread2Bun.Domain.Chat;
 using Bread2Bun.Service.Chat.Interface;
 using Bread2Bun.Service.Chat.Model;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +26,9 @@ namespace Bread2Bun.Service.Chat.Service
         }
         public async Task SendMessage(MessageModel messageModel)
         {
-            Debug.WriteLine(JsonConvert.SerializeObject(messageModel));
+            var message = new Message().Create(userResolverService.UserId, messageModel.ToId, messageModel.Text);
+            await bread2BunContext.Message.AddAsync(message);
+            await bread2BunContext.SaveChangesAsync();
         }
 
         public async Task<PaginationModel<ChatModel>> GetAllChatById(PaginationBase paginationBase, long to)

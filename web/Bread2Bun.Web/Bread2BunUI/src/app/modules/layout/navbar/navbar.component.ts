@@ -4,6 +4,7 @@ import { MenuItem } from '../models/menu-item';
 import { ToastrService } from 'ngx-toastr';
 import { AuthorizeService } from '../../authorize/services/authorize.service';
 import { Router } from '@angular/router';
+import { LayoutService } from '../layout.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,18 +13,18 @@ import { Router } from '@angular/router';
   animations: [slideFromUp]
 })
 export class NavbarComponent implements OnInit {
-
   show: boolean;
   showDropdown: boolean;
   menuItem: MenuItem[];
   rate = 5;
   max = 5;
-  isReadonly: boolean = false;
+  isReadonly = false;
 
   constructor(
     private t: ToastrService,
     private authorizeService: AuthorizeService,
-    private router: Router
+    private router: Router,
+    private layoutService: LayoutService
   ) {
     this.show = false;
     this.showDropdown = false;
@@ -64,17 +65,18 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-    this.authorizeService.logout().subscribe(result => {
-      localStorage.removeItem('bread2bun-TokenId');
-      sessionStorage.removeItem('bread2bun-TokenId');
-      this.router.navigate(['/authorize']);
-      console.log('Logout done');
-    }, error => {
-      this.t.error('Can\'t logout', 'Error');
-    });
+    this.authorizeService.logout().subscribe(
+      result => {
+        localStorage.removeItem('bread2bun-TokenId');
+        sessionStorage.removeItem('bread2bun-TokenId');
+        this.router.navigate(['/authorize']);
+        console.log('Logout done');
+      },
+      error => {
+        this.t.error("Can't logout", 'Error');
+      }
+    );
   }
 
-  getRating() {
-  }
-
+  getRating() {}
 }
