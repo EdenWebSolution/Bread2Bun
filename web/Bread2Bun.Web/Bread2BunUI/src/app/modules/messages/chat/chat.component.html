@@ -14,8 +14,7 @@
             <img class="online" [src]="profileImgUrl">
           </div>
           <p class="message-preview">{{chat.userName}}<span>{{chat.lastMessage}}</span></p>
-          <p class="details">{{chat.dateTimeOffset | timeAgo}} <br><span *ngIf="chat.unReadCount > 0"
-              class="count">{{chat.unReadCount}}</span></p>
+          <p class="details">{{chat.date | timeAgo}} <br><span *ngIf="chat.unReadCount > 0" class="count">{{chat.unReadCount}}</span></p>
         </div>
       </li>
     </ul>

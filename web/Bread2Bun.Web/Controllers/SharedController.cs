@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Bread2Bun.Common.Model;
 using Bread2Bun.Service.Country.Interface;
+using Bread2Bun.Service.Security.Interface;
 using Bread2Bun.Service.University.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,12 +16,19 @@ namespace Bread2Bun.Web.Controllers
         private readonly ICountryService countryService;
         private readonly IUniversityService universityService;
         private readonly IConfiguration configuration;
+        private readonly ISecurityService securityService;
 
-        public SharedController(ICountryService countryService, IUniversityService universityService, IConfiguration configuration)
+        public SharedController(
+            ICountryService countryService,
+            IUniversityService universityService,
+            IConfiguration configuration,
+            ISecurityService securityService
+            )
         {
             this.countryService = countryService;
             this.universityService = universityService;
             this.configuration = configuration;
+            this.securityService = securityService;
         }
 
         [HttpGet("countries"), AllowAnonymous]
@@ -55,12 +63,13 @@ namespace Bread2Bun.Web.Controllers
             }
         }
 
-        [HttpGet("Test"), AllowAnonymous]
-        public IActionResult Test()
+        [HttpGet("users")]
+        public async Task<IActionResult> GetAllUsersSummary([FromQuery]string searchTerm)
         {
             try
             {
-                return Ok(configuration["Env"]);
+                var result = await securityService.GetAllUsers(searchTerm);
+                return Ok(result);
 
             }
             catch (System.Exception ex)

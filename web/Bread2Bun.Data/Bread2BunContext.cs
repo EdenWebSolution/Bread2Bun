@@ -44,6 +44,7 @@ namespace Bread2Bun.Data
 
         #region Chat
         public DbSet<Message> Message { get; set; }
+        public DbSet<MessageThreaad> MessageThreaad { get; set; }
         #endregion
 
         #region Overrides
@@ -51,6 +52,10 @@ namespace Bread2Bun.Data
         {
             builder.Entity<UserFood>()
             .HasKey(o => new { o.Id, o.UserId, o.UserProfileId });
+
+            builder.Entity<MessageThreaad>()
+                .HasIndex(u => u.ChatGroup)
+                .IsUnique();
 
             ApplyFilters(builder);
             base.OnModelCreating(builder);

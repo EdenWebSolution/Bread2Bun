@@ -26,8 +26,21 @@ namespace Bread2Bun.Service.Chat.Service
         }
         public async Task SendMessage(MessageModel messageModel)
         {
-            var message = new Message().Create(userResolverService.UserId, messageModel.ToId, messageModel.Text);
-            await bread2BunContext.Message.AddAsync(message);
+            var users = new[] { userResolverService.UserId, messageModel.ToId };
+
+            Array.Sort(users);
+
+            var chatGroup = string.Join(",", users);
+            var messaeThread = bread2BunContext.MessageThreaad.FirstOrDefault(f => f.ChatGroup == chatGroup);
+
+            if (messaeThread is null)
+            {
+                messaeThread.Create(chatGroup);
+                await bread2BunContext.AddAsync(messaeThread);
+            }
+
+            var message = new Message().Create(userResolverService.UserId, messageModel.ToId, messageModel.Text, messaeThread.Id);
+            await bread2BunContext.AddAsync(message);
             await bread2BunContext.SaveChangesAsync();
         }
 
@@ -65,11 +78,17 @@ namespace Bread2Bun.Service.Chat.Service
         {
             var summaryList = new List<ChatSummaryModel>();
 
-            var query = bread2BunContext.Message.Include(i => i.To).Where(w => w.FromId == userResolverService.UserId || w.ToId == userResolverService.UserId)
-                      .GroupBy(g => g.ToId).Select(s => s.OrderByDescending(o => o.CreatedOn).First()).AsNoTracking();
+            var query = bread2BunContext.Message.Include(i => i.To).Where(w => w.FromId == userResolverService.UserId || w.ToId == userResolverService.UserId);
 
 
-            foreach (var item in await query.ToListAsync())
+            var unread = await query.Where(w => !w.IsRead && w.ToId == userResolverService.UserId)
+                                               .GroupBy(g => g.FromId).Select(s => new { s.Key, count = s.Count() })
+                                               .AsNoTracking()
+                                               .ToListAsync();
+
+            query = query.GroupBy(g => g.ThreadId).Select(s => s.OrderByDescending(o => o.CreatedOn).First()).AsNoTracking();
+
+            foreach (var item in await query.AsNoTracking().ToListAsync())
             {
                 summaryList.Add(new ChatSummaryModel
                 {
@@ -78,7 +97,8 @@ namespace Bread2Bun.Service.Chat.Service
                     LastMessage = item.Text,
                     Name = item.To.FullName,
                     UserName = item.To.UserName,
-                    Date = item.CreatedOn
+                    Date = item.CreatedOn,
+                    UnReadCount = unread.FirstOrDefault(s => s.Key == item.ToId)?.count ?? 0
                 });
             }
 

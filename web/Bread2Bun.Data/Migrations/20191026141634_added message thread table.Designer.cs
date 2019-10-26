@@ -4,14 +4,16 @@ using Bread2Bun.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bread2Bun.Data.Migrations
 {
     [DbContext(typeof(Bread2BunContext))]
-    partial class Bread2BunContextModelSnapshot : ModelSnapshot
+    [Migration("20191026141634_added message thread table")]
+    partial class addedmessagethreadtable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,15 +43,11 @@ namespace Bread2Bun.Data.Migrations
 
                     b.Property<string>("Text");
 
-                    b.Property<Guid>("ThreadId");
-
                     b.Property<long>("ToId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("FromId");
-
-                    b.HasIndex("ThreadId");
 
                     b.HasIndex("ToId");
 
@@ -64,10 +62,6 @@ namespace Bread2Bun.Data.Migrations
                     b.Property<string>("ChatGroup");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ChatGroup")
-                        .IsUnique()
-                        .HasFilter("[ChatGroup] IS NOT NULL");
 
                     b.ToTable("MessageThreaad");
                 });
@@ -446,11 +440,6 @@ namespace Bread2Bun.Data.Migrations
                     b.HasOne("Bread2Bun.Domain.Security.StoreUser", "From")
                         .WithMany()
                         .HasForeignKey("FromId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Bread2Bun.Domain.Chat.MessageThreaad", "MessageThreaad")
-                        .WithMany()
-                        .HasForeignKey("ThreadId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Bread2Bun.Domain.Security.StoreUser", "To")
