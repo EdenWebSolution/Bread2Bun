@@ -1,33 +1,17 @@
-<div class="b2b-menu" @slideFromUp>
+<div class="b2b-menu d-none d-md-block" @slideFromUp>
   <nav class="navbar navbar-expand-lg">
-    <div class="navbar-brand" [routerLink]="['/app/feed']" >
+    <div class="navbar-brand" [routerLink]="['/app/feed']">
       <div class="logo">Bread<span>2</span>Bun</div>
     </div>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-      (click)="show = !show"
-    >
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+      (click)="show = !show">
       <span *ngIf="!show"><i class="fas fa-grip-lines"></i></span>
       <span *ngIf="show"><i class="fas fa-times"></i></span>
     </button>
-    <div
-      class="collapse navbar-collapse"
-      [ngClass]="{ show: show }"
-      id="navbarSupportedContent"
-      @slideFromUp
-    >
+    <div class="collapse navbar-collapse" [ngClass]="{ show: show }" id="navbarSupportedContent" @slideFromUp>
       <ul class="navbar-nav mr-auto">
-        <li
-          class="nav-item"
-          routerLinkActive="active"
-          *ngFor="let item of menuItem"
-        >
+        <li class="nav-item" routerLinkActive="active" *ngFor="let item of menuItem">
           <a class="nav-link" [routerLink]="[item.path]">{{ item.title }}</a>
         </li>
         <li class="nav-item">
@@ -36,4 +20,23 @@
       </ul>
     </div>
   </nav>
+</div>
+<div class="mobile-menu d-md-none">
+
+  <div class="menu-wrapper">
+    <!-- <div class="logo" [routerLink]="['/app/feed']">
+      <div class="logo">B<span>2</span>B</div>
+    </div> -->
+    <div class="menu-items">
+      <div class="items" routerLinkActive="active" *ngFor="let item of menuItem">
+        <a [routerLink]="[item.path]"><i class="fas {{ item.icon }}"></i></a>
+      </div>
+      <div class="items logout">
+          <a (click)="logout()"><i class="fas fa-sign-out-alt"></i></a>
+        </div>
+    </div>
+    <!-- <div class="logout">
+      <span (click)="logout()">Logout</span>
+    </div> -->
+  </div>
 </div>

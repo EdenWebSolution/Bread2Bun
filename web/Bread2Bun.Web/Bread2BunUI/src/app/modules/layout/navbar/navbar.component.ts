@@ -40,25 +40,25 @@ export class NavbarComponent implements OnInit {
       {
         path: '/app/feed',
         title: 'Explore',
-        icon: '',
+        icon: 'fa-house-damage',
         class: ''
       },
       {
         path: '/app/messages',
         title: 'Messages',
-        icon: '',
+        icon: 'fa-comment',
         class: ''
       },
       {
         path: '/app/profile',
         title: 'Profile',
-        icon: '',
+        icon: 'fa-id-badge',
         class: ''
       },
       {
         path: '/app/coupons',
         title: 'Coupons',
-        icon: '',
+        icon: 'fa-clipboard-list',
         class: ''
       }
     ];
