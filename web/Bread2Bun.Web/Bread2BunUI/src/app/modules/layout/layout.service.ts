@@ -11,7 +11,7 @@ import { UserConnection } from '../shared/models/UserConnection';
 })
 export class LayoutService extends BaseService {
   messageReceived: EventEmitter<ChatThread>;
-  userConnections: Array<UserConnection>;
+  userConnections: Array<UserConnectionModel>;
   userConnected: EventEmitter<UserConnectionModel>;
   // connectionEstablished = new EventEmitter<boolean>();
 
@@ -20,7 +20,7 @@ export class LayoutService extends BaseService {
 
   constructor() {
     super();
-    this.userConnections = new Array<UserConnection>();
+    this.userConnections = new Array<UserConnectionModel>();
     this.messageReceived = new EventEmitter<ChatThread>();
     this.userConnected = new EventEmitter<UserConnectionModel>();
 
