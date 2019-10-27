@@ -13,6 +13,7 @@ import { LayoutService } from 'src/app/modules/layout/layout.service';
 import { Subscription } from 'rxjs';
 import { ChatService } from '../../service/chat.service';
 import { ChatThread } from '../../Models/chat-thread';
+import { BaseService } from 'src/app/modules/core/services/base.service';
 
 @Component({
   selector: 'app-chat-thread',
@@ -33,7 +34,8 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
   constructor(
     private layoutService: LayoutService,
     private ngZone: NgZone,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private baseService: BaseService
   ) {
     this.isSending = false;
     this.subscribeToEvents();
@@ -44,7 +46,7 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getThread(this.toId);
-    this.myUserId = +localStorage.getItem('user-sub');
+    this.myUserId = +this.baseService.getUserId();
   }
 
   ngOnDestroy() {
