@@ -7,4 +7,6 @@ export class ChatListModel {
   date: Date;
   unReadCount: number;
   profileImagePath: string;
+  isOnline: boolean;
+  connectionId: string;
 }

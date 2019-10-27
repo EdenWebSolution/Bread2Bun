@@ -19,21 +19,28 @@ namespace Bread2Bun.Web.AppHubs
         {
             this.chatService = chatService;
         }
+
+        //public async Task SendMessageToAll(MessageModel msg)
+        //{
+        //    //var chat = await chatService.SendMessage(msg);
+        //    //await Clients.All.SendAsync("ReceiveMessage", chat);
+        //}
+
         public async Task SendMessage(MessageModel msg)
         {
             var chat = await chatService.SendMessage(msg);
-            await Clients.All.SendAsync("ReceiveMessage", chat);
+            await Clients.Client(msg.ClientUniqueId).SendAsync("ReceiveMessage", chat);
         }
 
         public override async Task OnConnectedAsync()
         {
-            await Clients.AllExcept(Context.ConnectionId).SendAsync("UserConnected", UserConnection.GetUserConnection(Context.ConnectionId, Context.User.Identity.Name));
+            await Clients.AllExcept(Context.ConnectionId).SendAsync("UserConnected", UserConnection.GetUserConnection(Context.ConnectionId, Context.User.Identity.Name, true));
             await base.OnConnectedAsync();
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
-            await Clients.AllExcept(Context.ConnectionId).SendAsync("UserDisconntected", UserConnection.GetUserConnection(Context.ConnectionId, Context.User.Identity.Name));
+            await Clients.AllExcept(Context.ConnectionId).SendAsync("UserDisconntected", UserConnection.GetUserConnection(Context.ConnectionId, Context.User.Identity.Name, false));
             await base.OnDisconnectedAsync(exception);
         }
 
@@ -47,9 +54,10 @@ namespace Bread2Bun.Web.AppHubs
     {
         public string ConnectionId { get; set; }
         public string UserName { get; set; }
-        protected internal static UserConnection GetUserConnection(string connectionId, string userName)
+        public bool IsOnline { get; set; }
+        protected internal static UserConnection GetUserConnection(string connectionId, string userName, bool isOnline)
         {
-            return new UserConnection { ConnectionId = connectionId, UserName = userName };
+            return new UserConnection { ConnectionId = connectionId, UserName = userName, IsOnline = isOnline };
         }
     }
 }

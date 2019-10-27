@@ -1,4 +1,10 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  NgZone,
+  OnDestroy
+} from '@angular/core';
 import { MessageModel } from '../Models/MessageModel';
 import { Subscription, Subject } from 'rxjs/Rx';
 import { slideFromLeft } from 'src/app/animations';
@@ -8,6 +14,8 @@ import { TypeaheadMatch } from 'ngx-bootstrap';
 import { SharedService } from '../../shared/services/shared.service';
 import { Users } from '../../shared/models/users';
 import { UserService } from '../../shared/services/user.service';
+import { UserConnectionModel } from '../Models/UserConnectionModel';
+import { LayoutService } from '../../layout/layout.service';
 
 @Component({
   selector: 'app-chat',
@@ -15,7 +23,7 @@ import { UserService } from '../../shared/services/user.service';
   styleUrls: ['./chat.component.scss'],
   animations: [slideFromLeft]
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   uniqueID: string = new Date().getTime().toString();
   message: MessageModel;
@@ -24,7 +32,8 @@ export class ChatComponent implements OnInit {
   showThread = false;
   userData = {
     userId: 0,
-    userName: ''
+    userName: '',
+    connectionId: ''
   };
   chats: Array<ChatListModel>;
   users: Array<Users>;
@@ -35,6 +44,8 @@ export class ChatComponent implements OnInit {
   nullImagePath = '../../../../assets/images/default.jpg';
 
   constructor(
+    private layoutService: LayoutService,
+    private ngZone: NgZone,
     private chatService: ChatService,
     private userService: UserService,
     private eleRef: ElementRef
@@ -42,8 +53,11 @@ export class ChatComponent implements OnInit {
     this.message = new MessageModel();
     this.chats = new Array<ChatListModel>();
     this.users = new Array<Users>();
-    this.userSearch.debounceTime(300)
-      .distinctUntilChanged().subscribe(data => {
+    this.subscribeToEvents();
+    this.userSearch
+      .debounceTime(300)
+      .distinctUntilChanged()
+      .subscribe(data => {
         if (data !== '') {
           this.userSearchTerm = data;
           this.getUsers();
@@ -57,9 +71,15 @@ export class ChatComponent implements OnInit {
     this.getMyChats();
   }
 
-  showThisThread(id: number, userName: string) {
+  ngOnDestroy() {
+    if (this.layoutService.userConnected) {
+      this.subscription.unsubscribe();
+    }
+  }
+  showThisThread(id: number, userName: string, connectionId: string) {
     this.userData.userId = id;
     this.userData.userName = userName;
+    this.userData.connectionId = connectionId;
     this.showThread = true;
   }
 
@@ -84,11 +104,33 @@ export class ChatComponent implements OnInit {
   }
 
   onUserSelect(event: TypeaheadMatch) {
-    this.showThisThread(event.item.id, event.item.userName);
+    this.showThisThread(
+      event.item.id,
+      event.item.userName,
+      event.item.connectionId
+    );
     this.userSelected = '';
   }
 
   toggleNewMessage() {
     this.isNewMessage = !this.isNewMessage;
+  }
+
+  private subscribeToEvents(): void {
+    this.subscription = this.layoutService.userConnected.subscribe(
+      (user: UserConnectionModel) => {
+        this.ngZone.run(() => {
+          const isUserAvailable = this.chats.some(
+            x => x.userName === user.userName
+          );
+
+          if (isUserAvailable) {
+            const newuser = this.chats.find(x => x.userName === user.userName);
+            newuser.isOnline = user.isOnline;
+            newuser.connectionId = user.connectionId;
+          }
+        });
+      }
+    );
   }
 }
