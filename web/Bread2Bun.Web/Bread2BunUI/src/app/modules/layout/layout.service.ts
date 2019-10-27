@@ -67,13 +67,19 @@ export class LayoutService extends BaseService {
       this.messageReceived.emit(data);
     });
 
-    this.hubConnection.on('UserConnected', (data: UserConnectionModel) => {
-      this.userConnected.emit(data);
-      this.userConnections.push(data);
-    });
+    this.hubConnection.on(
+      'UserConnected',
+      (data: UserConnectionModel, connectUsers: UserConnectionModel[]) => {
+        this.userConnected.emit(data);
+        this.userConnections.push(data);
+      }
+    );
 
-    this.hubConnection.on('UserDisconntected', (data: UserConnectionModel) => {
-      this.userConnected.emit(data);
-    });
+    this.hubConnection.on(
+      'UserDisconntected',
+      (data: UserConnectionModel, connectUsers: UserConnectionModel[]) => {
+        this.userConnected.emit(data);
+      }
+    );
   }
 }

@@ -11,6 +11,7 @@ using Bread2Bun.Service.Security;
 using Bread2Bun.Service.Security.Interface;
 using Bread2Bun.Service.University;
 using Bread2Bun.Service.University.Interface;
+using Bread2Bun.Web.AppHubs;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Bread2Bun.Web
@@ -27,6 +28,7 @@ namespace Bread2Bun.Web
             services.AddScoped<IReviewService, ReviewService>();
             services.AddScoped<IFoodService, FoodService>();
             services.AddScoped<IChatService, ChatService>();
+            services.AddSingleton<AllConnectedUsers>();
         }
     }
 }
