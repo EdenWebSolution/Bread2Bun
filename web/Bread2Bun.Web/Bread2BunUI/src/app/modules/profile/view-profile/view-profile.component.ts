@@ -7,6 +7,7 @@ import { ClipboardService } from 'ngx-clipboard';
 import { ReviewList } from '../models/get-review-list-model';
 import { forkJoin } from 'rxjs';
 import { ViewProfileModel } from '../../shared/models/view-profile-model';
+import { BaseService } from '../../core/services/base.service';
 
 @Component({
   selector: 'app-view-profile',
@@ -23,7 +24,7 @@ export class ViewProfileComponent implements OnInit {
   languagesString: string;
   skip = 0;
   take = 10;
-  userId: number = +localStorage.getItem('user-sub');
+  userId: number;
   myReviews: Array<ReviewList> = new Array<ReviewList>();
   profileDetails: ViewProfileModel = new ViewProfileModel();
   isBlocked = false;
@@ -71,7 +72,8 @@ export class ViewProfileComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private profileService: ProfileService,
     private toastr: ToastrService,
-    private clipBoardService: ClipboardService
+    private clipBoardService: ClipboardService,
+    private baseService: BaseService
   ) { }
 
   ngOnInit() {
@@ -79,10 +81,11 @@ export class ViewProfileComponent implements OnInit {
       this.username = params.username;
       this.getProfileData(this.username);
     });
+    this.userId = +this.baseService.getUserId();
   }
 
 
-  getProfileData(username) {
+  getProfileData(username: string) {
     this.isBlocked = true;
     forkJoin(
       this.profileService.getProfileViewByUserName(username),

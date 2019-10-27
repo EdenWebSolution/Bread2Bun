@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpHeaders } from '@angular/common/http';
-import { Observable} from 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
 import { throwError } from 'rxjs';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 
 
@@ -17,8 +18,19 @@ export abstract class BaseService {
       'Content-Type': 'application/json'
     })
   };
+  decoder = new JwtHelperService();
+  token: string;
+  userName: string;
+  userId: number;
+  decodedToken: any;
   constructor(
-  ) {}
+  ) {
+    if (localStorage.getItem('bread2bun-TokenId') !== null) {
+      this.token = localStorage.getItem('bread2bun-TokenId');
+    } else if (sessionStorage.getItem('bread2bun-TokenId') !== null) {
+      this.token = sessionStorage.getItem('bread2bun-TokenId');
+    }
+  }
 
   server4xxError(error: Response | any) {
     let isLogin = false;
@@ -57,5 +69,17 @@ export abstract class BaseService {
     }
     const errorMsg = Object.assign({}, this.errorMessage);
     return throwError(errorMsg);
+  }
+
+  getUserName() {
+    this.decodedToken = this.decoder.decodeToken(this.token);
+    this.userName = this.decodedToken.unique_name;
+    return this.userName;
+  }
+
+  getUserId() {
+    this.decodedToken = this.decoder.decodeToken(this.token);
+    this.userId = this.decodedToken.sub;
+    return this.userId;
   }
 }
