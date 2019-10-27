@@ -114,7 +114,7 @@ namespace Bread2Bun.Service.Chat.Service
                     Name = item.To.FullName,
                     UserName = item.ToId == userResolverService.UserId ? item.From.UserName : item.To.UserName,
                     Date = item.CreatedOn,
-                    UnReadCount = unread.FirstOrDefault(s => s.Key == item.ToId)?.count ?? 0
+                    UnReadCount = unread.FirstOrDefault(s => s.Key == item.CreatedById)?.count ?? 0
                 });
             }
 
