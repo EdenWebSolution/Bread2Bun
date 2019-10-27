@@ -33,7 +33,7 @@
               [src]="(chat.profileImagePath !== null && chat.profileImagePath !== undefined) ? chat.profileImagePath: nullImagePath">
           </div>
           <p class="message-preview">{{chat.userName}}<span>{{chat.lastMessage | slice:0:40}}</span></p>
-          <p class="details">{{chat.date | timeAgo}} <br><span *ngIf="chat.unReadCount > 0"
+          <p class="details">{{chat.date | chatTime | async}} <br><span *ngIf="chat.unReadCount > 0"
               class="count">{{chat.unReadCount}}</span></p>
         </div>
       </li>
