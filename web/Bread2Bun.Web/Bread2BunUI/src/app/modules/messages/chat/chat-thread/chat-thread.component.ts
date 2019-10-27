@@ -84,7 +84,7 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
       // sending message
       messageModel.text = this.message;
       messageModel.toId = this.userData.userId;
-      messageModel.clientUniqueId = this.connectionId !== null ? this.userData.connectionId : this.layoutService.userConnections.find(a=> a.userName === this.userData.userName).connectionId;
+      messageModel.clientUniqueId = this.layoutService.userConnections.find(a => a.userName === this.userData.userName).connectionId;
       this.layoutService.sendMessage(messageModel);
       this.message = null;
     }
