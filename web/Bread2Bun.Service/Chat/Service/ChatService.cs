@@ -66,7 +66,7 @@ namespace Bread2Bun.Service.Chat.Service
 
             var totalRecords = await query.AsNoTracking().CountAsync();
 
-            query = query.OrderByDescending(o => o.CreatedOn).Skip(paginationBase.Skip).Take(paginationBase.Take);
+            query = query.Skip(paginationBase.Skip).Take(paginationBase.Take);
 
             var result = query.Select(s => new ChatModel
             {
