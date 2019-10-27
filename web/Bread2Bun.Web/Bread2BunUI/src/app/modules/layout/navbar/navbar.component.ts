@@ -69,14 +69,16 @@ export class NavbarComponent implements OnInit {
       result => {
         localStorage.removeItem('bread2bun-TokenId');
         sessionStorage.removeItem('bread2bun-TokenId');
+        localStorage.removeItem('my-username');
+        localStorage.removeItem('user-sub');
         this.router.navigate(['/authorize']);
         console.log('Logout done');
       },
       error => {
-        this.t.error("Can't logout", 'Error');
+        this.t.error('Can\'t logout', 'Error');
       }
     );
   }
 
-  getRating() {}
+  getRating() { }
 }
