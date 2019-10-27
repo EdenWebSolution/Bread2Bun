@@ -86,6 +86,7 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
       messageModel.toId = this.userData.userId;
       messageModel.clientUniqueId = this.connectionId;
       this.layoutService.sendMessage(messageModel);
+      this.message = null;
     }
   }
 
@@ -94,7 +95,6 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
     this.subscription = this.layoutService.messageReceived.subscribe(
       (message: ChatThread) => {
         this.ngZone.run(() => {
-          this.message = null;
           if (message.fromId !== this.myUserId) {
             this.chatMessages.push(message);
           }
