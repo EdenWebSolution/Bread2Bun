@@ -3,13 +3,14 @@ import { MessageModel } from '../messages/Models/MessageModel';
 import { UserConnectionModel } from '../messages/Models/UserConnectionModel';
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
 import { BaseService } from '../core/services/base.service';
+import { ChatThread } from '../messages/Models/chat-thread';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LayoutService extends BaseService {
 
-  messageReceived: EventEmitter<MessageModel>;
+  messageReceived: EventEmitter<ChatThread>;
   userConnected: EventEmitter<UserConnectionModel>;
   connectionEstablished = new EventEmitter<boolean>();
 
@@ -18,7 +19,7 @@ export class LayoutService extends BaseService {
 
   constructor() {
     super();
-    this.messageReceived = new EventEmitter<MessageModel>();
+    this.messageReceived = new EventEmitter<ChatThread>();
     this.userConnected = new EventEmitter<UserConnectionModel>();
 
     this.createConnection();
@@ -60,7 +61,7 @@ export class LayoutService extends BaseService {
   }
 
   private registerOnServerEvents(): void {
-    this.hubConnection.on('ReceiveMessage', (data: MessageModel) => {
+    this.hubConnection.on('ReceiveMessage', (data: ChatThread) => {
       this.messageReceived.emit(data);
     });
 
