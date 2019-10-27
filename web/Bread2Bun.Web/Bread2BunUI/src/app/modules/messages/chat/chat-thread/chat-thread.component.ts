@@ -67,10 +67,10 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
   private subscribeToEvents(): void {
     this.isSending = false;
     this.subscription = this.layoutService.messageReceived.subscribe(
-      (message: MessageModel) => {
+      (message: ChatThread) => {
         this.ngZone.run(() => {
           this.message = null;
-          // this.chatMessages.push(message);
+          this.chatMessages.push(message);
         });
       }
     );
