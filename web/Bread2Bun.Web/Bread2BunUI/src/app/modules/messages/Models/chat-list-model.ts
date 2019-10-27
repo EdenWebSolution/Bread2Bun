@@ -6,4 +6,5 @@ export class ChatListModel {
   lastMessage: string;
   date: Date;
   unReadCount: number;
+  profileImagePath: string;
 }

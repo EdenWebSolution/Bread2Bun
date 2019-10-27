@@ -35,6 +35,7 @@ export class ChatComponent implements OnInit {
   userSearch = new Subject<string>();
   userSelected: string;
   isNewMessage = false;
+  nullImagePath = 'https://t3.ftcdn.net/jpg/00/64/67/80/240_F_64678017_zUpiZFjj04cnLri7oADnyMH0XBYyQghG.jpg';
 
   constructor(
     private chatService: ChatService,
@@ -73,6 +74,7 @@ export class ChatComponent implements OnInit {
   getMyChats() {
     this.chatService.getMyChats().subscribe(result => {
       this.chats = result.details;
+      console.log(this.chats);
     });
   }
 
