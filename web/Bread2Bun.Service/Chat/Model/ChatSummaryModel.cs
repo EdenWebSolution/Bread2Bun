@@ -13,5 +13,6 @@ namespace Bread2Bun.Service.Chat.Model
         public string LastMessage { get; set; }
         public DateTimeOffset Date { get; set; }
         public int UnReadCount { get; set; }
+        public string ProfileImagePath { get; set; }
     }
 }
