@@ -50,7 +50,7 @@ namespace Bread2Bun.Web.AppHubs
         public override async Task OnDisconnectedAsync(Exception exception)
         {
             var singalUser = UserConnection.GetUserConnection(Context.ConnectionId, Context.User.Identity.Name, false);
-            this.allConnectedUsers.UserConnections.Remove(singalUser);
+            this.allConnectedUsers.UserConnections.Remove(this.allConnectedUsers.UserConnections.FirstOrDefault(f => f.UserName == singalUser.UserName));
             await Clients.All.SendAsync("UserDisconntected", singalUser, this.allConnectedUsers.UserConnections);
             await base.OnDisconnectedAsync(exception);
         }
