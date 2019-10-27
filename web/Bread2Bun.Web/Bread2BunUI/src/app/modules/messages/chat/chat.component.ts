@@ -144,15 +144,16 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   getConnectedUsers() {
-    const onlineUsers = this.layoutService.userConnections;
-    this.chats.forEach(user => {
-      if (onlineUsers.some(a => a.userName === user.userName)) {
-        user.isOnline = true;
-        user.connectionId = onlineUsers.find(a => a.userName === user.userName).connectionId;
-      } else {
-        user.isOnline = false;
-        user.connectionId = null;
-      }
-    });
+    this.layoutService.userConnections.subscribe((onlineUsers: UserConnectionModel[]) =>
+
+      this.chats.forEach(user => {
+        if (onlineUsers.some(a => a.userName === user.userName)) {
+          user.isOnline = true;
+          user.connectionId = onlineUsers.find(a => a.userName === user.userName).connectionId;
+        } else {
+          user.isOnline = false;
+          user.connectionId = null;
+        }
+      }));
   }
 }

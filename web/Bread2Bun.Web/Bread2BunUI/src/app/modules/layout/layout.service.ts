@@ -11,7 +11,7 @@ import { UserConnection } from '../shared/models/UserConnection';
 })
 export class LayoutService extends BaseService {
   messageReceived: EventEmitter<ChatThread>;
-  userConnections: Array<UserConnectionModel>;
+  userConnections: EventEmitter<Array<UserConnectionModel>>;
   userConnected: EventEmitter<UserConnectionModel>;
   // connectionEstablished = new EventEmitter<boolean>();
 
@@ -20,7 +20,7 @@ export class LayoutService extends BaseService {
 
   constructor() {
     super();
-    this.userConnections = new Array<UserConnectionModel>();
+    this.userConnections = new EventEmitter<Array<UserConnectionModel>>();
     this.messageReceived = new EventEmitter<ChatThread>();
     this.userConnected = new EventEmitter<UserConnectionModel>();
 
@@ -49,14 +49,14 @@ export class LayoutService extends BaseService {
         // this.connectionEstablished.emit(this.connectionIsEstablished);
       })
       .catch(err => {
-        setTimeout(function() {
+        setTimeout(function () {
           this.startConnection();
         }, 2000);
       });
   }
 
   stopConnection(): void {
-    this.hubConnection.stop().catch(err => {});
+    this.hubConnection.stop().catch(err => { });
   }
   sendMessage(message: MessageModel) {
     this.hubConnection.invoke('SendMessage', message);
@@ -65,14 +65,15 @@ export class LayoutService extends BaseService {
   private registerOnServerEvents(): void {
     this.hubConnection.on('ReceiveMessage', (data: ChatThread) => {
       this.messageReceived.emit(data);
+      this.userConnections.emit(null);
     });
 
     this.hubConnection.on(
       'UserConnected',
       (data: UserConnectionModel, connectUsers: UserConnectionModel[]) => {
         this.userConnected.emit(data);
-        this.userConnections = new Array<UserConnectionModel>();
-        this.userConnections = connectUsers;
+        // this.userConnections = new Array<UserConnectionModel>();
+        this.userConnections.emit(connectUsers);
       }
     );
 
@@ -80,8 +81,8 @@ export class LayoutService extends BaseService {
       'UserDisconntected',
       (data: UserConnectionModel, connectUsers: UserConnectionModel[]) => {
         this.userConnected.emit(data);
-        this.userConnections = new Array<UserConnectionModel>();
-        this.userConnections = connectUsers;
+        // this.userConnections = new Array<UserConnectionModel>();
+        this.userConnections.emit(connectUsers);
       }
     );
   }
