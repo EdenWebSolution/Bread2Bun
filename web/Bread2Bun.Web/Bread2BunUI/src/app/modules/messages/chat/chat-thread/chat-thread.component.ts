@@ -15,6 +15,7 @@ import { ChatService } from '../../service/chat.service';
 import { ChatThread } from '../../Models/chat-thread';
 import { BaseService } from 'src/app/modules/core/services/base.service';
 import { MessageStatus } from 'src/app/modules/core/enums/MessageStatus';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-chat-thread',
@@ -33,11 +34,13 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
   chatMessages: Array<ChatThread>;
   myUserId: number;
   userName: string;
+  isBlocked = false;
   constructor(
     private layoutService: LayoutService,
     private ngZone: NgZone,
     private chatService: ChatService,
-    private baseService: BaseService
+    private baseService: BaseService,
+    private toastr: ToastrService
   ) {
     this.isSending = false;
     this.subscribeToEvents();
@@ -84,15 +87,20 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
   }
 
   getThread(id: number) {
+    this.isBlocked = true;
     this.chatService.getMyThread(id).subscribe(result => {
       this.chatMessages = result.details;
+      this.isBlocked = false;
+    }, error => {
+      this.isBlocked = false;
+      this.toastr.error('Failed to retrieve messages', 'Error');
     });
   }
 
   toggleMessageReadStatus() {
     this.chatService
       .toggleMessageReadStatus(this.userData.userId, MessageStatus.read)
-      .subscribe(() => {}, error => {});
+      .subscribe(() => { }, error => { });
   }
 
   goBack() {
@@ -102,7 +110,7 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
         () => {
           this.showList.emit(true);
         },
-        error => {}
+        error => { }
       );
   }
 }

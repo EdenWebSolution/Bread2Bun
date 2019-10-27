@@ -8,6 +8,7 @@ import { TypeaheadMatch } from 'ngx-bootstrap';
 import { SharedService } from '../../shared/services/shared.service';
 import { Users } from '../../shared/models/users';
 import { UserService } from '../../shared/services/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-chat',
@@ -33,11 +34,13 @@ export class ChatComponent implements OnInit {
   userSelected: string;
   isNewMessage = false;
   nullImagePath = '../../../../assets/images/default.jpg';
+  isBlocked = false;
 
   constructor(
     private chatService: ChatService,
     private userService: UserService,
-    private eleRef: ElementRef
+    private eleRef: ElementRef,
+    private toastr: ToastrService
   ) {
     this.message = new MessageModel();
     this.chats = new Array<ChatListModel>();
@@ -69,9 +72,13 @@ export class ChatComponent implements OnInit {
   }
 
   getMyChats() {
+    this.isBlocked = true;
     this.chatService.getMyChats().subscribe(result => {
       this.chats = result.details;
-      console.log(this.chats);
+      this.isBlocked = false;
+    }, error=>{
+      this.isBlocked = false;
+      this.toastr.error('Couldn\'t load your chats', 'Error');
     });
   }
 

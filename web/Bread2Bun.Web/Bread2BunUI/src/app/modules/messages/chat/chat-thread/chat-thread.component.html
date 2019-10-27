@@ -15,7 +15,19 @@
       <span></span>
     </div>
   </div>
-  <div class="chat-history">
+  <div class="placeholder" *ngIf="isBlocked">
+      <div class="lines"></div>
+      <div class="lines"></div>
+      <div class="lines"></div>
+      <div class="lines"></div>
+      <div class="lines"></div>
+      <div class="lines"></div>
+      <div class="lines"></div>
+      <div class="lines"></div>
+      <div class="lines"></div>
+      <div class="lines"></div>
+  </div>
+  <div class="chat-history" *ngIf="!isBlocked">
     <ul>
       <li *ngFor="let chat of chatMessages">
         <div [ngClass]="chat.toId === myUserId? 'my-message float-left': 'other-message float-right'" class="message">
