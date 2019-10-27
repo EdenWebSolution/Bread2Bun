@@ -16,7 +16,6 @@ import { ChatThread } from '../../Models/chat-thread';
 import { BaseService } from 'src/app/modules/core/services/base.service';
 import { MessageStatus } from 'src/app/modules/core/enums/MessageStatus';
 import { ToastrService } from 'ngx-toastr';
-import { UserConnectionModel } from '../../Models/UserConnectionModel';
 
 @Component({
   selector: 'app-chat-thread',
@@ -85,14 +84,10 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
       // sending message
       messageModel.text = this.message;
       messageModel.toId = this.userData.userId;
-      this.layoutService.userConnections.subscribe((users: UserConnectionModel[]) => {
-        const user = users.find(a => a.userName === this.userData.userName);
-        messageModel.clientUniqueId = (user === undefined || user === null) ? null : user.connectionId;
-        this.layoutService.sendMessage(messageModel);
-        this.message = null;
-      });
-
-
+      const user = this.layoutService.userConnections.find(a => a.userName === this.userData.userName);
+      messageModel.clientUniqueId = (user === undefined || user === null) ? null : user.connectionId;
+      this.layoutService.sendMessage(messageModel);
+      this.message = null;
     }
   }
 
@@ -127,13 +122,13 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
   }
 
   goBack() {
-    this.showList.emit(true);
-    // this.chatService
-    //   .toggleMessageReadStatus(this.userData.userId, MessageStatus.read)
-    //   .subscribe(
-    //     () => {
-    //     },
-    //     error => { }
-    //   );
+    this.chatService
+      .toggleMessageReadStatus(this.userData.userId, MessageStatus.read)
+      .subscribe(
+        () => {
+          this.showList.emit(true);
+        },
+        error => { }
+      );
   }
 }
