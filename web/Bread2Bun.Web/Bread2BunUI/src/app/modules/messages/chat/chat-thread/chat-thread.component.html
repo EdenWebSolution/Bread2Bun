@@ -33,7 +33,7 @@
       <li *ngFor="let chat of chatMessages">
         <div [ngClass]="chat.toId === myUserId? 'my-message float-left': 'other-message float-right'" class="message">
           <div class="text">{{chat.message}}</div>
-          <div class="time" [ngClass]="chat.toId === myUserId? '': 'text-right'"></div>
+          <div class="time" [ngClass]="chat.toId === myUserId? '': 'text-right'">{{chat.date}}</div>
         </div>
       </li>
     </ul>
