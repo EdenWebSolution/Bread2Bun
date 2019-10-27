@@ -71,7 +71,8 @@ export class LayoutService extends BaseService {
       'UserConnected',
       (data: UserConnectionModel, connectUsers: UserConnectionModel[]) => {
         this.userConnected.emit(data);
-        this.userConnections.push(data);
+        this.userConnections = new Array<UserConnectionModel>();
+        this.userConnections = connectUsers;
       }
     );
 
@@ -79,6 +80,8 @@ export class LayoutService extends BaseService {
       'UserDisconntected',
       (data: UserConnectionModel, connectUsers: UserConnectionModel[]) => {
         this.userConnected.emit(data);
+        this.userConnections = new Array<UserConnectionModel>();
+        this.userConnections = connectUsers;
       }
     );
   }
