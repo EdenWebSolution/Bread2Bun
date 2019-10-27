@@ -4,21 +4,23 @@ import { UserConnectionModel } from '../messages/Models/UserConnectionModel';
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
 import { BaseService } from '../core/services/base.service';
 import { ChatThread } from '../messages/Models/chat-thread';
+import { UserConnection } from '../shared/models/UserConnection';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LayoutService extends BaseService {
-
   messageReceived: EventEmitter<ChatThread>;
+  userConnections: Array<UserConnection>;
   userConnected: EventEmitter<UserConnectionModel>;
-  connectionEstablished = new EventEmitter<boolean>();
+  // connectionEstablished = new EventEmitter<boolean>();
 
   private connectionIsEstablished = false;
   private hubConnection: HubConnection;
 
   constructor() {
     super();
+    this.userConnections = new Array<UserConnection>();
     this.messageReceived = new EventEmitter<ChatThread>();
     this.userConnected = new EventEmitter<UserConnectionModel>();
 
@@ -44,7 +46,7 @@ export class LayoutService extends BaseService {
       .start()
       .then(() => {
         this.connectionIsEstablished = true;
-        this.connectionEstablished.emit(this.connectionIsEstablished);
+        // this.connectionEstablished.emit(this.connectionIsEstablished);
       })
       .catch(err => {
         setTimeout(function() {
@@ -66,6 +68,11 @@ export class LayoutService extends BaseService {
     });
 
     this.hubConnection.on('UserConnected', (data: UserConnectionModel) => {
+      this.userConnected.emit(data);
+      this.userConnections.push(data);
+    });
+
+    this.hubConnection.on('UserDisconntected', (data: UserConnectionModel) => {
       this.userConnected.emit(data);
     });
   }

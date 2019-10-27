@@ -35,6 +35,7 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
   myUserId: number;
   userName: string;
   isBlocked = false;
+  connectionId: string;
   constructor(
     private layoutService: LayoutService,
     private ngZone: NgZone,
@@ -54,6 +55,7 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
     this.getThread(this.userData.userId);
     this.userName = this.userData.userName;
     this.myUserId = +this.baseService.getUserId();
+    this.connectionId = this.userData.connectionId;
   }
 
   ngOnDestroy() {
@@ -70,6 +72,7 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
     if (this.message !== null) {
       messageModel.text = this.message;
       messageModel.toId = this.userData.userId;
+      messageModel.clientUniqueId = this.connectionId;
       this.layoutService.sendMessage(messageModel);
     }
   }

@@ -15,10 +15,9 @@
     </div>
     <ul *ngIf="!isBlocked">
       <li *ngFor="let chat of chats">
-        <div class="person-wrapper" (click)="showThisThread(chat.toUserId, chat.userName)">
+        <div class="person-wrapper" (click)="showThisThread(chat.toUserId, chat.userName, chat.connectionId)">
           <div class="profile-pic">
-            <img class="online"
-              [src]="(chat.profileImagePath !== null && chat.profileImagePath !== undefined) ? chat.profileImagePath: nullImagePath">
+            <img [ngClass]="{'online': chat.isOnline}" [src]="(chat.profileImagePath !== null && chat.profileImagePath !== undefined) ? chat.profileImagePath: nullImagePath">
           </div>
           <p class="message-preview">{{chat.userName}}<span>{{chat.lastMessage | slice:0:40}}</span></p>
           <p class="details">{{chat.date | timeAgo}} <br><span *ngIf="chat.unReadCount > 0"
