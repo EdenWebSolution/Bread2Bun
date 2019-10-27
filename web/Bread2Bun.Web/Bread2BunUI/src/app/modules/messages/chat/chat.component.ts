@@ -14,6 +14,7 @@ import { TypeaheadMatch } from 'ngx-bootstrap';
 import { SharedService } from '../../shared/services/shared.service';
 import { Users } from '../../shared/models/users';
 import { UserService } from '../../shared/services/user.service';
+import { ToastrService } from 'ngx-toastr';
 import { UserConnectionModel } from '../Models/UserConnectionModel';
 import { LayoutService } from '../../layout/layout.service';
 
@@ -42,13 +43,15 @@ export class ChatComponent implements OnInit, OnDestroy {
   userSelected: string;
   isNewMessage = false;
   nullImagePath = '../../../../assets/images/default.jpg';
+  isBlocked = false;
 
   constructor(
     private layoutService: LayoutService,
     private ngZone: NgZone,
     private chatService: ChatService,
     private userService: UserService,
-    private eleRef: ElementRef
+    private eleRef: ElementRef,
+    private toastr: ToastrService
   ) {
     this.message = new MessageModel();
     this.chats = new Array<ChatListModel>();
@@ -69,6 +72,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getMyChats();
+    this.getConnectedUsers();
   }
 
   ngOnDestroy() {
@@ -85,13 +89,18 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   showList() {
     this.getMyChats();
+    this.getConnectedUsers();
     this.showThread = false;
   }
 
   getMyChats() {
+    this.isBlocked = true;
     this.chatService.getMyChats().subscribe(result => {
       this.chats = result.details;
-      console.log(this.chats);
+      this.isBlocked = false;
+    }, error => {
+      this.isBlocked = false;
+      this.toastr.error('Couldn\'t load your chats', 'Error');
     });
   }
 
@@ -132,5 +141,13 @@ export class ChatComponent implements OnInit, OnDestroy {
         });
       }
     );
+  }
+
+  getConnectedUsers() {
+    this.chats.forEach(user => {
+      if (this.layoutService.userConnections.some(a => a.userName === user.userName)){
+        user.isOnline = true;
+      }
+    });
   }
 }
