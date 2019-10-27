@@ -54,6 +54,7 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.layoutService.messageReceived) {
       this.subscription.unsubscribe();
+      this.toggleMessageReadStatus();
     }
   }
 
