@@ -20,9 +20,6 @@ export class ChatComponent implements OnInit {
   uniqueID: string = new Date().getTime().toString();
   message: MessageModel;
   txtMessage: string;
-  profileImgUrl =
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZtt-8JagsbCAhDa02YU8dEhABmIUIUaMEyq__-O6eEBo20DIwvw';
-
   chatDate = new Date();
   showThread = false;
   userData = {
@@ -35,7 +32,7 @@ export class ChatComponent implements OnInit {
   userSearch = new Subject<string>();
   userSelected: string;
   isNewMessage = false;
-  nullImagePath = 'https://t3.ftcdn.net/jpg/00/64/67/80/240_F_64678017_zUpiZFjj04cnLri7oADnyMH0XBYyQghG.jpg';
+  nullImagePath = '../../../../assets/images/default.jpg';
 
   constructor(
     private chatService: ChatService,
