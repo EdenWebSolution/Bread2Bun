@@ -44,7 +44,8 @@ namespace Bread2Bun.Service.Chat.Service
                     await bread2BunContext.AddAsync(messageThread);
                 }
 
-                var message = new Message().Create(userResolverService.UserId, messageModel.ToId, messageModel.Text, messageThread.Id);
+                var isRead = messageModel.ClientUniqueId == null ? false : true;
+                var message = new Message().Create(userResolverService.UserId, messageModel.ToId, messageModel.Text, messageThread.Id, isRead);
                 await bread2BunContext.AddAsync(message);
                 await bread2BunContext.SaveChangesAsync();
                 return new ChatModel { Date = message.CreatedOn, FromId = message.FromId, ToId = message.ToId, Message = message.Text };
