@@ -72,6 +72,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getMyChats();
+    this.getConnectedUsers();
   }
 
   ngOnDestroy() {
@@ -88,6 +89,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   showList() {
     this.getMyChats();
+    this.getConnectedUsers();
     this.showThread = false;
   }
 
@@ -96,7 +98,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.chatService.getMyChats().subscribe(result => {
       this.chats = result.details;
       this.isBlocked = false;
-    }, error=>{
+    }, error => {
       this.isBlocked = false;
       this.toastr.error('Couldn\'t load your chats', 'Error');
     });
@@ -139,5 +141,13 @@ export class ChatComponent implements OnInit, OnDestroy {
         });
       }
     );
+  }
+
+  getConnectedUsers() {
+    this.chats.forEach(user => {
+      if (this.layoutService.userConnections.some(a => a.userName === user.userName)){
+        user.isOnline = true;
+      }
+    });
   }
 }
