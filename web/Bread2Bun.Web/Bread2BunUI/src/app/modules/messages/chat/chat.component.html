@@ -9,7 +9,7 @@
   <div class="chat-list" @slideFromLeft>
     <ul>
       <li *ngFor="let chat of chats">
-        <div class="person-wrapper" (click)="showThisThread(chat.toUserId)">
+        <div class="person-wrapper" (click)="showThisThread(chat.toUserId, chat.userName)">
           <div class="profile-pic">
             <img class="online" [src]="profileImgUrl">
           </div>
@@ -20,4 +20,4 @@
     </ul>
   </div>
 </div>
-<app-chat-thread (showList)="showList()" *ngIf="showThread" [toId]="userId"></app-chat-thread>
+<app-chat-thread (showList)="showList()" *ngIf="showThread" [userData]="userData"></app-chat-thread>

@@ -25,7 +25,10 @@ export class ChatComponent implements OnInit {
 
   chatDate = new Date();
   showThread = false;
-  userId: number;
+  userData = {
+    userId: 0,
+    userName: ''
+  };
   chats: Array<ChatListModel>;
   users: Array<Users>;
   userSearchTerm = '';
@@ -56,8 +59,9 @@ export class ChatComponent implements OnInit {
     this.getMyChats();
   }
 
-  showThisThread(id: number) {
-    this.userId = id;
+  showThisThread(id: number, userName: string) {
+    this.userData.userId = id;
+    this.userData.userName = userName;
     this.showThread = true;
   }
 
@@ -81,7 +85,7 @@ export class ChatComponent implements OnInit {
   }
 
   onUserSelect(event: TypeaheadMatch) {
-    this.showThisThread(event.item.id);
+    this.showThisThread(event.item.id, event.item.userName);
     this.userSelected = '';
   }
 

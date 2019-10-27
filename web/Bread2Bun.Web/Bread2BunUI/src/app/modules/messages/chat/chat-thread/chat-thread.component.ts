@@ -24,7 +24,7 @@ import { MessageStatus } from 'src/app/modules/core/enums/MessageStatus';
 })
 export class ChatThreadComponent implements OnInit, OnDestroy {
   @Output() showList = new EventEmitter();
-  @Input() toId: number;
+  @Input() userData: any;
   chatThread: Array<MessageModel>;
 
   subscription: Subscription;
@@ -32,6 +32,7 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
   isSending: boolean;
   chatMessages: Array<ChatThread>;
   myUserId: number;
+  userName: string;
   constructor(
     private layoutService: LayoutService,
     private ngZone: NgZone,
@@ -47,7 +48,8 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.toggleMessageReadStatus();
-    this.getThread(this.toId);
+    this.getThread(this.userData.userId);
+    this.userName = this.userData.userName;
     this.myUserId = +this.baseService.getUserId();
   }
 
@@ -64,7 +66,7 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
     const messageModel = new MessageModel();
     if (this.message !== null) {
       messageModel.text = this.message;
-      messageModel.toId = this.toId;
+      messageModel.toId = this.userData.userId;
       this.layoutService.sendMessage(messageModel);
     }
   }
@@ -89,13 +91,13 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
 
   toggleMessageReadStatus() {
     this.chatService
-      .toggleMessageReadStatus(this.toId, MessageStatus.read)
+      .toggleMessageReadStatus(this.userData.userId, MessageStatus.read)
       .subscribe(() => {}, error => {});
   }
 
   goBack() {
     this.chatService
-      .toggleMessageReadStatus(this.toId, MessageStatus.read)
+      .toggleMessageReadStatus(this.userData.userId, MessageStatus.read)
       .subscribe(
         () => {
           this.showList.emit(true);
