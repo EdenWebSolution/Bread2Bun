@@ -92,4 +92,15 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
       .toggleMessageReadStatus(this.toId, MessageStatus.read)
       .subscribe(() => {}, error => {});
   }
+
+  goBack() {
+    this.chatService
+      .toggleMessageReadStatus(this.toId, MessageStatus.read)
+      .subscribe(
+        () => {
+          this.showList.emit(true);
+        },
+        error => {}
+      );
+  }
 }
