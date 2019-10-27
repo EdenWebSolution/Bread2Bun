@@ -40,7 +40,7 @@ namespace Bread2Bun.Web.AppHubs
         public override async Task OnConnectedAsync()
         {
             var signleUser = UserConnection.GetUserConnection(Context.ConnectionId, Context.User.Identity.Name, true);
-            this.allConnectedUsers.UserConnections.Remove(this.allConnectedUsers.UserConnections.FirstOrDefault(f => f.UserName == signleUser.UserName));
+            this.allConnectedUsers.UserConnections.RemoveAll(r => r.UserName == signleUser.UserName);
             this.allConnectedUsers.UserConnections.Add(signleUser);
 
             await Clients.All.SendAsync("UserConnected", signleUser, this.allConnectedUsers.UserConnections);
@@ -50,7 +50,7 @@ namespace Bread2Bun.Web.AppHubs
         public override async Task OnDisconnectedAsync(Exception exception)
         {
             var singalUser = UserConnection.GetUserConnection(Context.ConnectionId, Context.User.Identity.Name, false);
-            this.allConnectedUsers.UserConnections.Remove(this.allConnectedUsers.UserConnections.FirstOrDefault(f => f.UserName == singalUser.UserName));
+            this.allConnectedUsers.UserConnections.RemoveAll(r => r.UserName == singalUser.UserName);
             await Clients.All.SendAsync("UserDisconntected", singalUser, this.allConnectedUsers.UserConnections);
             await base.OnDisconnectedAsync(exception);
         }

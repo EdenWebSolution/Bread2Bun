@@ -127,13 +127,13 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
   }
 
   goBack() {
-    this.chatService
-      .toggleMessageReadStatus(this.userData.userId, MessageStatus.read)
-      .subscribe(
-        () => {
-          this.showList.emit(true);
-        },
-        error => { }
-      );
+    this.showList.emit(true);
+    // this.chatService
+    //   .toggleMessageReadStatus(this.userData.userId, MessageStatus.read)
+    //   .subscribe(
+    //     () => {
+    //     },
+    //     error => { }
+    //   );
   }
 }
