@@ -13,6 +13,7 @@ import { LayoutService } from 'src/app/modules/layout/layout.service';
 import { Subscription } from 'rxjs';
 import { ChatService } from '../../service/chat.service';
 import { ChatThread } from '../../Models/chat-thread';
+import { MessageStatus } from 'src/app/modules/core/enums/MessageStatus';
 
 @Component({
   selector: 'app-chat-thread',
@@ -43,6 +44,7 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.toggleMessageReadStatus();
     this.getThread(this.toId);
     this.myUserId = +localStorage.getItem('user-sub');
   }
@@ -80,5 +82,11 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
     this.chatService.getMyThread(id).subscribe(result => {
       this.chatMessages = result.details;
     });
+  }
+
+  toggleMessageReadStatus() {
+    this.chatService
+      .toggleMessageReadStatus(this.toId, MessageStatus.read)
+      .subscribe(() => {}, error => {});
   }
 }

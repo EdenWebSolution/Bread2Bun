@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bread2Bun.Common;
+using Bread2Bun.Common.Enum;
 using Bread2Bun.Service.Chat.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -32,6 +33,13 @@ namespace Bread2Bun.Web.Controllers
         {
             var result = await chatService.GetAllChatSummary();
             return Ok(result);
+        }
+
+        [HttpGet("togglemessagestatus")]
+        public async Task<IActionResult> ToggleMessageReadStatus([FromQuery] long fromId, [FromQuery] MessageStatus status)
+        {
+            await chatService.ToggleMessageReadStatus(fromId, status);
+            return Ok();
         }
     }
 }

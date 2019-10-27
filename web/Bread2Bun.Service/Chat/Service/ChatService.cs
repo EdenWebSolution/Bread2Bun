@@ -1,4 +1,5 @@
 ﻿using Bread2Bun.Common;
+using Bread2Bun.Common.Enum;
 using Bread2Bun.Data;
 using Bread2Bun.Domain.Chat;
 using Bread2Bun.Service.Chat.Interface;
@@ -125,6 +126,11 @@ namespace Bread2Bun.Service.Chat.Service
             };
 
             return result;
+        }
+
+        public async Task ToggleMessageReadStatus(long fromId, MessageStatus status)
+        {
+            await bread2BunContext.Database.ExecuteSqlCommandAsync($"UPDATE [dbo].[Message] SET IsRead = {(int)status} WHERE IsRead = 0 AND FromId = {fromId} AND ToId = {userResolverService.UserId}");
         }
     }
 }
