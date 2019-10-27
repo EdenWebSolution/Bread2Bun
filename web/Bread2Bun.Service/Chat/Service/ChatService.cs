@@ -24,7 +24,7 @@ namespace Bread2Bun.Service.Chat.Service
             this.bread2BunContext = bread2BunContext;
             this.userResolverService = userResolverService;
         }
-        public async Task SendMessage(MessageModel messageModel)
+        public async Task<ChatModel> SendMessage(MessageModel messageModel)
         {
             try
             {
@@ -45,6 +45,7 @@ namespace Bread2Bun.Service.Chat.Service
                 var message = new Message().Create(userResolverService.UserId, messageModel.ToId, messageModel.Text, messageThread.Id);
                 await bread2BunContext.AddAsync(message);
                 await bread2BunContext.SaveChangesAsync();
+                return new ChatModel { Date = message.CreatedOn, FromId = message.FromId, ToId = message.ToId, Message = message.Text };
             }
             catch (Exception ex)
             {
@@ -114,7 +115,7 @@ namespace Bread2Bun.Service.Chat.Service
                     Name = item.To.FullName,
                     UserName = item.ToId == userResolverService.UserId ? item.From.UserName : item.To.UserName,
                     Date = item.CreatedOn,
-                    UnReadCount = unread.FirstOrDefault(s => s.Key == item.CreatedById)?.count ?? 0
+                    UnReadCount = unread.FirstOrDefault(s => s.Key == item.FromId || s.Key == item.ToId)?.count ?? 0
                 });
             }
 

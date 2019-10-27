@@ -9,7 +9,7 @@ namespace Bread2Bun.Service.Chat.Interface
 {
     public interface IChatService
     {
-        Task SendMessage(MessageModel messageModel);
+        Task<ChatModel> SendMessage(MessageModel messageModel);
         Task<PaginationModel<ChatModel>> GetAllChatById(PaginationBase paginationBase, long to);
         Task<PaginationModel<ChatSummaryModel>> GetAllChatSummary();
     }
