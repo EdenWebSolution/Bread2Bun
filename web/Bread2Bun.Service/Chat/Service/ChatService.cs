@@ -1,4 +1,5 @@
 ﻿using Bread2Bun.Common;
+using Bread2Bun.Common.Constants;
 using Bread2Bun.Common.Enum;
 using Bread2Bun.Data;
 using Bread2Bun.Domain.Chat;
@@ -116,7 +117,8 @@ namespace Bread2Bun.Service.Chat.Service
                     Name = item.To.FullName,
                     UserName = item.ToId == userResolverService.UserId ? item.From.UserName : item.To.UserName,
                     Date = item.CreatedOn,
-                    UnReadCount = unread.FirstOrDefault(s => s.Key == item.FromId || s.Key == item.ToId)?.count ?? 0
+                    UnReadCount = unread.FirstOrDefault(s => s.Key == item.FromId || s.Key == item.ToId)?.count ?? 0,
+                    ProfileImagePath = item.ToId == userResolverService.UserId ? (item.From.ProfilePictureImagePath == null ? null : FolderPath.ImagePath + FolderPath.ProfileImages + item.From.ProfilePictureImagePath) : (item.To.ProfilePictureImagePath == null ? null : FolderPath.ImagePath + FolderPath.ProfileImages + item.To.ProfilePictureImagePath),
                 });
             }
 
