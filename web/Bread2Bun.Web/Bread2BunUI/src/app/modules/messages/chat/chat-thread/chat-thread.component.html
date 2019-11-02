@@ -5,14 +5,14 @@
     </div>
     <div class="user-img">
       <img
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZtt-8JagsbCAhDa02YU8dEhABmIUIUaMEyq__-O6eEBo20DIwvw"
+      [src]="(profileImage !== null && profileImage !== undefined) ? profileImage: nullImagePath"
         alt="">
     </div>
     <div class="user-details">
       <div class="name">{{userName}}</div>
     </div>
     <div class="status">
-      <span></span>
+      <span *ngIf="isOnline"></span>
     </div>
   </div>
 

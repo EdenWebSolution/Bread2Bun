@@ -27,7 +27,7 @@
     </div>
     <ul *ngIf="!isBlocked">
       <li *ngFor="let chat of chats">
-        <div class="person-wrapper" (click)="showThisThread(chat.toUserId, chat.userName, chat.connectionId)">
+        <div class="person-wrapper" (click)="showThisThread(chat.toUserId, chat.userName, chat.connectionId, chat.profileImagePath, chat.isOnline)">
           <div class="profile-pic">
             <img [ngClass]="{'online': chat.isOnline}"
               [src]="(chat.profileImagePath !== null && chat.profileImagePath !== undefined) ? chat.profileImagePath: nullImagePath">

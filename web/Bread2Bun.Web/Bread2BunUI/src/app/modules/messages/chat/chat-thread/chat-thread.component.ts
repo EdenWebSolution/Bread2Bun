@@ -40,7 +40,11 @@ export class ChatThreadComponent implements OnInit, OnDestroy, AfterViewChecked 
   connectionId: string;
   myUserName: string;
   subsink: SubSink;
+  profileImage: string;
+  isOnline: boolean;
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+  nullImagePath = '../../../../assets/images/default.jpg';
+
 
   constructor(
     private layoutService: LayoutService,
@@ -53,7 +57,7 @@ export class ChatThreadComponent implements OnInit, OnDestroy, AfterViewChecked 
     this.isSending = false;
     this.subscribeToEvents();
     this.chatThread = new Array<MessageModel>();
-    this.chatMessages = Array<ChatThread>();
+    this.chatMessages = new Array<ChatThread>();
     this.message = null;
   }
 
@@ -63,7 +67,10 @@ export class ChatThreadComponent implements OnInit, OnDestroy, AfterViewChecked 
     this.userName = this.userData.userName;
     this.myUserId = +this.baseService.getUserId();
     this.connectionId = this.userData.connectionId;
+    this.profileImage = this.userData.profileImagePath;
+    this.isOnline = this.userData.onlineStatus;
     this.myUserName = this.baseService.getUserName();
+    console.log(this.userData);
   }
 
   ngOnDestroy() {

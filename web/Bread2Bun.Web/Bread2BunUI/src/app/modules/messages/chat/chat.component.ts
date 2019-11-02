@@ -34,7 +34,9 @@ export class ChatComponent implements OnInit, OnDestroy {
   userData = {
     userId: 0,
     userName: '',
-    connectionId: ''
+    connectionId: '',
+    profileImagePath: '',
+    onlineStatus: false
   };
   chats: Array<ChatListModel>;
   users: Array<Users>;
@@ -80,10 +82,12 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.subscription.unsubscribe();
     }
   }
-  showThisThread(id: number, userName: string, connectionId: string) {
+  showThisThread(id: number, userName: string, connectionId: string, profileImagePath: string, isOnline) {
     this.userData.userId = id;
     this.userData.userName = userName;
     this.userData.connectionId = connectionId;
+    this.userData.profileImagePath = profileImagePath;
+    this.userData.onlineStatus = isOnline;
     this.showThread = true;
   }
 
