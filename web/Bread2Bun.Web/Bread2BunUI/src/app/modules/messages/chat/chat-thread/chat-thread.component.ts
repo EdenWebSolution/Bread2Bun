@@ -27,7 +27,8 @@ import { SubSink } from 'subsink';
   styleUrls: ['./chat-thread.component.scss'],
   animations: [slideFromLeft]
 })
-export class ChatThreadComponent implements OnInit, OnDestroy, AfterViewChecked {
+export class ChatThreadComponent
+  implements OnInit, OnDestroy, AfterViewChecked {
   @Output() showList = new EventEmitter();
   @Input() userData: any;
   chatThread: Array<MessageModel>;
@@ -44,7 +45,6 @@ export class ChatThreadComponent implements OnInit, OnDestroy, AfterViewChecked 
   isOnline: boolean;
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
   nullImagePath = '../../../../assets/images/default.jpg';
-
 
   constructor(
     private layoutService: LayoutService,
@@ -106,6 +106,11 @@ export class ChatThreadComponent implements OnInit, OnDestroy, AfterViewChecked 
     this.isSending = false;
     this.subsink.sink = this.layoutService.messageReceived.subscribe(
       (message: ChatThread) => {
+        this.chatService
+          .toggleMessageReadStatus(this.userData.userId, MessageStatus.read)
+          .subscribe(() => {
+            this.layoutService.updateAllMessageCount();
+          });
         this.ngZone.run(() => {
           if (message.fromId !== this.myUserId) {
             this.chatMessages.push(message);
@@ -117,14 +122,17 @@ export class ChatThreadComponent implements OnInit, OnDestroy, AfterViewChecked 
 
   getThread(id: number) {
     this.isBlocked = true;
-    this.chatService.getMyThread(id).subscribe(result => {
-      this.chatMessages = result.details;
-      this.isBlocked = false;
-      this.scrollToBottom();
-    }, error => {
-      this.isBlocked = false;
-      this.toastr.error('Failed to retrieve messages', 'Error');
-    });
+    this.chatService.getMyThread(id).subscribe(
+      result => {
+        this.chatMessages = result.details;
+        this.isBlocked = false;
+        this.scrollToBottom();
+      },
+      error => {
+        this.isBlocked = false;
+        this.toastr.error('Failed to retrieve messages', 'Error');
+      }
+    );
   }
 
   toggleMessageReadStatus() {
@@ -157,7 +165,7 @@ export class ChatThreadComponent implements OnInit, OnDestroy, AfterViewChecked 
   scrollToBottom(): void {
     try {
       this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-    } catch (err) { }
+    } catch (err) {}
   }
 
   ngAfterViewChecked() {

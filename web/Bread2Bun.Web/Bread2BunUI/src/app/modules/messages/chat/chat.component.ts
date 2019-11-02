@@ -17,6 +17,7 @@ import { UserService } from '../../shared/services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { UserConnectionModel } from '../Models/UserConnectionModel';
 import { LayoutService } from '../../layout/layout.service';
+import { SubSink } from 'subsink';
 
 @Component({
   selector: 'app-chat',
@@ -46,6 +47,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   isNewMessage = false;
   nullImagePath = '../../../../assets/images/default.jpg';
   isBlocked = false;
+  subsink: SubSink;
 
   constructor(
     private layoutService: LayoutService,
@@ -55,6 +57,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     private eleRef: ElementRef,
     private toastr: ToastrService
   ) {
+    this.subsink = new SubSink();
     this.message = new MessageModel();
     this.chats = new Array<ChatListModel>();
     this.users = new Array<Users>();
@@ -73,16 +76,19 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.getMyChats();
-
+    this.getMyChats(true);
   }
 
   ngOnDestroy() {
-    if (this.layoutService.userConnected) {
-      this.subscription.unsubscribe();
-    }
+    this.subsink.unsubscribe();
   }
-  showThisThread(id: number, userName: string, connectionId: string, profileImagePath: string, isOnline) {
+  showThisThread(
+    id: number,
+    userName: string,
+    connectionId: string,
+    profileImagePath: string,
+    isOnline
+  ) {
     this.userData.userId = id;
     this.userData.userName = userName;
     this.userData.connectionId = connectionId;
@@ -92,20 +98,24 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   showList() {
-    this.getMyChats();
+    this.getMyChats(true);
     this.showThread = false;
   }
 
-  getMyChats() {
-    this.isBlocked = true;
-    this.chatService.getMyChats().subscribe(result => {
-      this.chats = result.details;
-      this.isBlocked = false;
-      this.getConnectedUsers();
-    }, error => {
-      this.isBlocked = false;
-      this.toastr.error('Couldn\'t load your chats', 'Error');
-    });
+  getMyChats(requieRefresh: boolean) {
+    this.isBlocked = requieRefresh;
+    this.chatService.getMyChats().subscribe(
+      result => {
+        this.chats = result.details;
+        this.isBlocked = false;
+        this.getConnectedUsers();
+      },
+      error => {
+        this.isBlocked = false;
+        // tslint:disable-next-line:quotemark
+        this.toastr.error("Couldn't load your chats", 'Error');
+      }
+    );
   }
 
   getUsers() {
@@ -120,7 +130,9 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.showThisThread(
       event.item.id,
       event.item.userName,
-      event.item.connectionId
+      event.item.connectionId,
+      event.item.profileImagePath,
+      event.item.isOnline
     );
     this.userSelected = '';
   }
@@ -130,7 +142,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToEvents(): void {
-    this.subscription = this.layoutService.userConnected.subscribe(
+    this.subsink.sink = this.layoutService.userConnected.subscribe(
       (user: UserConnectionModel) => {
         this.ngZone.run(() => {
           const isUserAvailable = this.chats.some(
@@ -145,6 +157,13 @@ export class ChatComponent implements OnInit, OnDestroy {
         });
       }
     );
+
+    this.subsink.sink = this.layoutService.messageReceived.subscribe(
+      () => {
+        this.getMyChats(false);
+      },
+      error => {}
+    );
   }
 
   getConnectedUsers() {
@@ -152,7 +171,9 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.chats.forEach(user => {
       if (onlineUsers.some(a => a.userName === user.userName)) {
         user.isOnline = true;
-        user.connectionId = onlineUsers.find(a => a.userName === user.userName).connectionId;
+        user.connectionId = onlineUsers.find(
+          a => a.userName === user.userName
+        ).connectionId;
       } else {
         user.isOnline = false;
         user.connectionId = null;
