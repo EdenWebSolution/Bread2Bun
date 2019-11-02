@@ -5,6 +5,7 @@ import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
 import { BaseService } from '../core/services/base.service';
 import { ChatThread } from '../messages/Models/chat-thread';
 import { UserConnection } from '../shared/models/UserConnection';
+import { Subject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,9 @@ export class LayoutService extends BaseService {
   userConnections: Array<UserConnectionModel>;
   userConnected: EventEmitter<UserConnectionModel>;
   // connectionEstablished = new EventEmitter<boolean>();
+
+  private unreadMessageCount$: Subject<number>;
+  allUnreadMessageCount$: Observable<number>;
 
   private connectionIsEstablished = false;
   private hubConnection: HubConnection;
@@ -41,7 +45,7 @@ export class LayoutService extends BaseService {
       })
       // .withHubProtocol(protocol)
       .build();
-    this.hubConnection.serverTimeoutInMilliseconds = 3.6e6;
+    // this.hubConnection.serverTimeoutInMilliseconds = 3.6e6;
   }
 
   private startConnection(): void {
@@ -66,6 +70,9 @@ export class LayoutService extends BaseService {
   }
 
   private registerOnServerEvents(): void {
+    this.unreadMessageCount$ = new Subject();
+    this.allUnreadMessageCount$ = this.unreadMessageCount$.asObservable();
+
     this.hubConnection.on('ReceiveMessage', (data: ChatThread) => {
       this.messageReceived.emit(data);
     });
@@ -73,7 +80,7 @@ export class LayoutService extends BaseService {
     this.hubConnection.on(
       'newMessageNotification',
       (unreadMessageCount: number) => {
-        console.log(unreadMessageCount);
+        this.unreadMessageCount$.next(unreadMessageCount);
       }
     );
 

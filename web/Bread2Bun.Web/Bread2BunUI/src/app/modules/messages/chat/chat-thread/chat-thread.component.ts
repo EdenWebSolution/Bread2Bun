@@ -16,6 +16,7 @@ import { ChatThread } from '../../Models/chat-thread';
 import { BaseService } from 'src/app/modules/core/services/base.service';
 import { MessageStatus } from 'src/app/modules/core/enums/MessageStatus';
 import { ToastrService } from 'ngx-toastr';
+import { SubSink } from 'subsink';
 
 @Component({
   selector: 'app-chat-thread',
@@ -27,8 +28,6 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
   @Output() showList = new EventEmitter();
   @Input() userData: any;
   chatThread: Array<MessageModel>;
-
-  subscription: Subscription;
   message: string;
   isSending: boolean;
   chatMessages: Array<ChatThread>;
@@ -37,6 +36,8 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
   isBlocked = false;
   connectionId: string;
   myUserName: string;
+  subsink: SubSink;
+
   constructor(
     private layoutService: LayoutService,
     private ngZone: NgZone,
@@ -44,6 +45,7 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
     private baseService: BaseService,
     private toastr: ToastrService
   ) {
+    this.subsink = new SubSink();
     this.isSending = false;
     this.subscribeToEvents();
     this.chatThread = new Array<MessageModel>();
@@ -61,10 +63,7 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.layoutService.messageReceived) {
-      this.subscription.unsubscribe();
-      this.toggleMessageReadStatus();
-    }
+    this.subsink.unsubscribe();
   }
 
   sendMessage() {
@@ -93,7 +92,7 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
 
   private subscribeToEvents(): void {
     this.isSending = false;
-    this.subscription = this.layoutService.messageReceived.subscribe(
+    this.subsink.sink = this.layoutService.messageReceived.subscribe(
       (message: ChatThread) => {
         this.ngZone.run(() => {
           if (message.fromId !== this.myUserId) {

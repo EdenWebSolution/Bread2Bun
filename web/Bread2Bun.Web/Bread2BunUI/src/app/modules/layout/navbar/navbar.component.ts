@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { slideFromUp } from 'src/app/animations';
 import { MenuItem } from '../models/menu-item';
 import { ToastrService } from 'ngx-toastr';
@@ -6,6 +6,7 @@ import { AuthorizeService } from '../../authorize/services/authorize.service';
 import { Router } from '@angular/router';
 import { LayoutService } from '../layout.service';
 import { NavbarService } from './navbar.service';
+import { SubSink } from 'subsink';
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +14,7 @@ import { NavbarService } from './navbar.service';
   styleUrls: ['./navbar.component.scss'],
   animations: [slideFromUp]
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
   show: boolean;
   showDropdown: boolean;
   menuItem: MenuItem[];
@@ -21,6 +22,7 @@ export class NavbarComponent implements OnInit {
   max = 5;
   isReadonly = false;
   allUnreadMessageCount: number;
+  subsink: SubSink;
 
   constructor(
     private t: ToastrService,
@@ -29,6 +31,7 @@ export class NavbarComponent implements OnInit {
     private layoutService: LayoutService,
     private navbarService: NavbarService
   ) {
+    this.subsink = new SubSink();
     this.show = false;
     this.showDropdown = false;
     this.menuItem = new Array<MenuItem>();
@@ -37,6 +40,11 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     this.loadMenu();
     this.getAllUnreadMessageCount();
+    this.initSubjects();
+  }
+
+  ngOnDestroy() {
+    this.subsink.unsubscribe();
   }
 
   loadMenu() {
@@ -88,6 +96,15 @@ export class NavbarComponent implements OnInit {
       result => {
         this.allUnreadMessageCount = result;
         console.log(this.allUnreadMessageCount);
+      },
+      error => {}
+    );
+  }
+
+  initSubjects() {
+    this.subsink.sink = this.layoutService.allUnreadMessageCount$.subscribe(
+      count => {
+        this.allUnreadMessageCount = count;
       },
       error => {}
     );
