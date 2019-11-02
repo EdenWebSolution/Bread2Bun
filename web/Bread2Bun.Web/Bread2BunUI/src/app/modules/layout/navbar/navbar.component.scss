@@ -35,8 +35,29 @@
           @media only screen and (max-width: 767px) {
             text-align: left;
           }
+          span {
+            width: 20px;
+            position: absolute;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            top: 0;
+            right: -5px;
+            background: #fcff19;
+            height: 20px;
+            border-radius: 50%;
+            color: #000;
+          }
         }
       }
+    }
+    .user-info{
+      padding: 0 10px;
+      color: $brand-color;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border-radius: 30px;
+      background: #fff;
     }
     .navbar-toggler {
       background: lighten($brand-color, 20%);
@@ -63,12 +84,22 @@
         -webkit-font-smoothing: subpixel-antialiased;
         width: 20%;
         transition: all cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s;
-        &.logout{
-          a{
+        &.logout {
+          a {
             color: $logo-red;
           }
         }
-
+        span{
+          position: absolute;
+          top: 7px;
+          width: 15px;
+          height: 15px;
+          border-radius: 50%;
+          line-height: 15px;
+          background: #fcff19;
+          color: #000;
+          font-weight: 600;
+        }
         cursor: pointer;
         font-weight: 500;
         a {
@@ -81,7 +112,7 @@
           box-shadow: 0 16px 26px -10px rgba(244, 67, 54, 0.56),
             0 4px 25px 0px rgba(0, 0, 0, 0.12),
             0 8px 10px -5px rgba(244, 67, 54, 0.2);
-            transform: scale(1.1);
+          transform: scale(1.1);
           a {
             color: #ffffff;
           }
