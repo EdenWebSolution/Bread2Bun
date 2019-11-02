@@ -51,6 +51,14 @@
         }
       }
     }
+    .user-info{
+      padding: 0 10px;
+      color: $brand-color;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border-radius: 30px;
+      background: #fff;
+    }
     .navbar-toggler {
       background: lighten($brand-color, 20%);
       min-width: 50px;

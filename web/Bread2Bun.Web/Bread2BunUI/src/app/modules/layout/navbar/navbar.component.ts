@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { LayoutService } from '../layout.service';
 import { NavbarService } from './navbar.service';
 import { SubSink } from 'subsink';
+import { BaseService } from '../../core/services/base.service';
 
 @Component({
   selector: 'app-navbar',
@@ -23,13 +24,15 @@ export class NavbarComponent implements OnInit, OnDestroy {
   isReadonly = false;
   allUnreadMessageCount: number;
   subsink: SubSink;
+  userName: string;
 
   constructor(
     private t: ToastrService,
     private authorizeService: AuthorizeService,
     private router: Router,
     private layoutService: LayoutService,
-    private navbarService: NavbarService
+    private navbarService: NavbarService,
+    private baseService: BaseService
   ) {
     this.subsink = new SubSink();
     this.show = false;
@@ -41,6 +44,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.loadMenu();
     this.getAllUnreadMessageCount();
     this.initSubjects();
+    this.getUserName();
   }
 
   ngOnDestroy() {
@@ -107,5 +111,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
       },
       error => {}
     );
+  }
+
+  getUserName(){
+    this.userName = this.baseService.getUserName();
   }
 }
