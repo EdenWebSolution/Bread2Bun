@@ -95,7 +95,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.navbarService.getAllUnreadMessageCOunt().subscribe(
       result => {
         this.allUnreadMessageCount = result;
-        console.log(this.allUnreadMessageCount);
       },
       error => {}
     );
