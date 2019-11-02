@@ -5,7 +5,10 @@ import {
   EventEmitter,
   Input,
   NgZone,
-  OnDestroy
+  OnDestroy,
+  ViewChild,
+  ElementRef,
+  AfterViewChecked
 } from '@angular/core';
 import { slideFromLeft } from 'src/app/animations';
 import { MessageModel } from '../../Models/MessageModel';
@@ -24,7 +27,7 @@ import { SubSink } from 'subsink';
   styleUrls: ['./chat-thread.component.scss'],
   animations: [slideFromLeft]
 })
-export class ChatThreadComponent implements OnInit, OnDestroy {
+export class ChatThreadComponent implements OnInit, OnDestroy, AfterViewChecked {
   @Output() showList = new EventEmitter();
   @Input() userData: any;
   chatThread: Array<MessageModel>;
@@ -37,6 +40,7 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
   connectionId: string;
   myUserName: string;
   subsink: SubSink;
+  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
   constructor(
     private layoutService: LayoutService,
@@ -107,16 +111,14 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
 
   getThread(id: number) {
     this.isBlocked = true;
-    this.chatService.getMyThread(id).subscribe(
-      result => {
-        this.chatMessages = result.details;
-        this.isBlocked = false;
-      },
-      error => {
-        this.isBlocked = false;
-        this.toastr.error('Failed to retrieve messages', 'Error');
-      }
-    );
+    this.chatService.getMyThread(id).subscribe(result => {
+      this.chatMessages = result.details;
+      this.isBlocked = false;
+      this.scrollToBottom();
+    }, error => {
+      this.isBlocked = false;
+      this.toastr.error('Failed to retrieve messages', 'Error');
+    });
   }
 
   toggleMessageReadStatus() {
@@ -144,5 +146,15 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
         },
         error => {}
       );
+  }
+
+  scrollToBottom(): void {
+    try {
+      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    } catch (err) { }
+  }
+
+  ngAfterViewChecked() {
+    this.scrollToBottom();
   }
 }
