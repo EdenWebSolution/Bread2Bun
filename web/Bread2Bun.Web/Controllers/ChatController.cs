@@ -16,10 +16,12 @@ namespace Bread2Bun.Web.Controllers
     public class ChatController : BaseAPIController
     {
         private readonly IChatService chatService;
+        private readonly UserResolverService userResolverService;
 
-        public ChatController(IChatService chatService)
+        public ChatController(IChatService chatService, UserResolverService userResolverService)
         {
             this.chatService = chatService;
+            this.userResolverService = userResolverService;
         }
         [HttpGet]
         public async Task<IActionResult> GetAllChatById([FromQuery]PaginationBase paginationBase, [FromQuery]long to)
@@ -40,6 +42,13 @@ namespace Bread2Bun.Web.Controllers
         {
             await chatService.ToggleMessageReadStatus(fromId, status);
             return Ok();
+        }
+
+        [HttpGet("allunreadcount")]
+        public async Task<IActionResult> GetAllUnreadMessageCount()
+        {
+            var unreadCount = await chatService.GetCountOfAllUnredMessages(userResolverService.UserId);
+            return Ok(unreadCount);
         }
     }
 }

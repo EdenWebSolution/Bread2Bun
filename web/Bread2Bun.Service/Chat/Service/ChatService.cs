@@ -44,8 +44,7 @@ namespace Bread2Bun.Service.Chat.Service
                     await bread2BunContext.AddAsync(messageThread);
                 }
 
-                var isRead = messageModel.ClientUniqueId == null ? false : true;
-                var message = new Message().Create(userResolverService.UserId, messageModel.ToId, messageModel.Text, messageThread.Id, isRead);
+                var message = new Message().Create(userResolverService.UserId, messageModel.ToId, messageModel.Text, messageThread.Id, false);
                 await bread2BunContext.AddAsync(message);
                 await bread2BunContext.SaveChangesAsync();
                 return new ChatModel { Date = message.CreatedOn, FromId = message.FromId, ToId = message.ToId, Message = message.Text };
@@ -56,6 +55,12 @@ namespace Bread2Bun.Service.Chat.Service
                 throw;
             }
 
+        }
+
+        public async Task<int> GetCountOfAllUnredMessages(long toId)
+        {
+            var count = await bread2BunContext.Message.Where(w => w.ToId == toId && !w.IsRead).CountAsync();
+            return count;
         }
 
         public async Task<PaginationModel<ChatModel>> GetAllChatById(PaginationBase paginationBase, long to)
@@ -70,7 +75,7 @@ namespace Bread2Bun.Service.Chat.Service
 
             var totalRecords = await query.AsNoTracking().CountAsync();
 
-            query = query.Skip(paginationBase.Skip).Take(paginationBase.Take);
+            query = query.OrderBy(o => o.Id).Skip(paginationBase.Skip).Take(paginationBase.Take);
 
             var result = query.Select(s => new ChatModel
             {
@@ -135,5 +140,8 @@ namespace Bread2Bun.Service.Chat.Service
         {
             await bread2BunContext.Database.ExecuteSqlCommandAsync($"UPDATE [dbo].[Message] SET IsRead = {(int)status} WHERE IsRead = 0 AND FromId = {fromId} AND ToId = {userResolverService.UserId}");
         }
+
+
+
     }
 }

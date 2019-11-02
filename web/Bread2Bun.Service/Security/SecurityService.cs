@@ -212,5 +212,12 @@ namespace Bread2Bun.Service.Security
             }
 
         }
+
+        public async Task ToggleUserOnlineStatus(string username, bool isOnline)
+        {
+            var user = await userManager.FindByNameAsync(username);
+            user.ToggleOnlineStatus(isOnline);
+            await userManager.UpdateAsync(user);
+        }
     }
 }

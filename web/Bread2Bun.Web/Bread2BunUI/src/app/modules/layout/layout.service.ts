@@ -34,11 +34,14 @@ export class LayoutService extends BaseService {
       localStorage.getItem('bread2bun-TokenId') === null
         ? sessionStorage.getItem('bread2bun-TokenId')
         : localStorage.getItem('bread2bun-TokenId');
+
     this.hubConnection = new HubConnectionBuilder()
       .withUrl(`${this.baseEndPoint}/chat`, {
         accessTokenFactory: () => authToken
       })
+      // .withHubProtocol(protocol)
       .build();
+    this.hubConnection.serverTimeoutInMilliseconds = 3.6e6;
   }
 
   private startConnection(): void {
@@ -66,6 +69,13 @@ export class LayoutService extends BaseService {
     this.hubConnection.on('ReceiveMessage', (data: ChatThread) => {
       this.messageReceived.emit(data);
     });
+
+    this.hubConnection.on(
+      'newMessageNotification',
+      (unreadMessageCount: number) => {
+        console.log(unreadMessageCount);
+      }
+    );
 
     this.hubConnection.on(
       'UserConnected',

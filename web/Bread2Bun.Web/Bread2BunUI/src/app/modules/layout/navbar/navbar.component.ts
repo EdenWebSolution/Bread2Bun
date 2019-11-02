@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthorizeService } from '../../authorize/services/authorize.service';
 import { Router } from '@angular/router';
 import { LayoutService } from '../layout.service';
+import { NavbarService } from './navbar.service';
 
 @Component({
   selector: 'app-navbar',
@@ -19,12 +20,14 @@ export class NavbarComponent implements OnInit {
   rate = 5;
   max = 5;
   isReadonly = false;
+  allUnreadMessageCount: number;
 
   constructor(
     private t: ToastrService,
     private authorizeService: AuthorizeService,
     private router: Router,
-    private layoutService: LayoutService
+    private layoutService: LayoutService,
+    private navbarService: NavbarService
   ) {
     this.show = false;
     this.showDropdown = false;
@@ -33,6 +36,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this.loadMenu();
+    this.getAllUnreadMessageCount();
   }
 
   loadMenu() {
@@ -72,10 +76,20 @@ export class NavbarComponent implements OnInit {
         this.router.navigate(['/authorize']);
       },
       error => {
-        this.t.error('Can\'t logout', 'Error');
+        this.t.error("Can't logout", 'Error');
       }
     );
   }
 
-  getRating() { }
+  getRating() {}
+
+  getAllUnreadMessageCount() {
+    this.navbarService.getAllUnreadMessageCOunt().subscribe(
+      result => {
+        this.allUnreadMessageCount = result;
+        console.log(this.allUnreadMessageCount);
+      },
+      error => {}
+    );
+  }
 }

@@ -16,6 +16,7 @@ namespace Bread2Bun.Service.Security.Interface
         Task ConfirmEmailAsync(ConfirmEmailModel confirmEmailModel);
         Task AddNewClaim();
         Task Logout();
+        Task ToggleUserOnlineStatus(string username, bool isOnline);
         Task<IEnumerable<UsersSummaryModel>> GetAllUsers(string searchTerm);
     }
 }

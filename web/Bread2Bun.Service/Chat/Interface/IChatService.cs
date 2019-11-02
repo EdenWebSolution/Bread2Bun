@@ -14,5 +14,6 @@ namespace Bread2Bun.Service.Chat.Interface
         Task<PaginationModel<ChatModel>> GetAllChatById(PaginationBase paginationBase, long to);
         Task<PaginationModel<ChatSummaryModel>> GetAllChatSummary();
         Task ToggleMessageReadStatus(long fromId, MessageStatus status);
+        Task<int> GetCountOfAllUnredMessages(long toId);
     }
 }
