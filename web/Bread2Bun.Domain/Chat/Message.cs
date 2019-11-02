@@ -8,15 +8,29 @@ namespace Bread2Bun.Domain.Chat
 {
     public class Message : Audit
     {
-        public long Id { get; set; }
-        public long FromId { get; set; }
+        public long Id { get; protected set; }
+        public long FromId { get; protected set; }
         [ForeignKey(nameof(FromId))]
-        public StoreUser From { get; set; }
-        public long ToId { get; set; }
+        public StoreUser From { get; protected set; }
+        public long ToId { get; protected set; }
         [ForeignKey(nameof(ToId))]
-        public StoreUser To { get; set; }
-        public string Text { get; set; }
-        public bool IsRead { get; set; }
+        public StoreUser To { get; protected set; }
+        public string Text { get; protected set; }
+        public bool IsRead { get; protected set; }
+
+        public Guid ThreadId { get; set; }
+        [ForeignKey(nameof(ThreadId))]
+        public MessageThreaad MessageThreaad { get; set; }
+
+        public Message Create(long fromId, long toId, string text, Guid messageThreadId, bool isRead)
+        {
+            FromId = fromId;
+            ToId = toId;
+            Text = text;
+            ThreadId = messageThreadId;
+            IsRead = isRead;
+            return this;
+        }
 
     }
 }

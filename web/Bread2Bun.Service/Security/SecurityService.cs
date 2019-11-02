@@ -8,9 +8,11 @@ using Bread2Bun.Domain.Security;
 using Bread2Bun.Service.Security.Interface;
 using Bread2Bun.Service.Security.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Authentication;
@@ -27,10 +29,13 @@ namespace Bread2Bun.Service.Security
         private readonly UserManager<StoreUser> userManager;
         private readonly SignInManager<StoreUser> signInManager;
         private readonly IConfiguration configuration;
+        private readonly UserResolverService userResolverService;
+
 
         public SecurityService(Bread2BunContext bread2BunContext,
             IMapper mapper, UserManager<StoreUser> userManager,
-            SignInManager<StoreUser> signInManager, IConfiguration configuration
+            SignInManager<StoreUser> signInManager, IConfiguration configuration,
+            UserResolverService userResolverService
             )
         {
             this.bread2BunContext = bread2BunContext;
@@ -38,6 +43,7 @@ namespace Bread2Bun.Service.Security
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.configuration = configuration;
+            this.userResolverService = userResolverService;
         }
 
         public async Task<StoreUserModel> CreateUserAsync(CreateStoreUserModel createStoreUserModel)
@@ -181,6 +187,37 @@ namespace Bread2Bun.Service.Security
         public async Task Logout()
         {
             await signInManager.SignOutAsync();
+        }
+
+
+        public async Task<IEnumerable<UsersSummaryModel>> GetAllUsers(string searchTerm)
+        {
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                var allUSers = userManager.Users.Where(w => w.IsDeleted == false &&
+                                                       w.Id != userResolverService.UserId &&
+                                                       EF.Functions.Like(w.UserName, searchTerm + "%"))
+                    .Select(s => new UsersSummaryModel
+                    {
+                        Id = s.Id,
+                        UserName = s.UserName,
+                        ProfileImagePath = s.ProfilePictureImagePath == null ? null : FolderPath.ImagePath + FolderPath.ProfileImages + s.ProfilePictureImagePath
+                    }).AsNoTracking().AsQueryable();
+
+                return await allUSers.ToListAsync();
+            }
+            else
+            {
+                return new List<UsersSummaryModel>();
+            }
+
+        }
+
+        public async Task ToggleUserOnlineStatus(string username, bool isOnline)
+        {
+            var user = await userManager.FindByNameAsync(username);
+            user.ToggleOnlineStatus(isOnline);
+            await userManager.UpdateAsync(user);
         }
     }
 }

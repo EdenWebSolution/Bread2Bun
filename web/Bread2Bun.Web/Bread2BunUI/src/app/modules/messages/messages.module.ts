@@ -5,9 +5,10 @@ import { MessagesRoutingModule } from './messages-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { ChatComponent } from './chat/chat.component';
 import { TimeAgoPipe } from 'time-ago-pipe';
+import { ChatThreadComponent } from './chat/chat-thread/chat-thread.component';
 
 @NgModule({
-  declarations: [ChatComponent],
+  declarations: [ChatComponent, ChatThreadComponent],
   imports: [
     CommonModule,
     MessagesRoutingModule,

@@ -1,0 +1,178 @@
+@import "../../../../styles/colors";
+@import "../../../../styles/fonts";
+
+$green: #86bb71;
+$blue: #94c2ed;
+$orange: #e38968;
+$gray: #92959e;
+
+.chat-history-wrapper {
+  width: 50%;
+  background: #fff;
+  position: relative;
+  margin: 90px auto 0;
+  display: flex;
+  flex-direction: column;
+  @media only screen and (max-width: 767px) {
+    width: 100%;
+    font-size: 0.9rem;
+    margin-top: 50px;
+  }
+  .chat-user {
+    width: 100%;
+    background: url("../../../../../assets/images/login-texture.png") #fcb68a;
+    z-index: 999;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    .back-btn {
+      button {
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 30px;
+        text-shadow: 0 0 3px #afafae;
+      }
+      margin-right: 10px;
+    }
+    .user-img {
+      img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 15px;
+      }
+    }
+    .user-details {
+      .name {
+        color: #fff;
+        font-weight: 600;
+      }
+      .unread {
+        font-size: 0.9rem;
+      }
+    }
+    .status {
+      margin-left: auto;
+      span {
+        width: 15px;
+        height: 15px;
+        background: #27ec36;
+        display: inline-block;
+        border-radius: 50%;
+      }
+    }
+  }
+  .chat-history {
+    padding: 25px 30px 20px;
+    border-bottom: 2px solid white;
+    overflow-y: scroll;
+    max-height: calc(100vh - 310px);
+    min-height: calc(100vh - 310px);
+
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: none;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      color: #ccc;
+      background: #ccc;
+      border-radius: 30px;
+    }
+    ul {
+      padding: 0;
+      list-style-type: none;
+    }
+
+    .message-data {
+      margin-bottom: 15px;
+    }
+
+    .message-data-time {
+      color: lighten($gray, 8%);
+      padding-left: 6px;
+    }
+
+    .message {
+      color: white;
+      padding: 5px 10px;
+      line-height: 20px;
+      font-size: 15px;
+      border-radius: 7px;
+      margin-bottom: 15px;
+      width: 70%;
+      position: relative;
+      .time{
+        font-size: 0.6rem;
+        font-weight: 600;
+        &.text-right{
+          text-align: right;
+        }
+      }
+
+      &:after {
+        bottom: 100%;
+        left: 10%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+        border-bottom-color: $green;
+        border-width: 10px;
+        margin-left: -10px;
+        @media only screen and (max-width: 767px) {
+          left: 15%;
+        }
+      }
+    }
+
+    .my-message {
+      background: $green;
+    }
+
+    .other-message {
+      background: #f9690ecc;
+
+      &:after {
+        border-bottom-color: #f9690ecc;
+        left: 90%;
+        @media only screen and (max-width: 767px) {
+          left: 85%;
+        }
+      }
+    }
+  }
+  .chat-message {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 15px;
+    background: url("../../../../../assets/images/login-texture.png") #fcb68a;
+    textarea {
+      width: 100%;
+      border: none;
+      padding: 10px 20px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      resize: none;
+      margin-right: 20px;
+    }
+    button {
+      height: 35px;
+      color: #fff;
+      font-size: 16px;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      background: $brand-color;
+      border-radius: 5px;
+    }
+  }
+}

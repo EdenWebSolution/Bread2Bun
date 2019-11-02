@@ -18,6 +18,7 @@ namespace Bread2Bun.Domain.Security
         public virtual Gender? Gender { get; protected set; }
         public virtual bool IsAdmin { get; protected set; }
         public virtual string ProfilePictureImagePath { get; protected set; }
+        public virtual bool IsOnline { get; set; }
 
 
         #region Relationships
@@ -41,6 +42,12 @@ namespace Bread2Bun.Domain.Security
         public StoreUser UpdateImage(string profilePictureImage)
         {
             ProfilePictureImagePath = profilePictureImage;
+            return this;
+        }
+
+        public StoreUser ToggleOnlineStatus(bool isOnline)
+        {
+            this.IsOnline = isOnline;
             return this;
         }
         #endregion

@@ -6,6 +6,7 @@ import { ProfileService } from '../services/profile.service';
 import { ToastrService } from 'ngx-toastr';
 import { CreateReviewModel } from '../models/create-review-model';
 import { GetReviewListModel, ReviewList } from '../models/get-review-list-model';
+import { BaseService } from '../../core/services/base.service';
 
 @Component({
   selector: 'app-profile-reviews',
@@ -35,7 +36,7 @@ export class ProfileReviewsComponent implements OnInit {
   userSub: number;
   isMyProfile = false;
   reviewFinished: boolean = false;
-  profileImgUrl: string = 'https://t3.ftcdn.net/jpg/00/64/67/80/240_F_64678017_zUpiZFjj04cnLri7oADnyMH0XBYyQghG.jpg';
+  profileImgUrl: string = '../../../../assets/images/default.jpg';
 
 
 
@@ -45,7 +46,8 @@ export class ProfileReviewsComponent implements OnInit {
     private router: Router,
     private profileService: ProfileService,
     private activatedRoute: ActivatedRoute,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private baseService: BaseService
   ) { }
 
   ngOnInit() {
@@ -62,7 +64,7 @@ export class ProfileReviewsComponent implements OnInit {
       });
     });
 
-    this.userSub = +localStorage.getItem('user-sub');
+    this.userSub = +this.baseService.getUserId();
     if (this.userSub === +this.userId) {
       this.isMyProfile = true;
     }

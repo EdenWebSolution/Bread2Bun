@@ -8,7 +8,11 @@ namespace Bread2Bun.Service.Chat.Model
     {
         public string Name { get; set; }
         public string UserName { get; set; }
-        public long UserId { get; set; }
+        public long ToUserId { get; set; }
+        public long FromUserId { get; set; }
         public string LastMessage { get; set; }
+        public DateTimeOffset Date { get; set; }
+        public int UnReadCount { get; set; }
+        public string ProfileImagePath { get; set; }
     }
 }

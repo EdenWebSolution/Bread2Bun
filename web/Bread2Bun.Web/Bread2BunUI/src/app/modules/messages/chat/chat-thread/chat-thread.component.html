@@ -1,0 +1,47 @@
+<div class="chat-history-wrapper" @slideFromLeft>
+  <div class="chat-user">
+    <div class="back-btn">
+      <button (click)="goBack()"><i class="fas fa-chevron-circle-left"></i></button>
+    </div>
+    <div class="user-img">
+      <img
+      [src]="(profileImage !== null && profileImage !== undefined) ? profileImage: nullImagePath"
+        alt="">
+    </div>
+    <div class="user-details">
+      <div class="name">{{userName}}</div>
+    </div>
+    <div class="status">
+      <span *ngIf="isOnline"></span>
+    </div>
+  </div>
+
+  <div class="chat-history" #scrollMe>
+    <div class="placeholder" *ngIf="isBlocked">
+      <div class="lines"></div>
+      <div class="lines"></div>
+      <div class="lines"></div>
+      <div class="lines"></div>
+      <div class="lines"></div>
+      <div class="lines"></div>
+      <div class="lines"></div>
+      <div class="lines"></div>
+      <div class="lines"></div>
+      <div class="lines"></div>
+    </div>
+    <ul *ngIf="!isBlocked">
+      <li *ngFor="let chat of chatMessages">
+        <div [ngClass]="chat.toId === myUserId? 'my-message float-left': 'other-message float-right'" class="message">
+          <div class="text">{{chat.message}}</div>
+          <div class="time" [ngClass]="chat.toId === myUserId? '': 'text-right'">{{chat.date | chatTime | async}}</div>
+        </div>
+      </li>
+    </ul>
+
+  </div>
+  <div class="chat-message">
+    <textarea name="message-to-send" id="message-to-send" placeholder="Type your message" rows="3"
+      [(ngModel)]="message"></textarea>
+    <button [disabled]="message === null" (click)="sendMessage()">Send</button>
+  </div>
+</div>

@@ -57,8 +57,6 @@ export class LoginComponent implements OnInit {
         localStorage.removeItem('bread2bun-TokenId');
       }
       this.loading = false;
-      localStorage.setItem('my-username', decodedToken.unique_name);
-      localStorage.setItem('user-sub', decodedToken.sub);
       this.router.navigate(['/app/feed']);
     }, error => {
       this.loading = false;

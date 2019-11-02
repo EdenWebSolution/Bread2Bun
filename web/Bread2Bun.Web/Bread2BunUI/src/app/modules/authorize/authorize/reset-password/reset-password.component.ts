@@ -37,7 +37,6 @@ export class ResetPasswordComponent implements OnInit {
     this.resetPasswordModel.token = this.activatedRoute.snapshot.queryParamMap.get('token');
     this.resetPasswordModel.email = this.activatedRoute.snapshot.queryParamMap.get('email');
 
-    console.log(this.resetPasswordModel);
     this.resetPasswordForm = this.fb.group({
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPasssword: ['', [passwordValidator, Validators.required]],

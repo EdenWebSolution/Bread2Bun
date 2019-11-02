@@ -8,9 +8,10 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { TagInputModule } from 'ngx-chips';
+import { ChatTimePipe } from './pipes/chat-time.pipe';
 
 @NgModule({
-  declarations: [TimeAgoPipe],
+  declarations: [TimeAgoPipe, ChatTimePipe],
   imports: [
     CommonModule,
     FormsModule,
@@ -39,7 +40,8 @@ import { TagInputModule } from 'ngx-chips';
     ClipboardModule,
     TimeAgoPipe,
     NgMultiSelectDropDownModule,
-    TagInputModule
+    TagInputModule,
+    ChatTimePipe
   ]
 })
 export class SharedModule { }

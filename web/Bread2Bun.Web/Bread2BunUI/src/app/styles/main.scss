@@ -382,3 +382,28 @@ body {
     border-radius: 50%;
   }
 }
+
+.placeholder {
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.lines {
+  height: 15px;
+  margin-bottom: 10px;
+  background: linear-gradient(90deg, rgba(230, 230, 230, 0.5) 0%, rgba(247, 247, 247, 0.7) 100%);
+  border-radius: 30px;
+  animation: loading 0.8s infinite;
+}
+
+@keyframes loading {
+  from {
+    width: 0%
+  }
+  to {
+    width: 100%;
+  }
+}

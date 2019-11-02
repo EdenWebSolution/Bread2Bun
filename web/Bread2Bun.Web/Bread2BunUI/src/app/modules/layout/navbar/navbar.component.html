@@ -1,6 +1,6 @@
-<div class="b2b-menu" @slideFromUp>
+<div class="b2b-menu d-none d-md-block" @slideFromUp>
   <nav class="navbar navbar-expand-lg">
-    <div class="navbar-brand" [routerLink]="['/app/feed']" >
+    <div class="navbar-brand" [routerLink]="['/app/feed']">
       <div class="logo">Bread<span>2</span>Bun</div>
     </div>
     <button
@@ -28,12 +28,31 @@
           routerLinkActive="active"
           *ngFor="let item of menuItem"
         >
-          <a class="nav-link" [routerLink]="[item.path]">{{ item.title }}</a>
+          <a class="nav-link" [routerLink]="[item.path]">{{ item.title }} <span *ngIf="item.title==='Messages' && allUnreadMessageCount > 0">{{allUnreadMessageCount}}</span></a>
         </li>
         <li class="nav-item">
           <div class="nav-link" (click)="logout()">Logout</div>
         </li>
       </ul>
+      <div class="user-info">Hi, {{userName}}</div>
     </div>
   </nav>
 </div>
+<div class="mobile-menu d-md-none">
+  <div class="menu-wrapper">
+    <div class="menu-items">
+      <div
+        class="items"
+        routerLinkActive="active"
+        *ngFor="let item of menuItem"
+      >
+        <a [routerLink]="[item.path]"><i class="fas {{ item.icon }}"></i></a>
+        <span *ngIf="item.title==='Messages' && allUnreadMessageCount > 0">{{allUnreadMessageCount}}</span>
+      </div>
+      <div class="items logout">
+        <a (click)="logout()"><i class="fas fa-sign-out-alt"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -3,7 +3,7 @@
     public static class FolderPath
     {
         #region local
-        //public const string ImagePath = @"http://localhost:54969/";
+        // public const string ImagePath = @"http://localhost:54969/";
         #endregion
 
         #region production

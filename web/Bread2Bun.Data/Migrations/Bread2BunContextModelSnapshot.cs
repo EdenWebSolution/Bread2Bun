@@ -41,15 +41,35 @@ namespace Bread2Bun.Data.Migrations
 
                     b.Property<string>("Text");
 
+                    b.Property<Guid>("ThreadId");
+
                     b.Property<long>("ToId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("FromId");
 
+                    b.HasIndex("ThreadId");
+
                     b.HasIndex("ToId");
 
                     b.ToTable("Message");
+                });
+
+            modelBuilder.Entity("Bread2Bun.Domain.Chat.MessageThreaad", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ChatGroup");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChatGroup")
+                        .IsUnique()
+                        .HasFilter("[ChatGroup] IS NOT NULL");
+
+                    b.ToTable("MessageThreaad");
                 });
 
             modelBuilder.Entity("Bread2Bun.Domain.Food.Food", b =>
@@ -176,6 +196,8 @@ namespace Bread2Bun.Data.Migrations
                     b.Property<bool>("IsAdmin");
 
                     b.Property<bool>("IsDeleted");
+
+                    b.Property<bool>("IsOnline");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -426,6 +448,11 @@ namespace Bread2Bun.Data.Migrations
                     b.HasOne("Bread2Bun.Domain.Security.StoreUser", "From")
                         .WithMany()
                         .HasForeignKey("FromId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Bread2Bun.Domain.Chat.MessageThreaad", "MessageThreaad")
+                        .WithMany()
+                        .HasForeignKey("ThreadId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Bread2Bun.Domain.Security.StoreUser", "To")
