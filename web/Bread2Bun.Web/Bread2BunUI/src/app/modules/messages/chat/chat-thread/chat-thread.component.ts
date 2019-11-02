@@ -129,9 +129,7 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
           );
           const clientUniqueId =
             user === undefined || user === null ? null : user.connectionId;
-          this.layoutService.updateAllMessageCount(
-            this.userData.userId
-          );
+          this.layoutService.updateAllMessageCount();
         },
         error => {}
       );

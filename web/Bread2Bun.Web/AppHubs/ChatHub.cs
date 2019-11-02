@@ -53,7 +53,7 @@ namespace Bread2Bun.Web.AppHubs
             await Clients.Client(clientUniqueId).SendAsync("newMessageNotification", allUnreadMessagCount);
         }
 
-        public async Task GetMyGlobalMessageNotificationToUniqueUser(long toId)
+        public async Task GetMyGlobalMessageNotification()
         {
             var allUnreadMessagCount = await chatService.GetCountOfAllUnredMessages(userResolverService.UserId);
             await Clients.Caller.SendAsync("newMessageNotification", allUnreadMessagCount);

@@ -69,11 +69,8 @@ export class LayoutService extends BaseService {
     this.hubConnection.invoke('SendMessage', message);
   }
 
-  updateAllMessageCount( toId: number) {
-    this.hubConnection.invoke(
-      'GetMyGlobalMessageNotificationToUniqueUser',
-      toId
-    );
+  updateAllMessageCount() {
+    this.hubConnection.invoke('GetMyGlobalMessageNotification');
   }
 
   private registerOnServerEvents(): void {

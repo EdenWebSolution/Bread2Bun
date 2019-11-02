@@ -5,8 +5,6 @@ import { Observable } from 'rxjs/Rx';
 import { throwError } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -18,13 +16,14 @@ export abstract class BaseService {
       'Content-Type': 'application/json'
     })
   };
-  decoder = new JwtHelperService();
+  decoder: JwtHelperService;
   token: string;
   userName: string;
   userId: number;
   decodedToken: any;
-  constructor(
-  ) {
+  constructor() {
+    this.token = null;
+    this.decoder = new JwtHelperService();
     if (localStorage.getItem('bread2bun-TokenId') !== null) {
       this.token = localStorage.getItem('bread2bun-TokenId');
     } else if (sessionStorage.getItem('bread2bun-TokenId') !== null) {
@@ -51,10 +50,7 @@ export abstract class BaseService {
         message: 'Invalid username or password',
         status: error.status
       };
-    } else if (
-      error.status === 401 ||
-      error.status === 408
-    ) {
+    } else if (error.status === 401 || error.status === 408) {
       localStorage.removeItem('bread2bun-TokenId');
       sessionStorage.removeItem('bread2bun-TokenId');
       this.errorMessage = {
