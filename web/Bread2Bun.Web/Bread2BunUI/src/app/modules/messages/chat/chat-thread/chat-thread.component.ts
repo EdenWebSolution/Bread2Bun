@@ -70,7 +70,6 @@ export class ChatThreadComponent implements OnInit, OnDestroy, AfterViewChecked 
     this.profileImage = this.userData.profileImagePath;
     this.isOnline = this.userData.onlineStatus;
     this.myUserName = this.baseService.getUserName();
-    console.log(this.userData);
   }
 
   ngOnDestroy() {
