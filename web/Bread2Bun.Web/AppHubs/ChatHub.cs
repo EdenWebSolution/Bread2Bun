@@ -1,4 +1,5 @@
-﻿using Bread2Bun.Service.Chat.Interface;
+﻿using Bread2Bun.Common;
+using Bread2Bun.Service.Chat.Interface;
 using Bread2Bun.Service.Chat.Model;
 using Bread2Bun.Service.Security.Interface;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -17,12 +18,14 @@ namespace Bread2Bun.Web.AppHubs
         private readonly IChatService chatService;
         private readonly AllConnectedUsers allConnectedUsers;
         private readonly ISecurityService securityService;
+        private readonly UserResolverService userResolverService;
 
-        public ChatHub(IChatService chatService, AllConnectedUsers allConnectedUsers, ISecurityService securityService)
+        public ChatHub(IChatService chatService, AllConnectedUsers allConnectedUsers, ISecurityService securityService, UserResolverService userResolverService)
         {
             this.chatService = chatService;
             this.allConnectedUsers = allConnectedUsers;
             this.securityService = securityService;
+            this.userResolverService = userResolverService;
         }
 
         //public async Task SendMessageToAll(MessageModel msg)
@@ -44,11 +47,18 @@ namespace Bread2Bun.Web.AppHubs
         }
 
 
-        private async Task SendGlobalMessageNotificationToUniqueUser(string clientUniqueId, long toId)
+        public async Task SendGlobalMessageNotificationToUniqueUser(string clientUniqueId, long toId)
         {
             var allUnreadMessagCount = await chatService.GetCountOfAllUnredMessages(toId);
             await Clients.Client(clientUniqueId).SendAsync("newMessageNotification", allUnreadMessagCount);
         }
+
+        public async Task GetMyGlobalMessageNotificationToUniqueUser(long toId)
+        {
+            var allUnreadMessagCount = await chatService.GetCountOfAllUnredMessages(userResolverService.UserId);
+            await Clients.Caller.SendAsync("newMessageNotification", allUnreadMessagCount);
+        }
+
         public override async Task OnConnectedAsync()
         {
             var signleUser = UserConnection.GetUserConnection(Context.ConnectionId, Context.User.Identity.Name, true);

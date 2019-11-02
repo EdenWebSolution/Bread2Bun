@@ -71,7 +71,6 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
 
     const messageModel = new MessageModel();
     if (this.message !== null) {
-
       // push to array
       const myMessage = new ChatThread();
       myMessage.message = this.message;
@@ -83,8 +82,11 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
       // sending message
       messageModel.text = this.message;
       messageModel.toId = this.userData.userId;
-      const user = this.layoutService.userConnections.find(a => a.userName === this.userData.userName);
-      messageModel.clientUniqueId = (user === undefined || user === null) ? null : user.connectionId;
+      const user = this.layoutService.userConnections.find(
+        a => a.userName === this.userData.userName
+      );
+      messageModel.clientUniqueId =
+        user === undefined || user === null ? null : user.connectionId;
       this.layoutService.sendMessage(messageModel);
       this.message = null;
     }
@@ -105,19 +107,34 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
 
   getThread(id: number) {
     this.isBlocked = true;
-    this.chatService.getMyThread(id).subscribe(result => {
-      this.chatMessages = result.details;
-      this.isBlocked = false;
-    }, error => {
-      this.isBlocked = false;
-      this.toastr.error('Failed to retrieve messages', 'Error');
-    });
+    this.chatService.getMyThread(id).subscribe(
+      result => {
+        this.chatMessages = result.details;
+        this.isBlocked = false;
+      },
+      error => {
+        this.isBlocked = false;
+        this.toastr.error('Failed to retrieve messages', 'Error');
+      }
+    );
   }
 
   toggleMessageReadStatus() {
     this.chatService
       .toggleMessageReadStatus(this.userData.userId, MessageStatus.read)
-      .subscribe(() => { }, error => { });
+      .subscribe(
+        () => {
+          const user = this.layoutService.userConnections.find(
+            a => a.userName === this.userData.userName
+          );
+          const clientUniqueId =
+            user === undefined || user === null ? null : user.connectionId;
+          this.layoutService.updateAllMessageCount(
+            this.userData.userId
+          );
+        },
+        error => {}
+      );
   }
 
   goBack() {
@@ -127,7 +144,7 @@ export class ChatThreadComponent implements OnInit, OnDestroy {
         () => {
           this.showList.emit(true);
         },
-        error => { }
+        error => {}
       );
   }
 }
