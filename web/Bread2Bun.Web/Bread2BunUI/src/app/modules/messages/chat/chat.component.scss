@@ -53,6 +53,7 @@
               height: 60px;
               border-radius: 50%;
               border: 3px solid #fff;
+              object-fit: cover;
               &.online {
                 border-color: rgb(21, 241, 21);
               }

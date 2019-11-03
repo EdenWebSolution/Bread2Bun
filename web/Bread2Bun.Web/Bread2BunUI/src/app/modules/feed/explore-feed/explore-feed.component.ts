@@ -6,6 +6,7 @@ import { forkJoin } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { ExploreFeedModel, ExploreFeedFood } from '../models/explore-feed-model';
 import { Router } from '@angular/router';
+import { LayoutService } from '../../layout/layout.service';
 
 @Component({
   selector: 'app-explore-feed',
@@ -20,7 +21,7 @@ export class ExploreFeedComponent implements OnInit {
   throttle = 300;
   skip = 0;
   take = 10;
-  postFinished: boolean = false;
+  postFinished = false;
   DefaultProfileImage: string = '../../../../assets/images/default.jpg';
 
   profileImageUrl: string = '../../../../assets/images/default.jpg';
@@ -28,12 +29,13 @@ export class ExploreFeedComponent implements OnInit {
   posts: Array<ExploreFeedFood> = new Array<ExploreFeedFood>();
   profileData: ViewProfileModel = new ViewProfileModel();
   isBlocked = false;
-  isCompletedProfile: boolean = false;
+  isCompletedProfile = false;
 
   constructor(
     private profileService: ProfileService,
     private tstr: ToastrService,
-    private router: Router
+    private router: Router,
+    private layoutService: LayoutService
   ) { }
 
   ngOnInit() {
@@ -79,5 +81,26 @@ export class ExploreFeedComponent implements OnInit {
 
   editProfile() {
     this.router.navigate(['/app/profile/editProfile']);
+  }
+
+  goToThread(userId: number, userName: string, profileImage: string, ) {
+    const connectedUsers = this.layoutService.userConnections;
+    let connectionId = null;
+    let isOnline = false;
+    if (connectedUsers.some(a => a.userName === userName)) {
+      const connectedUser = connectedUsers.find(user => user.userName === userName);
+      connectionId = connectedUser.connectionId;
+      isOnline = connectedUser.isOnline;
+    }
+    const userObj = {
+      userName,
+      userId,
+      profileImage,
+      connectionId,
+      isOnline
+    };
+    const userObjStringified = JSON.stringify(userObj);
+    localStorage.setItem('chatThread', userObjStringified);
+    this.router.navigate(['/app/messages', userName]);
   }
 }
