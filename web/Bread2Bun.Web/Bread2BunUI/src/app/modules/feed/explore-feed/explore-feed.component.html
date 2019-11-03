@@ -81,15 +81,10 @@
                   <span class="fullname">{{post.fullName}}</span>
                 </div>
                 <div class="user-action-btns">
-                  <button class="message"><span><i class="fas fa-comments"></i></span></button>
+                  <button (click)="goToThread(post.userId, post.username, post.profileImage)" class="message"><span><i class="fas fa-comments"></i></span></button>
                   <button [routerLink]="['/app/profile/view', post.username]" class="view"><span>Profile</span></button>
                 </div>
               </div>
-              <!-- <div class="caption">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure minus commodi maxime
-                deleniti fugiat ex ab maiores magnam recusandae nesciunt cumque minima nihil voluptates nostrum debitis
-                accusantium rem perspiciatis reprehenderit temporibus magni hic voluptate molestias, impedit tempora!
-                Delectus consectetur nisi dolores? Non ab magnam amet, quasi ea natus sequi illo?</div>
-            </div> -->
             </div>
           </div>
           <div *ngIf="!postFinished" class="loader-wrapper">

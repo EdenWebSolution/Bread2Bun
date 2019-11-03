@@ -18,6 +18,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UserConnectionModel } from '../Models/UserConnectionModel';
 import { LayoutService } from '../../layout/layout.service';
 import { SubSink } from 'subsink';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-chat',
@@ -55,7 +56,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     private chatService: ChatService,
     private userService: UserService,
     private eleRef: ElementRef,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private route: ActivatedRoute
   ) {
     this.subsink = new SubSink();
     this.message = new MessageModel();
@@ -77,6 +79,21 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getMyChats(true);
+    this.route.paramMap.subscribe(params => {
+      if (params.get('username') !== null) {
+        const chatData = JSON.parse(localStorage.getItem('chatThread'));
+        this.showThisThread(
+          chatData.userId,
+          chatData.userName,
+          chatData.connectionId,
+          chatData.profileImage,
+          chatData.isOnline
+        );
+        setTimeout(() => {
+          localStorage.removeItem('chatThread');
+        }, 100);
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -87,7 +104,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     userName: string,
     connectionId: string,
     profileImagePath: string,
-    isOnline
+    isOnline: boolean
   ) {
     this.userData.userId = id;
     this.userData.userName = userName;
@@ -162,7 +179,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       () => {
         this.getMyChats(false);
       },
-      error => {}
+      error => { }
     );
   }
 

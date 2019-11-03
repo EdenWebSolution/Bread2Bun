@@ -29,7 +29,7 @@
                   {{profileData.address.country}}</span></div>
             </div>
             <div class="action-btns">
-              <button class="message">My messages <span> <i class="fas fa-comments"></i></span></button>
+              <button [routerLink]="['/app/messages']" class="message">My messages <span> <i class="fas fa-comments"></i></span></button>
               <button class="share" (click)="copyToShare()">Share <span> <i
                     class="fas fa-share-alt"></i></span></button>
               <button *ngIf="myProfile" class="message" (click)="editProfile()">Edit <span><i
