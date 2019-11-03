@@ -30,12 +30,12 @@ export class MyProfileComponent implements OnInit {
   isBlocked = false;
 
   uniqueName: string;
-  myProfile: boolean = true;
+  myProfile = true;
   languagesString: string;
   skip = 0;
   take = 50;
   myReviews: Array<ReviewList> = new Array<ReviewList>();
-  isCompletedProfile: boolean = false;
+  isCompletedProfile = false;
 
   days: Array<any> = [
     {

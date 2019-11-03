@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ProfileService } from '../services/profile.service';
 import { ViewOtherProfileModel } from '../../shared/models/view-other-profile-model';
 import { ToastrService } from 'ngx-toastr';
@@ -8,6 +8,7 @@ import { ReviewList } from '../models/get-review-list-model';
 import { forkJoin } from 'rxjs';
 import { ViewProfileModel } from '../../shared/models/view-profile-model';
 import { BaseService } from '../../core/services/base.service';
+import { LayoutService } from '../../layout/layout.service';
 
 @Component({
   selector: 'app-view-profile',
@@ -73,7 +74,9 @@ export class ViewProfileComponent implements OnInit {
     private profileService: ProfileService,
     private toastr: ToastrService,
     private clipBoardService: ClipboardService,
-    private baseService: BaseService
+    private baseService: BaseService,
+    private layoutService: LayoutService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -135,6 +138,27 @@ export class ViewProfileComponent implements OnInit {
   }
   openInstagram() {
     window.open('   https://www.instagram.com/' + this.profileData.profile.instagram, '_blank');
+  }
+
+  goToThread(userId: number, userName: string, profileImage: string, ) {
+    const connectedUsers = this.layoutService.userConnections;
+    let connectionId = null;
+    let isOnline = false;
+    if (connectedUsers.some(a => a.userName === userName)) {
+      const connectedUser = connectedUsers.find(user => user.userName === userName);
+      connectionId = connectedUser.connectionId;
+      isOnline = connectedUser.isOnline;
+    }
+    const userObj = {
+      userName,
+      userId,
+      profileImage,
+      connectionId,
+      isOnline
+    };
+    const userObjStringified = JSON.stringify(userObj);
+    localStorage.setItem('chatThread', userObjStringified);
+    this.router.navigate(['/app/messages', userName]);
   }
 
 }

@@ -8,6 +8,13 @@
         class="fas fa-times-circle"></i></button>
   </div>
   <div class="chat-list" @slideFromLeft>
+    <!-- <div class="no-messages" *ngIf="chats.length > 0 && !isBlocked">
+      <img src="../../../../assets/images/discussion.png" alt="">
+      <div class="text-wrapper">
+        <p class="header">No messages</p>
+        <p class="tagline">Find foodies and start sharing...</p>
+      </div>
+    </div> -->
     <div class="placeholder" *ngIf="isBlocked">
       <div class="lines"></div>
       <div class="lines"></div>
@@ -26,6 +33,7 @@
       <div class="lines"></div>
     </div>
     <ul *ngIf="!isBlocked">
+
       <li *ngFor="let chat of chats">
         <div class="person-wrapper" (click)="showThisThread(chat.toUserId, chat.userName, chat.connectionId, chat.profileImagePath, chat.isOnline)">
           <div class="profile-pic">

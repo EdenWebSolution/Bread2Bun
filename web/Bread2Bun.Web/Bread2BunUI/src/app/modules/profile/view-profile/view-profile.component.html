@@ -27,7 +27,7 @@
                 <span>{{profileDetails.address.city}}, {{profileDetails.address.country}}</span></div>
             </div>
             <div class="action-btns">
-              <button class="message">Message <span> <i class="fas fa-comments"></i></span></button>
+              <button (click)="goToThread(profileDetails.userId, profileDetails.userName, profileImgUrl)" class="message">Message <span> <i class="fas fa-comments"></i></span></button>
               <button class="share" (click)="copyToShare()">Share <span> <i
                     class="fas fa-share-alt"></i></span></button>
             </div>
