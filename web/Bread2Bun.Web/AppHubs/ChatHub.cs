@@ -28,12 +28,6 @@ namespace Bread2Bun.Web.AppHubs
             this.userResolverService = userResolverService;
         }
 
-        //public async Task SendMessageToAll(MessageModel msg)
-        //{
-        //    //var chat = await chatService.SendMessage(msg);
-        //    //await Clients.All.SendAsync("ReceiveMessage", chat);
-        //}
-
         public async Task SendMessage(MessageModel msg)
         {
             var chat = await chatService.SendMessage(msg);
@@ -62,7 +56,7 @@ namespace Bread2Bun.Web.AppHubs
         public override async Task OnConnectedAsync()
         {
             var signleUser = UserConnection.GetUserConnection(Context.ConnectionId, Context.User.Identity.Name, true);
-            await securityService.ToggleUserOnlineStatus(signleUser.UserName, true);
+            //await securityService.ToggleUserOnlineStatus(signleUser.UserName, true);
             this.allConnectedUsers.UserConnections.RemoveAll(r => r.UserName == signleUser.UserName);
             this.allConnectedUsers.UserConnections.Add(signleUser);
 
@@ -73,7 +67,7 @@ namespace Bread2Bun.Web.AppHubs
         public override async Task OnDisconnectedAsync(Exception exception)
         {
             var singalUser = UserConnection.GetUserConnection(Context.ConnectionId, Context.User.Identity.Name, false);
-            await securityService.ToggleUserOnlineStatus(singalUser.UserName, false);
+            //await securityService.ToggleUserOnlineStatus(singalUser.UserName, false);
             this.allConnectedUsers.UserConnections.RemoveAll(r => r.UserName == singalUser.UserName);
             await Clients.All.SendAsync("UserDisconntected", singalUser, this.allConnectedUsers.UserConnections);
             await base.OnDisconnectedAsync(exception);
