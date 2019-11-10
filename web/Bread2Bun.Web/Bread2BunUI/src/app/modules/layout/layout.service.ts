@@ -1,11 +1,12 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { MessageModel } from '../messages/Models/MessageModel';
 import { UserConnectionModel } from '../messages/Models/UserConnectionModel';
-import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
+import { HubConnection, HubConnectionBuilder, LogLevel } from '@aspnet/signalr';
 import { BaseService } from '../core/services/base.service';
 import { ChatThread } from '../messages/Models/chat-thread';
 import { UserConnection } from '../shared/models/UserConnection';
 import { Subject, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -39,13 +40,23 @@ export class LayoutService extends BaseService {
         ? sessionStorage.getItem('bread2bun-TokenId')
         : localStorage.getItem('bread2bun-TokenId');
 
-    this.hubConnection = new HubConnectionBuilder()
-      .withUrl(`${this.baseEndPoint}/chat`, {
-        accessTokenFactory: () => authToken
-      })
-      // .withHubProtocol(protocol)
-      .build();
-    // this.hubConnection.serverTimeoutInMilliseconds = 3.6e6;
+    if (environment.production) {
+      this.hubConnection = new HubConnectionBuilder()
+        .withUrl(`${this.baseEndPoint}/chat`, {
+          accessTokenFactory: () => authToken
+        })
+        .configureLogging(LogLevel.None)
+        .build();
+    } else {
+      this.hubConnection = new HubConnectionBuilder()
+        .withUrl(`${this.baseEndPoint}/chat`, {
+          accessTokenFactory: () => authToken
+        })
+        .configureLogging(LogLevel.Information)
+        .build();
+    }
+    this.hubConnection.serverTimeoutInMilliseconds = 960000;
+    this.hubConnection.keepAliveIntervalInMilliseconds = 600000;
   }
 
   private startConnection(): void {

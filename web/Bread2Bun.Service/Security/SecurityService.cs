@@ -100,7 +100,7 @@ namespace Bread2Bun.Service.Security
             var user = await userManager.FindByNameAsync(loginModel.UserName);
             if (user != null && !user.IsDeleted)
             {
-                var result = await signInManager.PasswordSignInAsync(user, loginModel.Password, loginModel.RememberMe, false);
+                var result = await signInManager.CheckPasswordSignInAsync(user, loginModel.Password, false);
                 if (result.IsNotAllowed)
                 {
                     throw new UnauthorizedAccessException("Your email has not been confirmed, please confirm your email address");

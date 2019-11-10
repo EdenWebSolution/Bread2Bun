@@ -114,7 +114,10 @@ namespace Bread2Bun.Web
                 cfg.UseSqlServer(configuration.GetConnectionString("B2BContext"));
             });
 
-            services.AddSignalR();
+            services.AddSignalR(options =>
+            {
+                options.KeepAliveInterval = TimeSpan.FromMinutes(13);
+            });
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddJsonOptions(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
