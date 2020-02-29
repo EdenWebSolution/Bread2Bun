@@ -2,17 +2,26 @@
 {
     public static class FolderPath
     {
-        #region local
-        // public const string ImagePath = @"http://localhost:54969/";
-        #endregion
+        public static string ImagePath
+        {
+            get
+            {
 
-        #region production
-        //public const string ImagePath = @"https://www.bread2bun.com/";
-        #endregion
 
-        #region test
-        public const string ImagePath = @"http://test.bread2bun.com/";
-        #endregion
+#if DEBUG
+                return @"http://localhost:54969/";
+
+#elif RELEASE
+                return @"https://www.bread2bun.com/";
+
+# else
+                return @"http://test.bread2bun.com/";
+
+#endif
+
+            }
+        }
+
 
         public const string ProfileImages = @"profileImages/";
         public const string Review = @"review/";
