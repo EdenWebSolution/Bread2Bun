@@ -48,6 +48,10 @@ namespace Bread2Bun.Web.Controllers
 
         [HttpGet("basic/{userId:long}")]
         [ProducesResponseType(typeof(BasicInfoModel), 200)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+        [ProducesErrorResponseType(typeof(void))]
+
         public async Task<IActionResult> GetBasicProfile(long userId)
         {
             try
