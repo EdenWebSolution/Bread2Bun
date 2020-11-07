@@ -59,9 +59,9 @@ namespace Bread2Bun.Service.Security
                 var result = mapper.Map<StoreUserModel>(storeUser);
 
 
-                var messageBuilder = new EmailBuilder(configuration)
+                var messageBuilder = new EmailBuilder()
                 {
-                    To = new[] { storeUser.Email },
+                    To = storeUser.Email ,
                     Subject = "Welcome To Bread2Bun",
                     IsBodyHtml = true,
                     Body = $"Hi {storeUser.FullName} , please click on the link below so that we can confirm your email address. <br/><br/>" +
@@ -69,7 +69,7 @@ namespace Bread2Bun.Service.Security
                     $"Happy eating!!!"
 
                 };
-                await EmailBuilder.SendEmailAsync(messageBuilder);
+                await EmailBuilder.SendEmailByQueueAsync(messageBuilder);
                 return result;
             }
 
@@ -143,16 +143,16 @@ namespace Bread2Bun.Service.Security
                 var token = await userManager.GeneratePasswordResetTokenAsync(user);
                 var passwordReseLink = string.Concat(GlobalConfig.PresentationBaseUrl, $"/reset/resetpassword?token={Base64UrlEncoder.Encode(token)}&email={user.Email}");
 
-                var messageBuilder = new EmailBuilder(configuration)
+                var messageBuilder = new EmailBuilder()
                 {
-                    To = new[] { user.Email },
+                    To =  user.Email ,
                     Subject = "Reset Password",
                     IsBodyHtml = true,
                     Body = $"Hi {user.FullName} , please click on the link below reset your password. <br/><br/>" +
                     $"{passwordReseLink} <br/><br/>" +
                     $"Happy eating!!!"
                 };
-                await EmailBuilder.SendEmailAsync(messageBuilder);
+                await EmailBuilder.SendEmailByQueueAsync(messageBuilder);
             }
             else if (user == null)
             {

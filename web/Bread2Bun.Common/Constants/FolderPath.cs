@@ -12,10 +12,10 @@
                 return @"http://localhost:54969/";
 
 #elif RELEASE
-                return @"https://www.bread2bun.com/";
+                return @"https://breadtobun.azurewebsites.net/";
 
 # else
-                return @"http://test.bread2bun.com/";
+                return @"https://breadtobun.azurewebsites.net/";
 
 #endif
 

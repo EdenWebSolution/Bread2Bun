@@ -41,11 +41,11 @@ namespace Bread2Bun.Service.Chat.Service
                 {
                     messageThread = new MessageThreaad();
                     messageThread.Create(chatGroup);
-                    await bread2BunContext.AddAsync(messageThread);
+                    bread2BunContext.Add(messageThread);
                 }
 
                 var message = new Message().Create(userResolverService.UserId, messageModel.ToId, messageModel.Text, messageThread.Id, false);
-                await bread2BunContext.AddAsync(message);
+                bread2BunContext.Add(message);
                 await bread2BunContext.SaveChangesAsync();
                 return new ChatModel { Date = message.CreatedOn, FromId = message.FromId, ToId = message.ToId, Message = message.Text };
             }

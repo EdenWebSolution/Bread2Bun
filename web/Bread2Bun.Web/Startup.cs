@@ -1,4 +1,5 @@
 using AutoMapper;
+using Bread2Bun.Common;
 using Bread2Bun.Data;
 using Bread2Bun.Domain.Security;
 using Bread2Bun.Domain.Security.TokenProviders;
@@ -138,6 +139,8 @@ namespace Bread2Bun.Web
             {
                 configuration.RootPath = "Bread2BunUI/dist";
             });
+
+            GlobalConfig.Register(configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -193,7 +196,7 @@ namespace Bread2Bun.Web
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseAngularCliServer(npmScript: "start");
+                    // spa.UseAngularCliServer(npmScript: "start");
                 }
             });
         }

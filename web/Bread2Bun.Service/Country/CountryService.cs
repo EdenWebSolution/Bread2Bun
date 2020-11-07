@@ -23,6 +23,7 @@ namespace Bread2Bun.Service.Country
         }
         public async Task<IEnumerable<CountryModel>> GetCountries()
         {
+            var asasd = bread2BunContext.Country as IQueryable;
             var entity = await bread2BunContext.Country.OrderBy(o => o.Name).AsNoTracking().ToListAsync();
             var countries = mapper.Map<IEnumerable<CountryModel>>(entity);
             return countries;

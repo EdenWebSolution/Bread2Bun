@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bread2Bun.Common", "Bread2B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitHubMonitorApp", "..\..\..\samples projects\AzureFunctionDemo\GitHubMonitorApp\GitHubMonitorApp.csproj", "{00063977-26D6-44D9-A1EE-CBFF0673B065}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bread2Bun.FunctionApp", "Bread2Bun.FunctionApp\Bread2Bun.FunctionApp.csproj", "{52DFD8BD-4D91-40DC-8596-9DD30C5F2489}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,12 @@ Global
 		{00063977-26D6-44D9-A1EE-CBFF0673B065}.Release|Any CPU.Build.0 = Release|Any CPU
 		{00063977-26D6-44D9-A1EE-CBFF0673B065}.TEST|Any CPU.ActiveCfg = Debug|Any CPU
 		{00063977-26D6-44D9-A1EE-CBFF0673B065}.TEST|Any CPU.Build.0 = Debug|Any CPU
+		{52DFD8BD-4D91-40DC-8596-9DD30C5F2489}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52DFD8BD-4D91-40DC-8596-9DD30C5F2489}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52DFD8BD-4D91-40DC-8596-9DD30C5F2489}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52DFD8BD-4D91-40DC-8596-9DD30C5F2489}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52DFD8BD-4D91-40DC-8596-9DD30C5F2489}.TEST|Any CPU.ActiveCfg = Release|Any CPU
+		{52DFD8BD-4D91-40DC-8596-9DD30C5F2489}.TEST|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
